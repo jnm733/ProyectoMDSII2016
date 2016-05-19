@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Descarga" table="Descarga" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="tituloDescarga" column="TituloDescarga" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="descripcionDescarga" column="DescripcionDescarga" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="urlDescarga" column="UrlDescarga" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="tamaño" column="Tamaño" type="big_decimal" precision="19" scale="0" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

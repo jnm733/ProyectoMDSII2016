@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Consulta" table="Consulta" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="realiza" cascade="lock" column="UsuarioID" class="diagrama_de_base_de_datos.Usuario" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="origenConsulta" column="OrigenConsulta" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="destinoConsulta" column="DestinoConsulta" type="string" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.PuntoInteres" table="PuntoInteres" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="nombrePunto" column="NombrePunto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="direccionPunto" column="DireccionPunto" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Contiene" table="Parada_PuntoInteres" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="PuntoInteresID" not-null="true"/>
+			<many-to-many column="ParadaID" class="diagrama_de_base_de_datos.Parada">
+			</many-to-many>
+		</set>
+		<one-to-one name="tiene" class="diagrama_de_base_de_datos.Direccion" cascade="save-update,lock" property-ref="pto_se_ubica" lazy="proxy" access="field"/>
+	</class>
+</hibernate-mapping>

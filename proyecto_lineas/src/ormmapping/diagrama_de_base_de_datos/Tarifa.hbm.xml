@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Tarifa" table="Tarifa" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="precio" column="Precio" type="double" not-null="false" lazy="false"/>
+		<set name="ORM_Cobra" table="Linea_Tarifa" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="TarifaID" not-null="true"/>
+			<many-to-many column="LineaID" class="diagrama_de_base_de_datos.Linea">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

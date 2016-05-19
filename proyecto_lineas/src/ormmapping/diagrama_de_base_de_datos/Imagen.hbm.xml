@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Imagen" table="Imagen" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="contiene" column="ParadaID" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="imagen" column="Imagen" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
+		<one-to-one name="linea" class="diagrama_de_base_de_datos.Linea" cascade="save-update,lock" property-ref="imagen" lazy="proxy" access="field"/>
+	</class>
+</hibernate-mapping>

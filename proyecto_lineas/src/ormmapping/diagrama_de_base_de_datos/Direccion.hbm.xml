@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Direccion" table="Direccion" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="pto_se_ubica" column="PuntoInteresID" class="diagrama_de_base_de_datos.PuntoInteres" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="evento_se_ubica" column="EventoID" class="diagrama_de_base_de_datos.Evento" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="parada_se_ubica" column="ParadaID" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="contiene" cascade="lock" column="BarrioID" class="diagrama_de_base_de_datos.Barrio" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="calle" column="Calle" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="numero" column="Numero" type="integer" length="11" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

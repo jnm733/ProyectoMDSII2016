@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="diagrama_de_base_de_datos.Barrio" table="Barrio" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="nombreBarrio" column="NombreBarrio" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="codigoPostal" column="CodigoPostal" type="integer" length="11" not-null="false" lazy="false"/>
+		<set name="ORM_Pertenece" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="BarrioID" not-null="true"/>
+			<one-to-many class="diagrama_de_base_de_datos.Direccion"/>
+		</set>
+	</class>
+</hibernate-mapping>
