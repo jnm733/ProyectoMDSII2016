@@ -1,4 +1,6 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JRadioButton;
 
 public class Destino extends Origen {
 	private JRadioButton _evento;

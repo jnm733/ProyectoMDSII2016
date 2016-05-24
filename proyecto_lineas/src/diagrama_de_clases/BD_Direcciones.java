@@ -1,7 +1,7 @@
-package Diagrama_de_Base_de_Datos;
+package diagrama_de_clases;
 
 import java.util.Vector;
-import Diagrama_de_Base_de_Datos.Direccion;
+import gestion_de_lineas.*;
 
 public class BD_Direcciones {
 	public BD_Principal _bD_Principal;

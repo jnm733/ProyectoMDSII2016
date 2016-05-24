@@ -1,4 +1,7 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class CabeceraComun {
 	private JLabel _servicios;

@@ -1,7 +1,11 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+
+import gestion_de_lineas.*;
 
 public class CalcularRutaInvitado {
-	private Button _consultar;
+	private JButton _consultar;
 	private Destino _destino;
 	private Origen _origen;
 	private numSoluciones _numSol;

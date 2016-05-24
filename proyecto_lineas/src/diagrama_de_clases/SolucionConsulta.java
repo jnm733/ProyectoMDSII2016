@@ -1,4 +1,11 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class SolucionConsulta {
 	private JButton _volver;
@@ -6,7 +13,7 @@ public class SolucionConsulta {
 	private JList _valueSolucion;
 	private JButton _mapa;
 	private JButton _texto;
-	private ImageField _valueMapa;
+	private ImageIcon _valueMapa;
 	private JTextArea _valueTexto;
 	private JLabel _lblIdSolucion;
 	private JTextField _txtId;

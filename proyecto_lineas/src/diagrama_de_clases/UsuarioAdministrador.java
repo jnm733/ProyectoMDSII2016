@@ -1,4 +1,4 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
 
 public class UsuarioAdministrador {
 	public CabeceraAdministrador _unnamed_CabeceraAdministrador_;

@@ -1,9 +1,17 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+
+import gestion_de_lineas.*;
 
 public class HistorialConsultas {
 	private JList _id;
 	private JButton _consultar;
-	private Table _tableConsulta;
+	private JTable _tableConsulta;
 	private JLabel _origen;
 	private JLabel _destino;
 	private JTextArea _valueDestino;

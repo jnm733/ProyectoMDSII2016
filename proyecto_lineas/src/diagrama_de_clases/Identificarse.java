@@ -1,8 +1,16 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import gestion_de_lineas.*;
 
 public class Identificarse {
-	private JTextBox _lblUsuario;
-	private JPassword _valueContraseña;
+	private JTextField _lblUsuario;
+	private JPasswordField _valueContraseña;
 	private JButton _identificarse;
 	private JCheckBox _recordar;
 	private JButton _btnRegistrarse;

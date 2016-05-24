@@ -1,8 +1,11 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JList;
 
 public class Vincular extends vincularEventos {
-	private List _añadidos;
-	private List _noAñadidos;
+	private JList _añadidos;
+	private JList _noAñadidos;
 	private JButton _añadir;
 	private JButton _quitar;
 	private JButton _aceptar;

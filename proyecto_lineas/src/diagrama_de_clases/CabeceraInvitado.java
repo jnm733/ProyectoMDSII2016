@@ -1,4 +1,6 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
 
 public class CabeceraInvitado extends CabeceraComun {
 	private JButton _resgistrarse;

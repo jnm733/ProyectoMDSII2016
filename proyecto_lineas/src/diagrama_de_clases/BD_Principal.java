@@ -1,4 +1,4 @@
-package Diagrama_de_Base_de_Datos;
+package diagrama_de_clases;
 
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;

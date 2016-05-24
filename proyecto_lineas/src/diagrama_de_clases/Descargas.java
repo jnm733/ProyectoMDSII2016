@@ -1,4 +1,8 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 public class Descargas {
 	private JLabel _zonaDescarga;

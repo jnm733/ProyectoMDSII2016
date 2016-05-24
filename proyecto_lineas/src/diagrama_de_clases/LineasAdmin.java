@@ -1,4 +1,10 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 public class LineasAdmin extends Lineas {
 	private JLabel _lineas;
@@ -6,17 +12,17 @@ public class LineasAdmin extends Lineas {
 	private JButton _borrarLinea;
 	private JLabel _infoLinea;
 	private JLabel _numeroLinea;
-	private JTextBox _valueNumero;
+	private JTextField _valueNumero;
 	private JLabel _nombreLInea;
-	private JTextBox _valueNombre;
+	private JTextField _valueNombre;
 	private JLabel _tarifa;
-	private JTextBox _valueTarifa;
+	private JTextField _valueTarifa;
 	private JLabel _empresaGestora;
-	private JTextBox _valueEmpresa;
+	private JTextField _valueEmpresa;
 	private JLabel _horario;
-	private JTextBox _valueHorario;
+	private JTextField _valueHorario;
 	private JLabel _recorrido;
-	private Image _valueRecorrido;
+	private ImageIcon _valueRecorrido;
 	private JButton _ampliar;
 	private JLabel _paradas;
 	private JList _valueParadas;
@@ -24,7 +30,7 @@ public class LineasAdmin extends Lineas {
 	private JLabel _ptsInteres;
 	private JList _valuePts;
 	private JLabel _eventos;
-	private JTextBox _valueEventos;
+	private JTextField _valueEventos;
 	private JButton _infoEventos;
 	private JButton _incluirLinea;
 	public ServiciosAdmin _unnamed_ServiciosAdmin_;

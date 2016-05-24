@@ -1,4 +1,6 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JRadioButton;
 
 public class numSoluciones {
 	private JRadioButton _cinco;

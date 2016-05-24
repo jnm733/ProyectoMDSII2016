@@ -1,10 +1,15 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class PagoServicios {
 	private JLabel _nTarjeta;
-	private JTextBox _valueNumero;
+	private JTextField _valueNumero;
 	private JLabel _titular;
-	private JTextBox _valueTitular;
+	private JTextField _valueTitular;
 	private JLabel _formadePago;
 	private JRadioButton _paypal;
 	private JRadioButton _visa;

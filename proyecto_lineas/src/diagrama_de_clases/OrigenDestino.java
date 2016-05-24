@@ -1,7 +1,9 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JTextField;
 
 public class OrigenDestino {
-	private TextBOx _fechaHora;
+	private JTextField _fechaHora;
 	public CalcularRutaInvitado _unnamed_CalcularRutaInvitado_;
 	public Ordenar _unnamed_Ordenar_;
 	public numSoluciones _unnamed_numSoluciones_;

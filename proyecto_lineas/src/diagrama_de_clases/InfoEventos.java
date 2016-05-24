@@ -1,4 +1,10 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+import gestion_de_lineas.*;
 
 public class InfoEventos {
 	private JLabel _evento;
@@ -14,7 +20,7 @@ public class InfoEventos {
 	private JButton _aceptar;
 	public Lineas _unnamed_Lineas_;
 
-	public InfoEvento getEvento(String aNombre) {
+	public InfoEventos getEvento(String aNombre) {
 		throw new UnsupportedOperationException();
 	}
 }

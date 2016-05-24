@@ -1,13 +1,14 @@
-package Diagrama_de_Base_de_Datos;
+package diagrama_de_clases;
 
+import java.util.ArrayList;
 import java.util.Vector;
-import Diagrama_de_Base_de_Datos.PuntoInteres;
+import gestion_de_lineas.*;
 
 public class BD_PuntosInteres {
 	public BD_Principal _bD_Principal;
 	public Vector<PuntoInteres> _cont_puntosInteres = new Vector<PuntoInteres>();
 
-	public IPtoInteres getPtoInteres(String aNombre) {
+	public PuntoInteres getPtoInteres(String aNombre) {
 		throw new UnsupportedOperationException();
 	}
 

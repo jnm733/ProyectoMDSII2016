@@ -1,8 +1,8 @@
-package Diagrama_de_Base_de_Datos;
+package diagrama_de_clases;
 
+import java.util.ArrayList;
 import java.util.Vector;
-import Diagrama_de_Base_de_Datos.Parada;
-import Diagrama_de_Clases.Lineas;
+import gestion_de_lineas.*;
 
 public class BD_Paradas {
 	public BD_Principal _bd_Principal;

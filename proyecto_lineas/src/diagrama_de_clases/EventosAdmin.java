@@ -1,6 +1,11 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
 
-import Diagrama_de_Base_de_Datos.Evento;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
+
+import gestion_de_lineas.*;
 
 public class EventosAdmin {
 	private JLabel _eventos;
@@ -8,13 +13,13 @@ public class EventosAdmin {
 	private JButton _borrarEvento;
 	private JLabel _infoEvento;
 	private JLabel _nombre;
-	private JTextBox _valueNombre;
+	private JTextField _valueNombre;
 	private JLabel _direccion;
-	private JTextBox _valueDireccion;
+	private JTextField _valueDireccion;
 	private JLabel _fechaInicio;
-	private JTextBox _valueInicio;
+	private JTextField _valueInicio;
 	private JLabel _fechaFin;
-	private JTextBox _valueFin;
+	private JTextField _valueFin;
 	private JLabel _paradas;
 	private JList _valueParadas;
 	private JButton _vincularParadas;

@@ -1,8 +1,11 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class CabeceraUsuario extends CabeceraComun {
 	private JButton _pagoServicios;
-	private Jlabel _nombreUsuario;
+	private JLabel _nombreUsuario;
 	private JButton _salir;
 	public CalcularRutaAutentificado _unnamed_CalcularRutaAutentificado_;
 	public PagoServicios _unnamed_PagoServicios_;

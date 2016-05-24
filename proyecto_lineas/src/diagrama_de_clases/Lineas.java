@@ -1,8 +1,13 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 public class Lineas {
 	private JList _listaLineas;
-	private ImageField _recorrido;
+	private ImageIcon _recorrido;
 	private JList _paradas;
 	private JButton _consultarParada;
 	private JList _ptoInteres;

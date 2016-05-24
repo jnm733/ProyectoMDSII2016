@@ -1,14 +1,20 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import gestion_de_lineas.*;
 
 public class InfoPtoInteres {
 	private JLabel _nombrePto;
-	private JText _valueNombre;
+	private JTextField _valueNombre;
 	private JLabel _direccion;
-	private JText _valueDireccion;
+	private JTextField _valueDireccion;
 	private JLabel _descripcion;
-	private JText _valueDescripcion;
+	private JTextField _valueDescripcion;
 	private JLabel _paradaCercana;
-	private JText _valueParada;
+	private JTextField _valueParada;
 	private JButton _aceptar;
 	public Lineas _unnamed_Lineas_;
 

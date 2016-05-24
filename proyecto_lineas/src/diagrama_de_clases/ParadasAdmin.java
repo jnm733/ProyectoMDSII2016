@@ -1,9 +1,14 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 public class ParadasAdmin extends Paradas {
 	private JButton _borrarParada;
 	private JLabel _nombreParada;
-	private JTextBox _valueNombre;
+	private JTextField _valueNombre;
 	private JLabel _ptosInteres;
 	private JList _valuePtos;
 	private JButton _vincularPtosInteres;

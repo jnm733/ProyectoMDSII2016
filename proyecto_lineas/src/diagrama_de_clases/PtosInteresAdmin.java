@@ -1,13 +1,18 @@
-package Diagrama_de_Clases;
+package diagrama_de_clases;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 public class PtosInteresAdmin {
 	private JLabel _ptosDeInteres;
 	private JList _valuePtos;
 	private JButton _borrarPto;
 	private JLabel _direccion;
-	private JTextBox _valueDireccion;
+	private JTextField _valueDireccion;
 	private JLabel _nombrePto;
-	private JTextBox _valueNombre;
+	private JTextField _valueNombre;
 	private JLabel _paradas;
 	private JList _valueParadas;
 	private JButton _vincularParadas;
