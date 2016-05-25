@@ -8,7 +8,7 @@ public class BD_Eventos {
 	public BD_Principal _bd_Principal;
 	public Vector<Evento> _cont_eventos = new Vector<Evento>();
 
-	public infoEvento getEvento(String aIdEvento) {
+	public InfoEventos getEvento(String aIdEvento) {
 		throw new UnsupportedOperationException();
 	}
 
