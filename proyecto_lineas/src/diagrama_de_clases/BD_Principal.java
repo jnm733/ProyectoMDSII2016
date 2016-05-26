@@ -4,14 +4,16 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.rmi.*;
+import java.rmi.server.*;
 
 import gestion_de_lineas.Evento;
 import gestion_de_lineas.Linea;
 import gestion_de_lineas.Parada;
 import gestion_de_lineas.PuntoInteres;
 
-import java.rmi.*;
-import java.rmi.server.*;
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
 
 /*public interface BD_Principal extends java.rmi.Remote{
 	

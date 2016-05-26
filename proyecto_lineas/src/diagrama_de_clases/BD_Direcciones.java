@@ -2,6 +2,8 @@ package diagrama_de_clases;
 
 import java.util.Vector;
 import gestion_de_lineas.*;
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
 
 public class BD_Direcciones {
 	public BD_Principal _bD_Principal;

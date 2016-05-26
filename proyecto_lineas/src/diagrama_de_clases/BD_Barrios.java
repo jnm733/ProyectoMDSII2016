@@ -1,5 +1,7 @@
 package diagrama_de_clases;
 
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
 import java.util.Vector;
 import gestion_de_lineas.*;
 
