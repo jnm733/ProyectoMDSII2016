@@ -7,41 +7,41 @@ package ormsamples;
 import org.orm.*;
 public class DeleteProyectoMDS2Data {
 	public void deleteTestData() throws PersistentException {
-		PersistentTransaction t = gestion_de_lineas.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
-			gestion_de_lineas.Tarifa diagrama_de_Base_de_DatosTarifa = gestion_de_lineas.TarifaDAO.loadTarifaByQuery(null, null);
+			diagrama_de_base_de_datos.Tarifa diagrama_de_Base_de_DatosTarifa = diagrama_de_base_de_datos.TarifaDAO.loadTarifaByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.TarifaDAO.delete(diagrama_de_Base_de_DatosTarifa);
-			gestion_de_lineas.Direccion diagrama_de_Base_de_DatosDireccion = gestion_de_lineas.DireccionDAO.loadDireccionByQuery(null, null);
+			diagrama_de_base_de_datos.TarifaDAO.delete(diagrama_de_Base_de_DatosTarifa);
+			diagrama_de_base_de_datos.Direccion diagrama_de_Base_de_DatosDireccion = diagrama_de_base_de_datos.DireccionDAO.loadDireccionByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.DireccionDAO.delete(diagrama_de_Base_de_DatosDireccion);
-			gestion_de_lineas.Barrio diagrama_de_Base_de_DatosBarrio = gestion_de_lineas.BarrioDAO.loadBarrioByQuery(null, null);
+			diagrama_de_base_de_datos.DireccionDAO.delete(diagrama_de_Base_de_DatosDireccion);
+			diagrama_de_base_de_datos.Barrio diagrama_de_Base_de_DatosBarrio = diagrama_de_base_de_datos.BarrioDAO.loadBarrioByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.BarrioDAO.delete(diagrama_de_Base_de_DatosBarrio);
-			gestion_de_lineas.Parada diagrama_de_Base_de_DatosParada = gestion_de_lineas.ParadaDAO.loadParadaByQuery(null, null);
+			diagrama_de_base_de_datos.BarrioDAO.delete(diagrama_de_Base_de_DatosBarrio);
+			diagrama_de_base_de_datos.Parada diagrama_de_Base_de_DatosParada = diagrama_de_base_de_datos.ParadaDAO.loadParadaByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.ParadaDAO.delete(diagrama_de_Base_de_DatosParada);
-			gestion_de_lineas.Descarga diagrama_de_Base_de_DatosDescarga = gestion_de_lineas.DescargaDAO.loadDescargaByQuery(null, null);
+			diagrama_de_base_de_datos.ParadaDAO.delete(diagrama_de_Base_de_DatosParada);
+			diagrama_de_base_de_datos.Descarga diagrama_de_Base_de_DatosDescarga = diagrama_de_base_de_datos.DescargaDAO.loadDescargaByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.DescargaDAO.delete(diagrama_de_Base_de_DatosDescarga);
-			gestion_de_lineas.PuntoInteres diagrama_de_Base_de_DatosPuntoInteres = gestion_de_lineas.PuntoInteresDAO.loadPuntoInteresByQuery(null, null);
+			diagrama_de_base_de_datos.DescargaDAO.delete(diagrama_de_Base_de_DatosDescarga);
+			diagrama_de_base_de_datos.PuntoInteres diagrama_de_Base_de_DatosPuntoInteres = diagrama_de_base_de_datos.PuntoInteresDAO.loadPuntoInteresByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.PuntoInteresDAO.delete(diagrama_de_Base_de_DatosPuntoInteres);
-			gestion_de_lineas.Linea diagrama_de_Base_de_DatosLinea = gestion_de_lineas.LineaDAO.loadLineaByQuery(null, null);
+			diagrama_de_base_de_datos.PuntoInteresDAO.delete(diagrama_de_Base_de_DatosPuntoInteres);
+			diagrama_de_base_de_datos.Linea diagrama_de_Base_de_DatosLinea = diagrama_de_base_de_datos.LineaDAO.loadLineaByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.LineaDAO.delete(diagrama_de_Base_de_DatosLinea);
-			gestion_de_lineas.Evento diagrama_de_Base_de_DatosEvento = gestion_de_lineas.EventoDAO.loadEventoByQuery(null, null);
+			diagrama_de_base_de_datos.LineaDAO.delete(diagrama_de_Base_de_DatosLinea);
+			diagrama_de_base_de_datos.Evento diagrama_de_Base_de_DatosEvento = diagrama_de_base_de_datos.EventoDAO.loadEventoByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.EventoDAO.delete(diagrama_de_Base_de_DatosEvento);
-			gestion_de_lineas.Consulta diagrama_de_Base_de_DatosConsulta = gestion_de_lineas.ConsultaDAO.loadConsultaByQuery(null, null);
+			diagrama_de_base_de_datos.EventoDAO.delete(diagrama_de_Base_de_DatosEvento);
+			diagrama_de_base_de_datos.Consulta diagrama_de_Base_de_DatosConsulta = diagrama_de_base_de_datos.ConsultaDAO.loadConsultaByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.ConsultaDAO.delete(diagrama_de_Base_de_DatosConsulta);
-			gestion_de_lineas.Imagen diagrama_de_Base_de_DatosImagen = gestion_de_lineas.ImagenDAO.loadImagenByQuery(null, null);
+			diagrama_de_base_de_datos.ConsultaDAO.delete(diagrama_de_Base_de_DatosConsulta);
+			diagrama_de_base_de_datos.Imagen diagrama_de_Base_de_DatosImagen = diagrama_de_base_de_datos.ImagenDAO.loadImagenByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.ImagenDAO.delete(diagrama_de_Base_de_DatosImagen);
-			gestion_de_lineas.Usuario diagrama_de_Base_de_DatosUsuario = gestion_de_lineas.UsuarioDAO.loadUsuarioByQuery(null, null);
+			diagrama_de_base_de_datos.ImagenDAO.delete(diagrama_de_Base_de_DatosImagen);
+			diagrama_de_base_de_datos.Usuario diagrama_de_Base_de_DatosUsuario = diagrama_de_base_de_datos.UsuarioDAO.loadUsuarioByQuery(null, null);
 			// Delete the persistent object
-			gestion_de_lineas.UsuarioDAO.delete(diagrama_de_Base_de_DatosUsuario);
+			diagrama_de_base_de_datos.UsuarioDAO.delete(diagrama_de_Base_de_DatosUsuario);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -57,7 +57,7 @@ public class DeleteProyectoMDS2Data {
 				deleteProyectoMDS2Data.deleteTestData();
 			}
 			finally {
-				gestion_de_lineas.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
+				diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

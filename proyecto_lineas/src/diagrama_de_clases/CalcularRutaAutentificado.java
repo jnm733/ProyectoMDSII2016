@@ -1,7 +1,8 @@
 package diagrama_de_clases;
 
 import javax.swing.JButton;
-import gestion_de_lineas.*;
+
+import diagrama_de_base_de_datos.*;
 
 public class CalcularRutaAutentificado extends CalcularRutaInvitado {
 	private JButton _historial;

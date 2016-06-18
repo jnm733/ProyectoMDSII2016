@@ -2,7 +2,7 @@ package diagrama_de_clases;
 
 import javax.swing.JButton;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public class CalcularRutaInvitado {
 	private JButton _consultar;
@@ -10,7 +10,6 @@ public class CalcularRutaInvitado {
 	private Origen _origen;
 	private numSoluciones _numSol;
 	private OrigenDestino _ordes;
-	private consultaID _consulta;
 	private Ordenar _ordernar;
 	public CabeceraComun _unnamed_CabeceraComun_;
 	public SolucionConsulta _unnamed_SolucionConsulta_;

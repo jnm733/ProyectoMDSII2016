@@ -5,7 +5,7 @@ import java.util.Vector;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public class BD_Descargas {
 	public BD_Principal _bd_Principal;

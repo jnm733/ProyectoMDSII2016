@@ -27,9 +27,6 @@ public class UsuarioInvitado extends JFrame {
 	public Lineas lineas;
 	public InfoPtoInteres infoPunto;
 	public InfoEventos infoEvento;
-	//public PanelDescarga panelDescarga;
-	//public CalcularRuta calcularRuta;
-	//public Historial consultaHistorial;
 	public SolucionConsulta solucion;
 	public Paradas paradas;
 	public CabeceraAdministrador cabeceraAdministrador;

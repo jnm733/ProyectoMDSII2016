@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public interface IUsuario extends Remote{
 
@@ -18,7 +18,7 @@ public interface IUsuario extends Remote{
 	
 	SolucionConsulta getConsulta(ArrayList<String> datos) throws RemoteException;
 	
-	PuntoInteres getPtoInteres(String nombre) throws RemoteException;
+	PuntoInteres getPtoInteres(int ID) throws RemoteException;
 	
 	Parada getParada(String nombre) throws RemoteException;
 	

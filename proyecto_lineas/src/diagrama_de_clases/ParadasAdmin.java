@@ -1,29 +1,37 @@
 package diagrama_de_clases;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTextField;
+import java.util.ArrayList;
 
-public class ParadasAdmin extends Paradas {
-	private JButton _borrarParada;
-	private JLabel _nombreParada;
-	private JTextField _valueNombre;
-	private JLabel _ptosInteres;
-	private JList _valuePtos;
-	private JButton _vincularPtosInteres;
-	private JLabel _eventos;
-	private JList _valueEventos;
-	private JButton _vincularEventos;
-	private JButton _cambiarImagen;
-	private JButton _incluirParada;
-	public ServiciosAdmin _unnamed_ServiciosAdmin_;
-	public vincularParadas _unnamed_vincularParadas_;
-	public vincularEventos _unnamed_vincularEventos_;
-	public vincularPtosInteres _unnamed_vincularPtosInteres_;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
+import org.orm.PersistentException;
+
+public class ParadasAdmin extends JPanel {
+	/**
+	 * Create the panel.
+	 */
+	public BD_Paradas bd_paradas;
+	public Paradas paradas;
+	public ParadasAdmin() {
+		bd_paradas = new BD_Paradas();
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		paradas = new Paradas();
+		paradas.paradasAdmin();
+		paradas.servicios.panelAdmin();
+		JPanel panel = new JPanel();
+		add(paradas);
+		
+
+	}
 
 	public void incluirParada() {
-		throw new UnsupportedOperationException();
+		try {
+			bd_paradas.addParada(new ArrayList<String>());
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void consultarLinea() {

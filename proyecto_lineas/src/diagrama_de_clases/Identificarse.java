@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public class Identificarse {
 	private JTextField _lblUsuario;

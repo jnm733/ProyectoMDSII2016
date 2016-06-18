@@ -3,8 +3,19 @@ package diagrama_de_clases;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -19,8 +30,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
-import gestion_de_lineas.Linea;
+import diagrama_de_base_de_datos.Linea;
 
 public class Lineas extends JPanel {
 	public Servicios servicios;
@@ -69,10 +81,27 @@ public class Lineas extends JPanel {
 	public String tiempoPaso;
 	public JTextField txtTarifa;
 	public JTextField txtFrecuencia;
-	public Linea iLineas;
 	public vincularParadas vincularParadas;
 	
+	public IAdministrador bd;
+	
+	
 	public Lineas(){
+		if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            String nombre = "Servidor1";
+            Registry registry = LocateRegistry.getRegistry(1099);
+            bd = (IAdministrador) registry.lookup(nombre);
+             
+            
+        } catch (Exception e) {
+            System.err.println("Servidor no arrancado en lineas:");
+            e.printStackTrace();
+        }
+        
+        //Deberiamos pasarlo a un metodo
 		servicios = new Servicios();
 		servicios.btnLineas.setEnabled(false);
 		springLayout = new SpringLayout();
@@ -120,11 +149,62 @@ public class Lineas extends JPanel {
 				SpringLayout.WEST, panel);
 		panel.add(lblLineas);
 
-		listLineas = new JList();
+		listLineas = new JList<String>();
+		listLineas.setModel(new DefaultListModel());
 		listLineas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				String numero = "";
+				DefaultListModel<String> model = new DefaultListModel<>();
+				Object[] select = listLineas.getSelectedValues();
 				
+					// Preparamos la consulta
+					
+					try {
+						if (!select[0].equals("Nueva linea")) {
+							// Obtenemos la linea elegida
+							/*s = conexion.createStatement();
+							ResultSet rs = s
+									.executeQuery("select numeroLinea,horario,recorrido,tiempopaso,tarifa from ilineas where nombreLinea = '"
+											+ select[0] + "'");
+							while (rs.next()) {
+								txtNombreLinea.setText("" + select[0]);
+								numero = rs.getString(1);
+								txtNumeroLinea.setText(rs.getString(1));
+								textAreaHorario.setText(rs.getString(2));
+								txtRecorrido.setText(rs.getString(3));
+								tiempoPaso = rs.getString(4);
+								txtFrecuencia.setText(tiempoPaso + " minutos");
+								txtTarifa.setText(rs.getString(5));
+							}
+
+							// Obtenemos las paradas asociadas a esa linea
+							s = conexion.createStatement();
+							rs = s.executeQuery("select * from ilineas_iparadas where ilineasnumerolinea = "
+									+ numero + " order by id");
+							while (rs.next()) {
+								model.addElement(rs.getString(2));
+							}
+							listParadas.setModel(model);*/
+						} else {
+							textAreaHorario.setText("");
+							txtNombreLinea.setText("Nombre Linea");
+							txtNumeroLinea.setText("Numero Linea");
+							txtRecorrido.setText("Recorrido");
+							txtTarifa.setText("Tarifa");
+							txtFrecuencia.setText("Frecuencia");
+							listParadas
+									.setModel(new DefaultListModel<String>());
+							listEventos
+									.setModel(new DefaultListModel<String>());
+							listPtosInteres
+									.setModel(new DefaultListModel<String>());
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 			}
 		});
 		sl_panel.putConstraint(SpringLayout.NORTH, listLineas, 6,
@@ -527,5 +607,239 @@ public class Lineas extends JPanel {
 
 	public void filtrar(String tipo, String filtro) {
 		
+	}
+
+	public void lineasAdmin() {
+		//TODO
+		
+				btnEliminarLinea = new JButton("Eliminar Linea");
+				sl_panel.putConstraint(SpringLayout.WEST, btnEliminarLinea, 10,
+						SpringLayout.WEST, panel);
+				sl_panel.putConstraint(SpringLayout.SOUTH, btnEliminarLinea, -10,
+						SpringLayout.SOUTH, panel);
+				panel.add(btnEliminarLinea);
+				btnEliminarLinea.setEnabled(false);
+
+				btnEliminarLinea.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// TODO
+						Object[] select = listLineas.getSelectedValues();
+						try {
+							bd.borrarLinea("0");
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+
+				panel_3.remove(btnConsultarParada);
+
+				btnVincularParada = new JButton("Vincular Parada");
+				btnVincularParada.setEnabled(false);
+
+				sl_panel_3.putConstraint(SpringLayout.WEST, btnVincularParada, 10,
+						SpringLayout.WEST, panel_3);
+				sl_panel_3.putConstraint(SpringLayout.SOUTH, listParadas, -6,
+						SpringLayout.NORTH, btnVincularParada);
+				sl_panel_3.putConstraint(SpringLayout.SOUTH, btnVincularParada, -10,
+						SpringLayout.SOUTH, panel_3);
+				panel_3.add(btnVincularParada);
+
+				btnIncluirLinea = new JButton("Incluir Linea");
+				sl_panel_6.putConstraint(SpringLayout.WEST, btnIncluirLinea, 6,
+						SpringLayout.EAST, btnConsultarEvento);
+				sl_panel_6.putConstraint(SpringLayout.SOUTH, btnIncluirLinea, 0,
+						SpringLayout.SOUTH, btnConsultarEvento);
+				panel_6.add(btnIncluirLinea);
+
+				textAreaHorario.setEditable(true);
+				textAreaHorario.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (textAreaHorario.getText().equals("Horario")) {
+							textAreaHorario.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (textAreaHorario.getText().equals("")) {
+							textAreaHorario.setText("Horario");
+						}
+					}
+				});
+
+				txtNombreLinea.setEditable(true);
+				txtNombreLinea.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (txtNombreLinea.getText().equals("Nombre Linea")) {
+							txtNombreLinea.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (txtNombreLinea.getText().equals("")) {
+							txtNombreLinea.setText("Nombre Linea");
+						}
+					}
+				});
+
+				txtNumeroLinea.setEditable(true);
+				txtNumeroLinea.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (txtNumeroLinea.getText().equals("Numero Linea")) {
+							txtNumeroLinea.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (txtNumeroLinea.getText().equals("")) {
+							txtNumeroLinea.setText("Numero Linea");
+						}
+					}
+				});
+
+				txtRecorrido.setEditable(true);
+				txtRecorrido.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (txtRecorrido.getText().equals("Recorrido")) {
+							txtRecorrido.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (txtRecorrido.getText().equals("")) {
+							txtRecorrido.setText("Recorrido");
+						}
+					}
+				});
+
+				txtTarifa.setEditable(true);
+				txtTarifa.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (txtTarifa.getText().equals("Tarifa")) {
+							txtTarifa.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (txtTarifa.getText().equals("")) {
+							txtTarifa.setText("Tarifa");
+						}
+					}
+				});
+
+				txtFrecuencia.setEditable(true);
+				txtFrecuencia.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						if (txtFrecuencia.getText().equals("Frecuencia")) {
+							txtFrecuencia.setText("");
+						}
+					}
+
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (txtFrecuencia.getText().equals("")) {
+							txtFrecuencia.setText("Frecuencia");
+						}
+					}
+				});
+
+				// Obtenemos la lista de lineas que hay, añadimos nueva linea y volcamos
+				// de nuevo
+				
+				DefaultListModel<String> model = (DefaultListModel<String>) listLineas.getModel();
+				model.addElement("Nueva linea");
+				listLineas.setModel(model);
+
+				// Cuando pulsamos el boton agregar linea, comprobamos si hemos dejado
+				// algo sin completar
+				btnIncluirLinea.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						ArrayList<String> datos = new ArrayList<String>();
+						if (txtNumeroLinea.getText().equals("Numero Linea")) {
+							JOptionPane.showMessageDialog(null,
+									"Introduzca el numero de la linea", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						} else if (txtNombreLinea.getText().equals("Nombre Linea")) {
+							JOptionPane.showMessageDialog(null,
+									"Introduzca el nombre de la linea", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						} else if (txtRecorrido.getText().equals("Recorrido")) {
+							JOptionPane.showMessageDialog(null,
+									"Introduzca un recorrido para la linea", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						} else if (txtTarifa.getText().equals("Tarifa")) {
+							JOptionPane.showMessageDialog(null,
+									"Introduzca la tarifa de la linea", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						} else if (txtFrecuencia.getText().equals("Frecuencia")) {
+							JOptionPane.showMessageDialog(null,
+									"Introduzca la frecuencia de paso de la linea",
+									"Error", JOptionPane.ERROR_MESSAGE);
+						} else {
+							DefaultListModel<String> model = new DefaultListModel<String>();
+							datos.add(txtNumeroLinea.getText());
+							datos.add(txtNombreLinea.getText());
+							datos.add(textAreaHorario.getText());
+							datos.add(txtRecorrido.getText());
+							datos.add(txtTarifa.getText());
+							datos.add(txtFrecuencia.getText());
+							
+							try {
+								BD_Lineas lineas = new BD_Lineas();
+								lineas.addLinea(datos);
+								boolean exito = bd.incluirLinea(datos);
+								if (bd.incluirLinea(datos)) {
+									model = (DefaultListModel<String>) listLineas.getModel();
+									model.removeElement("Nueva linea");
+									model.addElement(txtNombreLinea.getText());
+									model.addElement("Nueva linea");
+									listLineas.setModel(model);
+								}
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				});
+				listLineas.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						String numero = "";
+						DefaultListModel<String> model = new DefaultListModel<>();
+						Object[] select = listLineas.getSelectedValues();
+						
+						
+					}
+				});
+		
+	}
+	
+	public void obtener_lineas(){
+		Object[] fila = new Object[5];
+		Linea[] lineas = null;
+		try {
+			lineas = bd.getLineas();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (lineas!=null){
+			for (int i=0;i<lineas.length;i++){}
+		}
+		 
+        
 	}
 }

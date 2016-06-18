@@ -11,7 +11,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public class InfoParada extends JFrame{
 	public JPanel contentPane;

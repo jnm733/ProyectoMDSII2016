@@ -10,7 +10,7 @@ public class ListProyectoMDS2Data {
 	
 	public void listTestData() throws PersistentException {
 		System.out.println("Listing Tarifa...");
-		gestion_de_lineas.Tarifa[] diagrama_de_Base_de_DatosTarifas = gestion_de_lineas.TarifaDAO.listTarifaByQuery(null, null);
+		diagrama_de_base_de_datos.Tarifa[] diagrama_de_Base_de_DatosTarifas = diagrama_de_base_de_datos.TarifaDAO.listTarifaByQuery(null, null);
 		int length = Math.min(diagrama_de_Base_de_DatosTarifas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosTarifas[i]);
@@ -18,7 +18,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Direccion...");
-		gestion_de_lineas.Direccion[] diagrama_de_Base_de_DatosDireccions = gestion_de_lineas.DireccionDAO.listDireccionByQuery(null, null);
+		diagrama_de_base_de_datos.Direccion[] diagrama_de_Base_de_DatosDireccions = diagrama_de_base_de_datos.DireccionDAO.listDireccionByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosDireccions.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosDireccions[i]);
@@ -26,7 +26,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Barrio...");
-		gestion_de_lineas.Barrio[] diagrama_de_Base_de_DatosBarrios = gestion_de_lineas.BarrioDAO.listBarrioByQuery(null, null);
+		diagrama_de_base_de_datos.Barrio[] diagrama_de_Base_de_DatosBarrios = diagrama_de_base_de_datos.BarrioDAO.listBarrioByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosBarrios.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosBarrios[i]);
@@ -34,7 +34,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Parada...");
-		gestion_de_lineas.Parada[] diagrama_de_Base_de_DatosParadas = gestion_de_lineas.ParadaDAO.listParadaByQuery(null, null);
+		diagrama_de_base_de_datos.Parada[] diagrama_de_Base_de_DatosParadas = diagrama_de_base_de_datos.ParadaDAO.listParadaByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosParadas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosParadas[i]);
@@ -42,7 +42,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Descarga...");
-		gestion_de_lineas.Descarga[] diagrama_de_Base_de_DatosDescargas = gestion_de_lineas.DescargaDAO.listDescargaByQuery(null, null);
+		diagrama_de_base_de_datos.Descarga[] diagrama_de_Base_de_DatosDescargas = diagrama_de_base_de_datos.DescargaDAO.listDescargaByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosDescargas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosDescargas[i]);
@@ -50,7 +50,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing PuntoInteres...");
-		gestion_de_lineas.PuntoInteres[] diagrama_de_Base_de_DatosPuntoIntereses = gestion_de_lineas.PuntoInteresDAO.listPuntoInteresByQuery(null, null);
+		diagrama_de_base_de_datos.PuntoInteres[] diagrama_de_Base_de_DatosPuntoIntereses = diagrama_de_base_de_datos.PuntoInteresDAO.listPuntoInteresByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosPuntoIntereses.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosPuntoIntereses[i]);
@@ -58,7 +58,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Linea...");
-		gestion_de_lineas.Linea[] diagrama_de_Base_de_DatosLineas = gestion_de_lineas.LineaDAO.listLineaByQuery(null, null);
+		diagrama_de_base_de_datos.Linea[] diagrama_de_Base_de_DatosLineas = diagrama_de_base_de_datos.LineaDAO.listLineaByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosLineas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosLineas[i]);
@@ -66,7 +66,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Evento...");
-		gestion_de_lineas.Evento[] diagrama_de_Base_de_DatosEventos = gestion_de_lineas.EventoDAO.listEventoByQuery(null, null);
+		diagrama_de_base_de_datos.Evento[] diagrama_de_Base_de_DatosEventos = diagrama_de_base_de_datos.EventoDAO.listEventoByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosEventos.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosEventos[i]);
@@ -74,7 +74,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Consulta...");
-		gestion_de_lineas.Consulta[] diagrama_de_Base_de_DatosConsultas = gestion_de_lineas.ConsultaDAO.listConsultaByQuery(null, null);
+		diagrama_de_base_de_datos.Consulta[] diagrama_de_Base_de_DatosConsultas = diagrama_de_base_de_datos.ConsultaDAO.listConsultaByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosConsultas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosConsultas[i]);
@@ -82,7 +82,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Imagen...");
-		gestion_de_lineas.Imagen[] diagrama_de_Base_de_DatosImagens = gestion_de_lineas.ImagenDAO.listImagenByQuery(null, null);
+		diagrama_de_base_de_datos.Imagen[] diagrama_de_Base_de_DatosImagens = diagrama_de_base_de_datos.ImagenDAO.listImagenByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosImagens.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosImagens[i]);
@@ -90,7 +90,7 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Usuario...");
-		gestion_de_lineas.Usuario[] diagrama_de_Base_de_DatosUsuarios = gestion_de_lineas.UsuarioDAO.listUsuarioByQuery(null, null);
+		diagrama_de_base_de_datos.Usuario[] diagrama_de_Base_de_DatosUsuarios = diagrama_de_base_de_datos.UsuarioDAO.listUsuarioByQuery(null, null);
 		length = Math.min(diagrama_de_Base_de_DatosUsuarios.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(diagrama_de_Base_de_DatosUsuarios[i]);
@@ -101,11 +101,11 @@ public class ListProyectoMDS2Data {
 	
 	public void listByCriteria() throws PersistentException {
 		System.out.println("Listing Tarifa by Criteria...");
-		gestion_de_lineas.TarifaCriteria diagrama_de_Base_de_DatosTarifaCriteria = new gestion_de_lineas.TarifaCriteria();
+		diagrama_de_base_de_datos.TarifaCriteria diagrama_de_Base_de_DatosTarifaCriteria = new diagrama_de_base_de_datos.TarifaCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosTarifaCriteria.ID.eq();
 		diagrama_de_Base_de_DatosTarifaCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Tarifa[] diagrama_de_Base_de_DatosTarifas = diagrama_de_Base_de_DatosTarifaCriteria.listTarifa();
+		diagrama_de_base_de_datos.Tarifa[] diagrama_de_Base_de_DatosTarifas = diagrama_de_Base_de_DatosTarifaCriteria.listTarifa();
 		int length =diagrama_de_Base_de_DatosTarifas== null ? 0 : Math.min(diagrama_de_Base_de_DatosTarifas.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosTarifas[i]);
@@ -113,11 +113,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Tarifa record(s) retrieved."); 
 		
 		System.out.println("Listing Direccion by Criteria...");
-		gestion_de_lineas.DireccionCriteria diagrama_de_Base_de_DatosDireccionCriteria = new gestion_de_lineas.DireccionCriteria();
+		diagrama_de_base_de_datos.DireccionCriteria diagrama_de_Base_de_DatosDireccionCriteria = new diagrama_de_base_de_datos.DireccionCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosDireccionCriteria.ID.eq();
 		diagrama_de_Base_de_DatosDireccionCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Direccion[] diagrama_de_Base_de_DatosDireccions = diagrama_de_Base_de_DatosDireccionCriteria.listDireccion();
+		diagrama_de_base_de_datos.Direccion[] diagrama_de_Base_de_DatosDireccions = diagrama_de_Base_de_DatosDireccionCriteria.listDireccion();
 		length =diagrama_de_Base_de_DatosDireccions== null ? 0 : Math.min(diagrama_de_Base_de_DatosDireccions.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosDireccions[i]);
@@ -125,11 +125,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Direccion record(s) retrieved."); 
 		
 		System.out.println("Listing Barrio by Criteria...");
-		gestion_de_lineas.BarrioCriteria diagrama_de_Base_de_DatosBarrioCriteria = new gestion_de_lineas.BarrioCriteria();
+		diagrama_de_base_de_datos.BarrioCriteria diagrama_de_Base_de_DatosBarrioCriteria = new diagrama_de_base_de_datos.BarrioCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosBarrioCriteria.ID.eq();
 		diagrama_de_Base_de_DatosBarrioCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Barrio[] diagrama_de_Base_de_DatosBarrios = diagrama_de_Base_de_DatosBarrioCriteria.listBarrio();
+		diagrama_de_base_de_datos.Barrio[] diagrama_de_Base_de_DatosBarrios = diagrama_de_Base_de_DatosBarrioCriteria.listBarrio();
 		length =diagrama_de_Base_de_DatosBarrios== null ? 0 : Math.min(diagrama_de_Base_de_DatosBarrios.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosBarrios[i]);
@@ -137,11 +137,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Barrio record(s) retrieved."); 
 		
 		System.out.println("Listing Parada by Criteria...");
-		gestion_de_lineas.ParadaCriteria diagrama_de_Base_de_DatosParadaCriteria = new gestion_de_lineas.ParadaCriteria();
+		diagrama_de_base_de_datos.ParadaCriteria diagrama_de_Base_de_DatosParadaCriteria = new diagrama_de_base_de_datos.ParadaCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosParadaCriteria.ID.eq();
 		diagrama_de_Base_de_DatosParadaCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Parada[] diagrama_de_Base_de_DatosParadas = diagrama_de_Base_de_DatosParadaCriteria.listParada();
+		diagrama_de_base_de_datos.Parada[] diagrama_de_Base_de_DatosParadas = diagrama_de_Base_de_DatosParadaCriteria.listParada();
 		length =diagrama_de_Base_de_DatosParadas== null ? 0 : Math.min(diagrama_de_Base_de_DatosParadas.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosParadas[i]);
@@ -149,11 +149,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Parada record(s) retrieved."); 
 		
 		System.out.println("Listing Descarga by Criteria...");
-		gestion_de_lineas.DescargaCriteria diagrama_de_Base_de_DatosDescargaCriteria = new gestion_de_lineas.DescargaCriteria();
+		diagrama_de_base_de_datos.DescargaCriteria diagrama_de_Base_de_DatosDescargaCriteria = new diagrama_de_base_de_datos.DescargaCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosDescargaCriteria.ID.eq();
 		diagrama_de_Base_de_DatosDescargaCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Descarga[] diagrama_de_Base_de_DatosDescargas = diagrama_de_Base_de_DatosDescargaCriteria.listDescarga();
+		diagrama_de_base_de_datos.Descarga[] diagrama_de_Base_de_DatosDescargas = diagrama_de_Base_de_DatosDescargaCriteria.listDescarga();
 		length =diagrama_de_Base_de_DatosDescargas== null ? 0 : Math.min(diagrama_de_Base_de_DatosDescargas.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosDescargas[i]);
@@ -161,11 +161,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Descarga record(s) retrieved."); 
 		
 		System.out.println("Listing PuntoInteres by Criteria...");
-		gestion_de_lineas.PuntoInteresCriteria diagrama_de_Base_de_DatosPuntoInteresCriteria = new gestion_de_lineas.PuntoInteresCriteria();
+		diagrama_de_base_de_datos.PuntoInteresCriteria diagrama_de_Base_de_DatosPuntoInteresCriteria = new diagrama_de_base_de_datos.PuntoInteresCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosPuntoInteresCriteria.ID.eq();
 		diagrama_de_Base_de_DatosPuntoInteresCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.PuntoInteres[] diagrama_de_Base_de_DatosPuntoIntereses = diagrama_de_Base_de_DatosPuntoInteresCriteria.listPuntoInteres();
+		diagrama_de_base_de_datos.PuntoInteres[] diagrama_de_Base_de_DatosPuntoIntereses = diagrama_de_Base_de_DatosPuntoInteresCriteria.listPuntoInteres();
 		length =diagrama_de_Base_de_DatosPuntoIntereses== null ? 0 : Math.min(diagrama_de_Base_de_DatosPuntoIntereses.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosPuntoIntereses[i]);
@@ -173,11 +173,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " PuntoInteres record(s) retrieved."); 
 		
 		System.out.println("Listing Linea by Criteria...");
-		gestion_de_lineas.LineaCriteria diagrama_de_Base_de_DatosLineaCriteria = new gestion_de_lineas.LineaCriteria();
+		diagrama_de_base_de_datos.LineaCriteria diagrama_de_Base_de_DatosLineaCriteria = new diagrama_de_base_de_datos.LineaCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosLineaCriteria.ID.eq();
 		diagrama_de_Base_de_DatosLineaCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Linea[] diagrama_de_Base_de_DatosLineas = diagrama_de_Base_de_DatosLineaCriteria.listLinea();
+		diagrama_de_base_de_datos.Linea[] diagrama_de_Base_de_DatosLineas = diagrama_de_Base_de_DatosLineaCriteria.listLinea();
 		length =diagrama_de_Base_de_DatosLineas== null ? 0 : Math.min(diagrama_de_Base_de_DatosLineas.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosLineas[i]);
@@ -185,11 +185,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Linea record(s) retrieved."); 
 		
 		System.out.println("Listing Evento by Criteria...");
-		gestion_de_lineas.EventoCriteria diagrama_de_Base_de_DatosEventoCriteria = new gestion_de_lineas.EventoCriteria();
+		diagrama_de_base_de_datos.EventoCriteria diagrama_de_Base_de_DatosEventoCriteria = new diagrama_de_base_de_datos.EventoCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosEventoCriteria.ID.eq();
 		diagrama_de_Base_de_DatosEventoCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Evento[] diagrama_de_Base_de_DatosEventos = diagrama_de_Base_de_DatosEventoCriteria.listEvento();
+		diagrama_de_base_de_datos.Evento[] diagrama_de_Base_de_DatosEventos = diagrama_de_Base_de_DatosEventoCriteria.listEvento();
 		length =diagrama_de_Base_de_DatosEventos== null ? 0 : Math.min(diagrama_de_Base_de_DatosEventos.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosEventos[i]);
@@ -197,11 +197,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Evento record(s) retrieved."); 
 		
 		System.out.println("Listing Consulta by Criteria...");
-		gestion_de_lineas.ConsultaCriteria diagrama_de_Base_de_DatosConsultaCriteria = new gestion_de_lineas.ConsultaCriteria();
+		diagrama_de_base_de_datos.ConsultaCriteria diagrama_de_Base_de_DatosConsultaCriteria = new diagrama_de_base_de_datos.ConsultaCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosConsultaCriteria.ID.eq();
 		diagrama_de_Base_de_DatosConsultaCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Consulta[] diagrama_de_Base_de_DatosConsultas = diagrama_de_Base_de_DatosConsultaCriteria.listConsulta();
+		diagrama_de_base_de_datos.Consulta[] diagrama_de_Base_de_DatosConsultas = diagrama_de_Base_de_DatosConsultaCriteria.listConsulta();
 		length =diagrama_de_Base_de_DatosConsultas== null ? 0 : Math.min(diagrama_de_Base_de_DatosConsultas.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosConsultas[i]);
@@ -209,11 +209,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Consulta record(s) retrieved."); 
 		
 		System.out.println("Listing Imagen by Criteria...");
-		gestion_de_lineas.ImagenCriteria diagrama_de_Base_de_DatosImagenCriteria = new gestion_de_lineas.ImagenCriteria();
+		diagrama_de_base_de_datos.ImagenCriteria diagrama_de_Base_de_DatosImagenCriteria = new diagrama_de_base_de_datos.ImagenCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosImagenCriteria.ID.eq();
 		diagrama_de_Base_de_DatosImagenCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Imagen[] diagrama_de_Base_de_DatosImagens = diagrama_de_Base_de_DatosImagenCriteria.listImagen();
+		diagrama_de_base_de_datos.Imagen[] diagrama_de_Base_de_DatosImagens = diagrama_de_Base_de_DatosImagenCriteria.listImagen();
 		length =diagrama_de_Base_de_DatosImagens== null ? 0 : Math.min(diagrama_de_Base_de_DatosImagens.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosImagens[i]);
@@ -221,11 +221,11 @@ public class ListProyectoMDS2Data {
 		System.out.println(length + " Imagen record(s) retrieved."); 
 		
 		System.out.println("Listing Usuario by Criteria...");
-		gestion_de_lineas.UsuarioCriteria diagrama_de_Base_de_DatosUsuarioCriteria = new gestion_de_lineas.UsuarioCriteria();
+		diagrama_de_base_de_datos.UsuarioCriteria diagrama_de_Base_de_DatosUsuarioCriteria = new diagrama_de_base_de_datos.UsuarioCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
 		//diagrama_de_Base_de_DatosUsuarioCriteria.ID.eq();
 		diagrama_de_Base_de_DatosUsuarioCriteria.setMaxResults(ROW_COUNT);
-		gestion_de_lineas.Usuario[] diagrama_de_Base_de_DatosUsuarios = diagrama_de_Base_de_DatosUsuarioCriteria.listUsuario();
+		diagrama_de_base_de_datos.Usuario[] diagrama_de_Base_de_DatosUsuarios = diagrama_de_Base_de_DatosUsuarioCriteria.listUsuario();
 		length =diagrama_de_Base_de_DatosUsuarios== null ? 0 : Math.min(diagrama_de_Base_de_DatosUsuarios.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
 			 System.out.println(diagrama_de_Base_de_DatosUsuarios[i]);
@@ -242,7 +242,7 @@ public class ListProyectoMDS2Data {
 				//listProyectoMDS2Data.listByCriteria();
 			}
 			finally {
-				gestion_de_lineas.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
+				diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

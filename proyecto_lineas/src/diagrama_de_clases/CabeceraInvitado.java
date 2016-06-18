@@ -101,7 +101,7 @@ public class CabeceraInvitado extends CabeceraComun {
 		add(btnRegistrarse);
 	
 		
-		/*btnRegistrarse.addActionListener(new ActionListener() {
+		btnRegistrarse.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				registrarse = new Registrarse();
@@ -116,7 +116,7 @@ public class CabeceraInvitado extends CabeceraComun {
 					}
 				});
 			}
-		});*/
+		});
 	}
 
 	public void identificarse() {

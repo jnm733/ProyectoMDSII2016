@@ -7,41 +7,41 @@ package ormsamples;
 import org.orm.*;
 public class CreateProyectoMDS2Data {
 	public void createTestData() throws PersistentException {
-		PersistentTransaction t = gestion_de_lineas.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
-			gestion_de_lineas.Tarifa diagrama_de_Base_de_DatosTarifa = gestion_de_lineas.TarifaDAO.createTarifa();
+			diagrama_de_base_de_datos.Tarifa diagrama_de_Base_de_DatosTarifa = diagrama_de_base_de_datos.TarifaDAO.createTarifa();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : cobra
-			gestion_de_lineas.TarifaDAO.save(diagrama_de_Base_de_DatosTarifa);
-			gestion_de_lineas.Direccion diagrama_de_Base_de_DatosDireccion = gestion_de_lineas.DireccionDAO.createDireccion();
+			diagrama_de_base_de_datos.TarifaDAO.save(diagrama_de_Base_de_DatosTarifa);
+			diagrama_de_base_de_datos.Direccion diagrama_de_Base_de_DatosDireccion = diagrama_de_base_de_datos.DireccionDAO.createDireccion();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : contiene
-			gestion_de_lineas.DireccionDAO.save(diagrama_de_Base_de_DatosDireccion);
-			gestion_de_lineas.Barrio diagrama_de_Base_de_DatosBarrio = gestion_de_lineas.BarrioDAO.createBarrio();
+			diagrama_de_base_de_datos.DireccionDAO.save(diagrama_de_Base_de_DatosDireccion);
+			diagrama_de_base_de_datos.Barrio diagrama_de_Base_de_DatosBarrio = diagrama_de_base_de_datos.BarrioDAO.createBarrio();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : pertenece
-			gestion_de_lineas.BarrioDAO.save(diagrama_de_Base_de_DatosBarrio);
-			gestion_de_lineas.Parada diagrama_de_Base_de_DatosParada = gestion_de_lineas.ParadaDAO.createParada();
+			diagrama_de_base_de_datos.BarrioDAO.save(diagrama_de_Base_de_DatosBarrio);
+			diagrama_de_base_de_datos.Parada diagrama_de_Base_de_DatosParada = diagrama_de_base_de_datos.ParadaDAO.createParada();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : evento_pertenece, imagen_pertenece, pertenece, contiene
-			gestion_de_lineas.ParadaDAO.save(diagrama_de_Base_de_DatosParada);
-			gestion_de_lineas.Descarga diagrama_de_Base_de_DatosDescarga = gestion_de_lineas.DescargaDAO.createDescarga();
+			diagrama_de_base_de_datos.ParadaDAO.save(diagrama_de_Base_de_DatosParada);
+			diagrama_de_base_de_datos.Descarga diagrama_de_Base_de_DatosDescarga = diagrama_de_base_de_datos.DescargaDAO.createDescarga();
 			// Initialize the properties of the persistent object here
-			gestion_de_lineas.DescargaDAO.save(diagrama_de_Base_de_DatosDescarga);
-			gestion_de_lineas.PuntoInteres diagrama_de_Base_de_DatosPuntoInteres = gestion_de_lineas.PuntoInteresDAO.createPuntoInteres();
+			diagrama_de_base_de_datos.DescargaDAO.save(diagrama_de_Base_de_DatosDescarga);
+			diagrama_de_base_de_datos.PuntoInteres diagrama_de_Base_de_DatosPuntoInteres = diagrama_de_base_de_datos.PuntoInteresDAO.createPuntoInteres();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : contiene
-			gestion_de_lineas.PuntoInteresDAO.save(diagrama_de_Base_de_DatosPuntoInteres);
-			gestion_de_lineas.Linea diagrama_de_Base_de_DatosLinea = gestion_de_lineas.LineaDAO.createLinea();
+			diagrama_de_base_de_datos.PuntoInteresDAO.save(diagrama_de_Base_de_DatosPuntoInteres);
+			diagrama_de_base_de_datos.Linea diagrama_de_Base_de_DatosLinea = diagrama_de_base_de_datos.LineaDAO.createLinea();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : es_usada, pertenece, imagen
-			gestion_de_lineas.LineaDAO.save(diagrama_de_Base_de_DatosLinea);
-			gestion_de_lineas.Evento diagrama_de_Base_de_DatosEvento = gestion_de_lineas.EventoDAO.createEvento();
+			diagrama_de_base_de_datos.LineaDAO.save(diagrama_de_Base_de_DatosLinea);
+			diagrama_de_base_de_datos.Evento diagrama_de_Base_de_DatosEvento = diagrama_de_base_de_datos.EventoDAO.createEvento();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : contiene
-			gestion_de_lineas.EventoDAO.save(diagrama_de_Base_de_DatosEvento);
-			gestion_de_lineas.Consulta diagrama_de_Base_de_DatosConsulta = gestion_de_lineas.ConsultaDAO.createConsulta();
+			diagrama_de_base_de_datos.EventoDAO.save(diagrama_de_Base_de_DatosEvento);
+			diagrama_de_base_de_datos.Consulta diagrama_de_Base_de_DatosConsulta = diagrama_de_base_de_datos.ConsultaDAO.createConsulta();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : realiza
-			gestion_de_lineas.ConsultaDAO.save(diagrama_de_Base_de_DatosConsulta);
-			gestion_de_lineas.Imagen diagrama_de_Base_de_DatosImagen = gestion_de_lineas.ImagenDAO.createImagen();
+			diagrama_de_base_de_datos.ConsultaDAO.save(diagrama_de_Base_de_DatosConsulta);
+			diagrama_de_base_de_datos.Imagen diagrama_de_Base_de_DatosImagen = diagrama_de_base_de_datos.ImagenDAO.createImagen();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : linea, contiene
-			gestion_de_lineas.ImagenDAO.save(diagrama_de_Base_de_DatosImagen);
-			gestion_de_lineas.Usuario diagrama_de_Base_de_DatosUsuario = gestion_de_lineas.UsuarioDAO.createUsuario();
+			diagrama_de_base_de_datos.ImagenDAO.save(diagrama_de_Base_de_DatosImagen);
+			diagrama_de_base_de_datos.Usuario diagrama_de_Base_de_DatosUsuario = diagrama_de_base_de_datos.UsuarioDAO.createUsuario();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : realizada_por, email
-			gestion_de_lineas.UsuarioDAO.save(diagrama_de_Base_de_DatosUsuario);
+			diagrama_de_base_de_datos.UsuarioDAO.save(diagrama_de_Base_de_DatosUsuario);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -57,7 +57,7 @@ public class CreateProyectoMDS2Data {
 				createProyectoMDS2Data.createTestData();
 			}
 			finally {
-				gestion_de_lineas.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
+				diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

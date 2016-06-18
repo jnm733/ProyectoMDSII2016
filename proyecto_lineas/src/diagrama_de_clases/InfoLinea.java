@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import diagrama_de_base_de_datos.*;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -17,8 +20,6 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import gestion_de_lineas.*;
 
 public class InfoLinea extends JFrame{
 	public JPanel contentPane;

@@ -6,7 +6,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-import gestion_de_lineas.*;
+import diagrama_de_base_de_datos.*;
 
 public class HistorialConsultas {
 	private JList _id;

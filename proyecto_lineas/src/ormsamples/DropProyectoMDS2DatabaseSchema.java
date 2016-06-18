@@ -11,8 +11,8 @@ public class DropProyectoMDS2DatabaseSchema {
 			System.out.println("Are you sure to drop table(s)? (Y/N)");
 			java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 			if (reader.readLine().trim().toUpperCase().equals("Y")) {
-				ORMDatabaseInitiator.dropSchema(gestion_de_lineas.ProyectoMDS2PersistentManager.instance());
-				gestion_de_lineas.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
+				ORMDatabaseInitiator.dropSchema(diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance());
+				diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
 			}
 			
 		}

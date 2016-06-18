@@ -3,7 +3,7 @@ package diagrama_de_clases;
 import javax.swing.JButton;
 
 public class ServiciosAdmin extends Servicios {
-	private Filtro _filtrado;
+
 	private JButton _ptosInteres;
 	private JButton _eventos;
 	private JButton _crearParada;

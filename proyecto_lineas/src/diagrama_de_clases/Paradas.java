@@ -19,12 +19,17 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import gestion_de_lineas.Parada;
+import org.orm.PersistentException;
+
+import diagrama_de_base_de_datos.Parada;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -65,9 +70,27 @@ public class Paradas extends JPanel{
 	public JButton btnIncluirParada;
 	public SpringLayout sl_panel_5;
 	public SpringLayout springLayout;
-
+	public Parada parada;
+	public IAdministrador bd;
+	public BD_Paradas bdParadas;
+	
 	public Paradas() {
-
+		bdParadas = new BD_Paradas();
+		if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            String nombre = "Servidor1";
+            Registry registry = LocateRegistry.getRegistry(1099);
+            bd = (IAdministrador) registry.lookup(nombre);
+             
+            
+        } catch (Exception e) {
+            System.err.println("Servidor no arrancado en lineas:");
+            e.printStackTrace();
+        }
+        
+        parada = new Parada();
 		servicios = new Servicios();
 		springLayout = new SpringLayout();
 		springLayout.putConstraint(SpringLayout.NORTH, servicios, 0,
@@ -115,12 +138,45 @@ public class Paradas extends JPanel{
 		panel.add(lblParadas);
 
 		listParadas = new JList();
+		listParadas.setModel(new DefaultListModel());
+		try {
+			Parada[] arrParadas = bdParadas.getParadas();
+			DefaultListModel<String> model = new DefaultListModel<>();
+			for(int i = 0; i < arrParadas.length;i++){
+				model.addElement(arrParadas[i].getNombreParada());
+			}
+			listParadas.setModel(model);
+		} catch (PersistentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		listParadas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				DefaultListModel<String> model = new DefaultListModel<>();
 				Object[] select = listParadas.getSelectedValues();
-				
+				try {
+					if(select[0].equals("Nueva parada")){
+						textAreaHorario.setText("");
+						txtNombreParada.setText("Nombre Parada");
+						txtDireccion.setText("Direccion");
+						textArea.setText("Observaciones");
+						txtNumero.setText("");
+						listLineas.setModel(new DefaultListModel<String>());
+					}else{
+						Parada parada = bdParadas.getParada(select[0]+"");
+						//textAreaHorario.setText(parada.g);
+						txtNombreParada.setText(parada.getNombreParada());
+						txtDireccion.setText(parada.getDireccionParada());
+						textArea.setText(parada.getObservaciones());
+						//txtNumero.setText("");
+						
+					}
+					
+				} catch (PersistentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -210,7 +266,7 @@ public class Paradas extends JPanel{
 		listLineas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-			
+			//TODO
 			}
 		});
 
@@ -392,7 +448,6 @@ public class Paradas extends JPanel{
 
 	public void paradasAdmin() {
 		
-		Parada iParadas = new Parada();
 		btnEliminarParada = new JButton("Eliminar Parada");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnEliminarParada, 6,
 				SpringLayout.SOUTH, listParadas);
@@ -497,15 +552,20 @@ public class Paradas extends JPanel{
 					datos.add(txtNombreParada.getText());
 					datos.add(txtDireccion.getText());
 					datos.add(textArea.getText());
-					iParadas.addParada(datos);
-					/*if(iParadas.exito){
+					//TODO
+					try {
+						bdParadas.addParada(datos);
+						
 						model = (DefaultListModel<String>) listParadas.getModel();
 						model.removeElement("Nueva parada");
 						model.addElement(txtNombreParada.getText());
 						model.addElement("Nueva parada");
 						listParadas.setModel(model);
-					}*/
-
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});
