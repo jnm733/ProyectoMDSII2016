@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -17,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.orm.PersistentException;
 
+import diagrama_de_base_de_datos.Evento;
 import diagrama_de_base_de_datos.Parada;
 import diagrama_de_base_de_datos.PuntoInteres;
 
@@ -33,9 +36,24 @@ public class vincularPtosInteres extends JFrame{
 	public int tipoInt;
 	private JTextField txtId;
 	public BD_Principal bd_principal;
+	public IAdministrador bd;
 	//private BD_Paradas bd_paradas;	
 	
 	public vincularPtosInteres(String key, JList listParadas) {
+		if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            String nombre = "Servidor1";
+            Registry registry = LocateRegistry.getRegistry(1099);
+            bd = (IAdministrador) registry.lookup(nombre);
+             
+            
+        } catch (Exception e) {
+            System.err.println("Servidor no arrancado en lineas:");
+            e.printStackTrace();
+        }
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 480, 400);
 		contentPane = new JPanel();
@@ -75,13 +93,7 @@ public class vincularPtosInteres extends JFrame{
 
 		// vincular.listIncluidos.setModel(listParadas.getModel());
 
-		vincular.btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-				Object[] select = vincular.listIncluidos.getSelectedValues();
-				
-			}
-		});
+		
 
 		btnCrearParada = new JButton("Crear Parada");
 		springLayout.putConstraint(SpringLayout.NORTH, btnCrearParada, 0,
@@ -171,6 +183,47 @@ public class vincularPtosInteres extends JFrame{
 			txtId.setColumns(10);
 		}*/
 		
+		vincular.btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO
+				PuntoInteres puntoInteres = null;
+				puntoInteres = bd_principal.getPtoInteres(key);
+				
+				Parada parada = null;
+				
+				if(vincular.listIncluidos.getModel().getSize()>0){
+					modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
+				}else{
+					modelIncluidos = new DefaultListModel<String>();
+				}
+				
+				if(vincular.listExcluidos.getModel().getSize()>0){
+					modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
+				}else{
+					modelExcluidos = new DefaultListModel<String>();
+				}
+				
+				int[] select = vincular.listIncluidos.getSelectedIndices();
+				for(int i = 0; i < select.length;i++){
+					//Sacamos de la lista de excluidos
+					modelExcluidos.addElement(modelIncluidos.get(select[i]));
+					
+					//Obtenemos la parada
+					parada = bd_principal.getParada(modelIncluidos.get(select[i]));
+					
+					//Añadimos en la base de datos
+					//bd_principal.vincularPntoInteres(evento.getID(),parada.getID());
+				}
+				for(int i = 0; i < modelExcluidos.getSize();i++){
+					//Metemos en la lista de incluidos
+					modelIncluidos.removeElement(modelExcluidos.getElementAt(i));
+				}
+				vincular.listIncluidos.setModel(modelIncluidos);
+				vincular.listExcluidos.setModel(modelExcluidos);
+				
+			}
+		});
+		
 		vincular.btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO
@@ -198,12 +251,13 @@ public class vincularPtosInteres extends JFrame{
 					parada = bd_principal.getParada(modelExcluidos.get(select[i]));
 					
 					//Añadimos en la base de datos
-					bd_principal.vincularPntoInteres(punto.getID(),parada.getID());
+					//TODO
+					//bd_principal.vincularPntoInteres(punto.getID(),parada.getID());
 					
 				}
-				for(int i = 0; i < select.length;i++){
+				for(int i = 0; i < modelIncluidos.getSize();i++){
 					//Metemos en la lista de incluidos
-					modelExcluidos.remove(select[i]);
+					modelExcluidos.removeElement(modelIncluidos.getElementAt(i));
 				}
 				vincular.listExcluidos.setModel(modelExcluidos);
 				vincular.listIncluidos.setModel(modelIncluidos);

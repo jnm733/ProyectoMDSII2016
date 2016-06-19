@@ -49,7 +49,7 @@ public class vincularParadas extends JFrame {
 	 * 
 	 * @param listParadas
 	 */
-	public vincularParadas(String tipo, String key, JList listParadas) {
+	public vincularParadas(String key, JList listParadas) {
 
 		this.key = key;
 
@@ -97,6 +97,31 @@ public class vincularParadas extends JFrame {
 				
 			}
 		});
+		
+		vincular.btnIncluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO
+				if(vincular.listExcluidos.getModel().getSize()>0)
+				modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
+				else
+					modelExcluidos = new DefaultListModel<String>();
+				if(vincular.listIncluidos.getModel().getSize()>0)
+				modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
+				else
+					modelIncluidos = new DefaultListModel<String>();
+				//modelParadas = new DefaultListModel<String>();
+				
+				int[] select = vincular.listExcluidos.getSelectedIndices();
+				for(int i = 0; i < select.length;i++){
+					modelIncluidos.addElement(modelExcluidos.get(select[i]));
+				}
+				for(int i = 0; i < select.length;i++){
+					modelExcluidos.remove(select[i]);
+				}
+				vincular.listExcluidos.setModel(modelExcluidos);
+				vincular.listIncluidos.setModel(modelIncluidos);
+			}
+		});
 
 		btnCrearParada = new JButton("Crear Parada");
 		springLayout.putConstraint(SpringLayout.NORTH, btnCrearParada, 0,
@@ -110,7 +135,7 @@ public class vincularParadas extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		if(tipo.equals("linea")){
+		/*if(tipo.equals("linea")){
 			txtDistancia = new JTextField();
 			txtDistancia.addFocusListener(new FocusAdapter() {
 				@Override
@@ -182,32 +207,7 @@ public class vincularParadas extends JFrame {
 			txtId.setText("Id");
 			vincular.add(txtId);
 			txtId.setColumns(10);
-		}
+		}*/
 		
-		
-		vincular.btnIncluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-				if(vincular.listExcluidos.getModel().getSize()>0)
-				modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
-				else
-					modelExcluidos = new DefaultListModel<String>();
-				if(vincular.listIncluidos.getModel().getSize()>0)
-				modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
-				else
-					modelIncluidos = new DefaultListModel<String>();
-				//modelParadas = new DefaultListModel<String>();
-				
-				int[] select = vincular.listExcluidos.getSelectedIndices();
-				for(int i = 0; i < select.length;i++){
-					modelIncluidos.addElement(modelExcluidos.get(select[i]));
-				}
-				for(int i = 0; i < select.length;i++){
-					modelExcluidos.remove(select[i]);
-				}
-				vincular.listExcluidos.setModel(modelExcluidos);
-				vincular.listIncluidos.setModel(modelIncluidos);
-			}
-		});
 	}
 }

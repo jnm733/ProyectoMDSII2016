@@ -16,6 +16,7 @@ public class UsuarioAdministrador extends JFrame{
 	public CabeceraInvitado cabeceraInvitado;
 	public CabeceraUsuario cabeceraUsuario;
 	public Descargas descarga;
+	public DescargasAdmin descargaAdmin;
 	public PagoServicios pagoservicios;
 	public String tipoCabecera;
 	public SpringLayout layout;
@@ -129,12 +130,12 @@ public class UsuarioAdministrador extends JFrame{
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						//TODO
-						/*if (cabeceraAdministrador.btnVistaUsuario.isEnabled()) {
-							panelDescargasAdmin();
-						} else {
+						if (cabeceraAdministrador.btnVistaUsuario.isEnabled()) {
 							panelDescarga();
+						} else {
+							panelDescargasAdmin();
 						}
-*/
+
 					}
 				});
 
@@ -203,16 +204,18 @@ public class UsuarioAdministrador extends JFrame{
 								.setEnabled(true);
 					}
 				});
-		cabeceraAdministrador.cabeceraComun.btnDescargas
+		//TODO
+		/*cabeceraAdministrador.cabeceraComun.btnDescargas
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						//TODO
-						/*cabeceraAdministrador.btnPagoDeServicios
+						
+						cabeceraAdministrador.btnPagoDeServicios
 								.setEnabled(true);
 						descarga = new Descargas();
-						descarga.descargasAdmin();*/
+						descarga.descargasAdmin();
+						
 					}
-				});
+				});*/
 
 		panelLineasAdmin();
 		layout.putConstraint(SpringLayout.NORTH, panel, 6, SpringLayout.SOUTH,
@@ -229,7 +232,8 @@ public class UsuarioAdministrador extends JFrame{
 		
 		lineasAdmin.lineas.btnVincularParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lineasAdmin.lineas.vincularParadas = new vincularParadas("linea",lineasAdmin.lineas.txtNumeroLinea.getText(),
+				//TODO
+				lineasAdmin.lineas.vincularParadas = new vincularParadas(lineasAdmin.lineas.txtNumeroLinea.getText(),
 						lineasAdmin.lineas.listParadas);
 				jFrame = new JFrame();
 				jFrame.setTitle("Vincular Paradas");
@@ -457,7 +461,7 @@ public class UsuarioAdministrador extends JFrame{
 				});
 		eventosAdmin.btnVincularParadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				eventosAdmin.vincularParadas = new vincularParadas("evento",eventosAdmin.txtNombre.getText(),
+				eventosAdmin.vincularParadas = new vincularEventos(eventosAdmin.txtNombre.getText(),
 						eventosAdmin.listParadas);
 				jFrame = new JFrame();
 				jFrame.setTitle("Vincular Paradas");
@@ -505,7 +509,7 @@ public class UsuarioAdministrador extends JFrame{
 		});
 		ptosInteres.btnVincularParadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ptosInteres.vincularParadas = new vincularParadas("punto",ptosInteres.txtNombre.getText(),
+				ptosInteres.vincularParadas = new vincularPtosInteres(ptosInteres.txtNombre.getText(),
 						ptosInteres.listParadas);
 				jFrame = new JFrame();
 				jFrame.setTitle("Vincular Paradas");
@@ -551,15 +555,26 @@ public class UsuarioAdministrador extends JFrame{
 		panel.updateUI();
 		repaint();
 	}
-	/*
+	
 	public void panelDescarga() {
 		panel.removeAll();
-		descarga = new Descarga();
+		descarga = new Descargas();
 		panel.add(descarga);
 
 		panel.repaint();
 		panel.updateUI();
 		repaint();
-	}*/
+	}
+	
+	public void panelDescargasAdmin() {
+		panel.removeAll();
+		descargaAdmin = new DescargasAdmin();
+		panel.add(descargaAdmin);
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
+	
 	
 }

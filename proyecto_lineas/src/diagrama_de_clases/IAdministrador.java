@@ -13,6 +13,8 @@ public interface IAdministrador extends  Remote{
 	
 	public boolean agregarDescargas(ArrayList<String> datos, Object archivo) throws RemoteException;
 	
+	public PuntoInteres getPtoInteres(String nombre) throws RemoteException;
+	
 	public boolean vincularPtosInteres(ArrayList<Object> incluidos, ArrayList<Object> excluidos) throws RemoteException;
 	
 	public boolean vincularPntoInteres(int idPunto, int idParada)throws RemoteException;
@@ -25,11 +27,15 @@ public interface IAdministrador extends  Remote{
 	
 	public boolean incluirDireccion (ArrayList<String> datos) throws RemoteException;
 	
+	public Evento getEvento(String nombre)throws RemoteException;
+	
 	public boolean vincularEventos(ArrayList<Evento> incluidos, ArrayList<Evento> excluidos) throws RemoteException;
 	
 	public boolean incluirEvento(ArrayList<String> datos) throws RemoteException;
 	
 	public boolean borrarEvento(String id) throws RemoteException;
+	
+	public Parada[] getParadas()throws RemoteException;
 	
 	public boolean vincularParada(ArrayList<Evento> incluidos, ArrayList<Evento> excluidos) throws RemoteException;
 	

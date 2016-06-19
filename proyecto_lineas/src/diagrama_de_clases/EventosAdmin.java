@@ -50,7 +50,7 @@ public class EventosAdmin extends JPanel{
 	public JButton btnVincularParadas;
 	public JList listParadas;
 	public JFrame jFrame;
-	public vincularParadas vincularParadas;
+	public vincularEventos vincularParadas;
 	public JButton btnEvento;
 	public ArrayList<String> datos;
 	public DefaultListModel<String> model;
@@ -456,6 +456,10 @@ public class EventosAdmin extends JPanel{
 						txtFechaInicio.setText("Fecha inicio");
 						txtDireccion.setText("Direccion");
 						txtParadaCercana.setText("Parada Cercana");
+						
+						btnEvento.setEnabled(true);
+						btnVincularParadas.setEnabled(false);
+						btnEliminarEvento.setEnabled(false);
 					}else{
 						Evento evento = consultarEvento(select[0].toString());
 						txtNombre.setText(evento.getNombreEvento());
@@ -466,6 +470,9 @@ public class EventosAdmin extends JPanel{
 						//txtNombreParada.setText(parada.getNombreParada());
 						//txtDireccion.setText(parada.getDireccionParada());
 						//textArea.setText(parada.getObservaciones());
+						btnEvento.setEnabled(false);
+						btnVincularParadas.setEnabled(true);
+						btnEliminarEvento.setEnabled(true);
 						
 					}
 					
@@ -476,16 +483,18 @@ public class EventosAdmin extends JPanel{
 			}
 		});
 		
-		/*btnVincularParadas.addActionListener(new ActionListener() {
+		btnVincularParadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				vincularParadas = new VincularParadas("evento",txtNombre.getText(),
+				vincularEventos vincular = new vincularEventos(txtNombre.getText(),
 						listParadas);
-				jFrame = new JFrame();
+				/*vincularParadas = new vincularParadas("punto",txtNombre.getText(),
+						listParadas);*/
+				/*jFrame = new JFrame();
 				jFrame.setTitle("Vincular Paradas");
 				jFrame.setBounds(300, 300, 520, 305);
 				jFrame.getContentPane().add(vincularParadas.contentPane);
-				jFrame.setVisible(true);
-				vincularParadas.vincular.btnVolver
+				jFrame.setVisible(true);*/
+				/*vincularParadas.vincular.btnVolver
 						.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 								listParadas
@@ -496,23 +505,10 @@ public class EventosAdmin extends JPanel{
 								}
 								jFrame.dispose();
 							}
-						});
-
-				vincularParadas.btnCrearParada
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								Index index = new Index();
-								index.cabeceraAdministrador();
-								index.panelParadasAdmin();
-								index.contentPane.repaint();
-								index.contentPane.updateUI();
-								index.repaint();
-
-							}
-						});
+						});*/
 			}
 
-		});*/
+		});
 		// lineasAdmin();
 		// servicios.btnLineas.setEnabled(false);
 		// servicios.btnParadas.setEnabled(true);

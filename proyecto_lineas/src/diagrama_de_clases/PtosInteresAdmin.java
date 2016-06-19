@@ -46,7 +46,7 @@ public class PtosInteresAdmin extends JPanel{
 	private JLabel lblDescripcion;
 	public JTextArea txtrDescripcion;
 	public JFrame jFrame;
-	public vincularParadas vincularParadas;
+	public vincularPtosInteres vincularParadas;
 	public JList listParadas;
 	public JButton btnVincularParadas;
 	public JButton btnEliminarPto;

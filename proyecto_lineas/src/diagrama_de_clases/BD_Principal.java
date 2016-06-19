@@ -127,7 +127,8 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		}
 		return punto;
 	}
-
+	
+	@Override
 	public PuntoInteres getPtoInteres(String nombre) {
 		PuntoInteres punto = null;
 		PuntoInteres[] puntos = null;
@@ -156,6 +157,7 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		return null;
 	}
 	
+	@Override
 	public Parada[] getParadas() {
 		Parada[] paradas = null;
 		try {
@@ -276,6 +278,26 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	@Override
+	public Evento getEvento(String nombre){
+		Evento evento = null;
+		
+		Evento[] eventos = null;
+		try {
+			eventos = bd_eventos.getEventos();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		for (int i = 0; i < eventos.length; i++) {
+			if(eventos[i].getNombreEvento().equals(nombre)){
+				evento = eventos[i];
+			}
+		}
+		
+		return evento;
 	}
 
 	@Override
