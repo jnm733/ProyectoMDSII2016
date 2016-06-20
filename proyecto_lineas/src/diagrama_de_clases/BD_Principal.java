@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
+import diagrama_de_base_de_datos.Descarga;
 import diagrama_de_base_de_datos.Evento;
 import diagrama_de_base_de_datos.Linea;
 import diagrama_de_base_de_datos.Parada;
@@ -92,6 +93,35 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	@Override
+	public Descarga getDescarga(String select){
+		Descarga descarga = null;
+		try {
+			Descarga[] descargas = bd_descargas.getDescargas();
+			for(int i = 0; i< descargas.length;i++){
+				if(descargas[i].getTituloDescarga().equals(select)){
+					descarga= descargas[i];
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return descarga;
+	}
+	
+	@Override
+	public Descarga[] getDescargas() throws RemoteException {
+		Descarga[] descargas = null;
+		try {
+			descargas = bd_descargas.getDescargas();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return descargas;
 	}
 
 	@Override
@@ -195,12 +225,13 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	@Override
 	public boolean agregarDescargas(ArrayList<String> datos, Object archivo) {
 		try {
-			return false;
+			bd_descargas.agregarDescarga(datos, archivo);
+			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override

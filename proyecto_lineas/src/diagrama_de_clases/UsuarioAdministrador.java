@@ -88,6 +88,9 @@ public class UsuarioAdministrador extends JFrame{
 
 		contentPane.setLayout(layout);
 		
+		cabeceraAdministrador.cabeceraComun.btnServicios.setEnabled(false);
+		cabeceraAdministrador.btnVistaAdministrador.setEnabled(false);
+		
 		cabeceraAdministrador.cabeceraComun.btnCalcularRuta
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -125,21 +128,18 @@ public class UsuarioAdministrador extends JFrame{
 					}
 				});
 
-		cabeceraAdministrador.cabeceraComun.btnServicios.setEnabled(false);
 		cabeceraAdministrador.cabeceraComun.btnDescargas
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						//TODO
 						if (cabeceraAdministrador.btnVistaUsuario.isEnabled()) {
-							panelDescarga();
-						} else {
+							//TODO
 							panelDescargasAdmin();
+						} else {
+							panelDescarga();
 						}
 
 					}
 				});
-
-		cabeceraAdministrador.btnVistaAdministrador.setEnabled(false);
 
 		cabeceraAdministrador.btnVistaUsuario
 				.addActionListener(new ActionListener() {
@@ -218,6 +218,7 @@ public class UsuarioAdministrador extends JFrame{
 				});*/
 
 		panelLineasAdmin();
+		
 		layout.putConstraint(SpringLayout.NORTH, panel, 6, SpringLayout.SOUTH,
 				cabeceraAdministrador);
 		layout.putConstraint(SpringLayout.WEST, panel, 5, SpringLayout.WEST,
@@ -266,17 +267,6 @@ public class UsuarioAdministrador extends JFrame{
 		repaint();
 	}
 
-	/*public void panelDescargasAdmin() {
-		panel.removeAll();
-		descarga = new Descarga();
-		descarga.descargasAdmin();
-		panel.add(descarga);
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-
-	}*/
-	
 	public void panelPagoServicios() {
 		panel.removeAll();
 
@@ -391,6 +381,7 @@ public class UsuarioAdministrador extends JFrame{
 		panel.removeAll();
 
 		paradasAdmin = new ParadasAdmin();
+		paradasAdmin.paradas.servicios.desactivarBtn(paradasAdmin.paradas.servicios.btnParadas);
 		panel.add(paradasAdmin);
 
 		paradasAdmin.paradas.servicios.btnLineas
@@ -439,6 +430,7 @@ public class UsuarioAdministrador extends JFrame{
 		panel.removeAll();
 
 		eventosAdmin = new EventosAdmin();
+		eventosAdmin.servicios.desactivarBtn(eventosAdmin.servicios.btnEventos);
 		panel.add(eventosAdmin);
 
 		eventosAdmin.servicios.btnLineas
@@ -498,10 +490,11 @@ public class UsuarioAdministrador extends JFrame{
 	
 	public void panelPtosInteres() {
 		panel.removeAll();
-
+		
 		ptosInteres = new PtosInteresAdmin();
+		ptosInteres.servicios.desactivarBtn(ptosInteres.servicios.btnPtosInteres);
 		panel.add(ptosInteres);
-
+		
 		ptosInteres.servicios.btnLineas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelLineasAdmin();

@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 
 public class PagoServicios extends JPanel{
@@ -49,7 +51,21 @@ public class PagoServicios extends JPanel{
 		txtNumero.setText("Numero");
 		panel.add(txtNumero);
 		txtNumero.setColumns(10);
-
+		
+		txtNumero.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (txtNumero.getText().equals("Numero")) {
+					txtNumero.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (txtNumero.getText().equals("")) {
+					txtNumero.setText("Numero");
+				}
+			}
+		});
 		txtTitular = new JTextField();
 		sl_panel.putConstraint(SpringLayout.NORTH, txtTitular, -3,
 				SpringLayout.NORTH, lblTitular);
@@ -58,6 +74,21 @@ public class PagoServicios extends JPanel{
 		txtTitular.setText("Titular");
 		txtTitular.setColumns(10);
 		panel.add(txtTitular);
+		
+		txtTitular.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (txtTitular.getText().equals("Titular")) {
+					txtTitular.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (txtTitular.getText().equals("")) {
+					txtTitular.setText("Titular");
+				}
+			}
+		});
 
 		JLabel lblFormaDePago = new JLabel("Forma de Pago");
 		sl_panel.putConstraint(SpringLayout.WEST, lblFormaDePago, 10,

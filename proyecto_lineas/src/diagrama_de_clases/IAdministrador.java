@@ -13,6 +13,10 @@ public interface IAdministrador extends  Remote{
 	
 	public boolean agregarDescargas(ArrayList<String> datos, Object archivo) throws RemoteException;
 	
+	public Descarga[] getDescargas() throws RemoteException;
+	
+	public Descarga getDescarga(String select) throws RemoteException;
+	
 	public PuntoInteres getPtoInteres(String nombre) throws RemoteException;
 	
 	public boolean vincularPtosInteres(ArrayList<Object> incluidos, ArrayList<Object> excluidos) throws RemoteException;

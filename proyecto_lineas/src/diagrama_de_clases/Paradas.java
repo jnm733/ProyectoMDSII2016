@@ -75,6 +75,7 @@ public class Paradas extends JPanel{
 	public BD_Paradas bdParadas;
 	
 	public Paradas() {
+		//TODO Cambiar
 		bdParadas = new BD_Paradas();
 		if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());

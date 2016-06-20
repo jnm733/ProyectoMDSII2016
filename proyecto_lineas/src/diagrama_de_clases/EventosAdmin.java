@@ -423,7 +423,6 @@ public class EventosAdmin extends JPanel{
 						}
 					}
 					if(ok){
-						//TODO
 						datos = new ArrayList<String>();
 						datos.add(txtNombre.getText());
 						datos.add(txtDireccion.getText());
@@ -443,7 +442,7 @@ public class EventosAdmin extends JPanel{
 		});
 		
 		//Accion elegir un evento
-		
+		//TODO
 		listEventos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -528,7 +527,6 @@ public class EventosAdmin extends JPanel{
 			}
 			evento = bd_eventos.getEvento(id);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -546,7 +544,6 @@ public class EventosAdmin extends JPanel{
 			model.addElement("Nueva parada");
 			listParadas.setModel(model);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
