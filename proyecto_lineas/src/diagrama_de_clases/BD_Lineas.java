@@ -65,13 +65,13 @@ public class BD_Lineas {
 		diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
 	}
 
-	public void addLinea(ArrayList<String> aDatos)throws PersistentException {
+	public void addLinea(ArrayList<Object> aDatos)throws PersistentException {
 		int id_linea = -1;
 		String numero =(String)aDatos.get(0);
 		String nombre =(String)aDatos.get(1);
 		String horario=(String)aDatos.get(2);
 		String recorrido=(String)aDatos.get(3);
-		double tarifa = Double.parseDouble(aDatos.get(4));
+		double tarifa = Double.parseDouble((String)aDatos.get(4));
 		String frecuencia=(String)aDatos.get(5);
 
 		//Imagen
@@ -83,8 +83,7 @@ public class BD_Lineas {
 			 as.setHorario(horario);
 			 as.setRecorrido(recorrido);
 			 as.setTarifaLinea(tarifa);
-			 Imagen image = new Imagen();
-			 as.setImagen(image);
+			 as.setImagen((Imagen)aDatos.get(6));
 			 
 			 
 			 LineaDAO.save(as);

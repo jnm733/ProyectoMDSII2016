@@ -30,33 +30,33 @@ import org.orm.PersistentException;
 import diagrama_de_base_de_datos.*;
 
 public class EventosAdmin extends JPanel{
-	public Servicios servicios;
+	public IAdministrador bd;
+	public BD_Principal bd_principal;
+	public JButton btnBorrarParada;
+	public JButton btnEliminarEvento;
+	public JButton btnEvento;
+	public JButton btnVincularParadas;
+	public ArrayList<String> datos;
 	public InfoParada infoParada;
+	public JFrame jFrame;
+	private JLabel lblEventos;
+	private JLabel lblParada;
+	private JLabel lblParadas;
+	public JList listEventos;
+	public JList listParadas;
+	public DefaultListModel<String> model;
+	private JPanel panel;
 	public JPanel panel_2;
 	public JPanel panel_4;
+	public Servicios servicios;
 	public SpringLayout springLayout;
-	public JButton btnBorrarParada;
-	private JPanel panel;
-	private JLabel lblEventos;
-	private JLabel lblParadas;
-	public JTextField txtNombre;
 	private JTextField txtDireccion;
-	private JTextField txtFechaInicio;
 	private JTextField txtFechaFin;
-	public JList listEventos;
+	private JTextField txtFechaInicio;
+	public JTextField txtNombre;
 	public JTextField txtParadaCercana;
-	private JLabel lblParada;
-	public JButton btnEliminarEvento;
-	public JButton btnVincularParadas;
-	public JList listParadas;
-	public JFrame jFrame;
-	public vincularEventos vincularParadas;
-	public JButton btnEvento;
-	public ArrayList<String> datos;
-	public DefaultListModel<String> model;
-	public BD_Eventos bd_eventos;
 	
-	public IAdministrador bd;
+	public vincularEventos vincularParadas;
 
 	/**
 	 * Create the panel.
@@ -75,7 +75,7 @@ public class EventosAdmin extends JPanel{
             System.err.println("Servidor no arrancado en lineas:");
             e.printStackTrace();
         }
-		bd_eventos = new BD_Eventos();
+		 bd_principal = new BD_Principal();
 		servicios = new Servicios();
 		servicios.panelAdmin();
 		springLayout = new SpringLayout();
@@ -126,6 +126,7 @@ public class EventosAdmin extends JPanel{
 		sl_panel_4.putConstraint(SpringLayout.EAST, listParadas, 173,
 				SpringLayout.WEST, panel_4);
 		panel_4.add(listParadas);
+		
 
 		btnVincularParadas = new JButton("Vincular Paradas");
 		btnVincularParadas.setEnabled(false);
@@ -175,18 +176,69 @@ public class EventosAdmin extends JPanel{
 		//Cuando se inicia el panel, cargamos el modelo de la base de datos
 		listEventos.setModel(new DefaultListModel());
 		try {
-			Evento[] arrEventos = bd_eventos.getEventos();
+			Evento[] arrEventos = bd_principal.getEventos();
 			DefaultListModel<String> model = new DefaultListModel<>();
 			for(int i = 0; i < arrEventos.length;i++){
 				model.addElement(arrEventos[i].getNombreEvento());
 			}
 			model.addElement("Nuevo evento");
 			listEventos.setModel(model);
-		} catch (PersistentException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
+		//Accion elegir un evento
+				//TODO
+				listEventos.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						DefaultListModel<String> model = new DefaultListModel<>();
+						Object[] select = listEventos.getSelectedValues();
+						try {
+							if(select[0].equals("Nuevo evento")){
+								txtNombre.setText("Nombre");
+								txtFechaFin.setText("Fecha de fin");
+								txtFechaInicio.setText("Fecha inicio");
+								txtDireccion.setText("Direccion");
+								txtParadaCercana.setText("Parada Cercana");
+								
+								listParadas.setModel(new DefaultListModel<>());
+								
+								btnEvento.setEnabled(true);
+								btnVincularParadas.setEnabled(false);
+								btnEliminarEvento.setEnabled(false);
+							}else{
+								model = new DefaultListModel<>();
+								Evento evento = consultarEvento(select[0].toString());
+								txtNombre.setText(evento.getNombreEvento());
+								txtFechaFin.setText(evento.getFechaFin().toString());
+								txtFechaInicio.setText(evento.getFechaInicio().toString());
+								txtDireccion.setText(evento.getDireccionEvento());
+								btnEvento.setEnabled(false);
+								btnVincularParadas.setEnabled(true);
+								btnEliminarEvento.setEnabled(true);
+								
+								Parada[] todasParadas = bd_principal.getParadas();
+								for (int i = 0; i < todasParadas.length; i++) {
+									if(todasParadas[i].evento_pertenece.contains(evento)){
+										model.addElement(todasParadas[i].getNombreParada());
+									}
+								}
+								listParadas.setModel(model);
+								
+								if(model.size()>0){
+									txtParadaCercana.setText(model.elementAt(0));
+								}
+							}
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+		
 		btnEliminarEvento = new JButton("Eliminar Evento");
 		
 		//accion borrar evento
@@ -291,6 +343,7 @@ public class EventosAdmin extends JPanel{
 		txtParadaCercana.setText("Parada cercana");
 		panel.add(txtParadaCercana);
 		txtParadaCercana.setColumns(10);
+		
 
 		lblParada = new JLabel("Parada");
 		sl_panel.putConstraint(SpringLayout.NORTH, lblFechaInicio, 40,
@@ -441,70 +494,11 @@ public class EventosAdmin extends JPanel{
 			}
 		});
 		
-		//Accion elegir un evento
-		//TODO
-		listEventos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				DefaultListModel<String> model = new DefaultListModel<>();
-				Object[] select = listEventos.getSelectedValues();
-				try {
-					if(select[0].equals("Nuevo evento")){
-						txtNombre.setText("Nombre");
-						txtFechaFin.setText("Fecha de fin");
-						txtFechaInicio.setText("Fecha inicio");
-						txtDireccion.setText("Direccion");
-						txtParadaCercana.setText("Parada Cercana");
-						
-						btnEvento.setEnabled(true);
-						btnVincularParadas.setEnabled(false);
-						btnEliminarEvento.setEnabled(false);
-					}else{
-						Evento evento = consultarEvento(select[0].toString());
-						txtNombre.setText(evento.getNombreEvento());
-						txtFechaFin.setText(evento.getFechaFin().toString());
-						txtFechaInicio.setText(evento.getFechaInicio().toString());
-						txtDireccion.setText(evento.getDireccionEvento());
-						//txtParadaCercana.setText("");
-						//txtNombreParada.setText(parada.getNombreParada());
-						//txtDireccion.setText(parada.getDireccionParada());
-						//textArea.setText(parada.getObservaciones());
-						btnEvento.setEnabled(false);
-						btnVincularParadas.setEnabled(true);
-						btnEliminarEvento.setEnabled(true);
-						
-					}
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		
 		btnVincularParadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vincularEventos vincular = new vincularEventos(txtNombre.getText(),
 						listParadas);
-				/*vincularParadas = new vincularParadas("punto",txtNombre.getText(),
-						listParadas);*/
-				/*jFrame = new JFrame();
-				jFrame.setTitle("Vincular Paradas");
-				jFrame.setBounds(300, 300, 520, 305);
-				jFrame.getContentPane().add(vincularParadas.contentPane);
-				jFrame.setVisible(true);*/
-				/*vincularParadas.vincular.btnVolver
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								listParadas
-										.setModel(vincularParadas.vincular.listIncluidos
-												.getModel());
-								if(listParadas.getModel().getSize()>0){
-									txtParadaCercana.setText(""+listParadas.getModel().getElementAt(0));
-								}
-								jFrame.dispose();
-							}
-						});*/
+				
 			}
 
 		});
@@ -513,20 +507,24 @@ public class EventosAdmin extends JPanel{
 		// servicios.btnParadas.setEnabled(true);
 	}
 	
+	public void borrarEvento() {
+		throw new UnsupportedOperationException();
+	}
+
 	public Evento consultarEvento(String aNombre) {
 		Evento[] eventos;
 		Evento evento = null;
 		int id = 0;
 		try {
-			eventos = bd_eventos.getEventos();
+			eventos = bd_principal.getEventos();
 			for(int i = 0; i < eventos.length;i++){
 				if(eventos[i].getNombreEvento().equals(aNombre)){
-					id = eventos[i].getID();
+					evento = eventos[i];
 					break;
 				}
 			}
-			evento = bd_eventos.getEvento(id);
-		} catch (PersistentException e) {
+		
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -546,9 +544,5 @@ public class EventosAdmin extends JPanel{
 		} catch (PersistentException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void borrarEvento() {
-		throw new UnsupportedOperationException();
 	}
 }

@@ -55,6 +55,7 @@ public class ComenzarDescarga extends JFrame {
 		
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setText(descarga.getDescripcionDescarga());
+		txtDescripcion.setEditable(false);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, txtDescripcion, 14, SpringLayout.SOUTH, lblNombreDeLa);
 		sl_contentPane.putConstraint(SpringLayout.WEST, txtDescripcion, 5, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, txtDescripcion, 180, SpringLayout.SOUTH, lblNombreDeLa);

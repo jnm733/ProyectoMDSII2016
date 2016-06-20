@@ -70,7 +70,6 @@ public class UsuarioInvitado extends JFrame {
 		setContentPane(contentPane);
 		layout = new SpringLayout();
 		cabeceraInvitado();
-		// cabeceraAdministrador();
 	}
 	
 	public void cabeceraInvitado() {
@@ -85,19 +84,19 @@ public class UsuarioInvitado extends JFrame {
 					}
 				});*/
 		// Servicios
-		/*cabeceraInvitado.cabeceraComun.btnServicios
+		cabeceraInvitado.cabeceraComun.btnServicios
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						panelLineas();
 					}
-				});*/
+				});
 		// Descargas
-		/*cabeceraInvitado.cabeceraComun.btnDescargas
+		cabeceraInvitado.cabeceraComun.btnDescargas
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						panelDescarga();
 					}
-				});*/
+				});
 		// Identificarse
 		/*cabeceraInvitado.btnIdentificarse
 				.addActionListener(new ActionListener() {
@@ -217,26 +216,15 @@ public class UsuarioInvitado extends JFrame {
 				});
 	}*/
 
-	/*public void panelDescarga() {
+	public void panelDescarga() {
 		panel.removeAll();
-		descarga = new Descarga();
+		descarga = new Descargas();
 		panel.add(descarga);
 
 		panel.repaint();
 		panel.updateUI();
 		repaint();
-	}*/
-
-	/*public void panelDescargasAdmin() {
-		panel.removeAll();
-		descarga = new Descarga();
-		descarga.descargasAdmin();
-		panel.add(descarga);
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-
-	}*/
+	}
 
 	/*public void panelPagoServicios() {
 		panel.removeAll();

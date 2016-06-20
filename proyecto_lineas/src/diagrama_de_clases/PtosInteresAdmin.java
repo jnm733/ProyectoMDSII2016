@@ -31,35 +31,35 @@ import java.awt.event.FocusEvent;
 import javax.swing.JTextArea;
 
 public class PtosInteresAdmin extends JPanel{
-	public Servicios servicios;
-	public InfoParada infoParada;
-	public JPanel panel_2;
-	public JPanel panel_4;
-	public SpringLayout springLayout;
-	private JPanel panel;
-	private JLabel lblPtosInteres;
-	private JLabel lblParadas;
-	public JTextField txtNombre;
-	private JTextField txtDireccion;
-	public JTextField txtParadaCercana;
-	public JList listPtos;
-	private JLabel lblDescripcion;
-	public JTextArea txtrDescripcion;
-	public JFrame jFrame;
-	public vincularPtosInteres vincularParadas;
-	public JList listParadas;
-	public JButton btnVincularParadas;
+	public BD_Principal bd_principal;
 	public JButton btnEliminarPto;
 	public JButton btnIncluirPuntoDe;
+	public JButton btnVincularParadas;
 	public ArrayList<String> datos;
+	public InfoParada infoParada;
+	public JFrame jFrame;
+	private JLabel lblDescripcion;
+	private JLabel lblParadas;
+	private JLabel lblPtosInteres;
+	public JList listParadas;
+	public JList listPtos;
 	public DefaultListModel<String> model;
-	public BD_PuntosInteres bd_puntos;
+	private JPanel panel;
+	public JPanel panel_2;
+	public JPanel panel_4;
+	public Servicios servicios;
+	public SpringLayout springLayout;
+	private JTextField txtDireccion;
+	public JTextField txtNombre;
+	public JTextField txtParadaCercana;
+	public JTextArea txtrDescripcion;
+	public vincularPtosInteres vincularParadas;
 
 	/**
 	 * Create the panel.
 	 */
 	public PtosInteresAdmin() {
-		bd_puntos = new BD_PuntosInteres();
+		bd_principal = new BD_Principal();
 		
 		servicios = new Servicios();
 		springLayout = new SpringLayout();
@@ -135,17 +135,63 @@ public class PtosInteresAdmin extends JPanel{
 		
 		listPtos.setModel(new DefaultListModel());
 		try {
-			PuntoInteres[] arrPuntos = bd_puntos.getPuntosInteres();
+			PuntoInteres[] arrPuntos = bd_principal.getPtosInteres();
 			DefaultListModel<String> model = new DefaultListModel<>();
 			for(int i = 0; i < arrPuntos.length;i++){
 				model.addElement(arrPuntos[i].getNombrePunto());
 			}
 			model.addElement("Nuevo punto");
 			listPtos.setModel(model);
-		} catch (PersistentException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		//Accion en la lista de eventos
+		
+		listPtos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DefaultListModel<String> model = new DefaultListModel<>();
+				Object[] select = listPtos.getSelectedValues();
+				try {
+					if(select[0].equals("Nuevo punto")){
+						txtNombre.setText("Nombre");
+						txtrDescripcion.setText("Descripcion");
+						txtDireccion.setText("Direccion");
+						txtParadaCercana.setText("Parada cercana");
+						//btnIncluirPuntoDe.setText("Incluir punto");
+						btnIncluirPuntoDe.setEnabled(true);
+						btnEliminarPto.setEnabled(false);
+						btnVincularParadas.setEnabled(false);
+					}else{
+						PuntoInteres punto = consultarPunto(select[0].toString());
+						txtNombre.setText(punto.getNombrePunto());
+						txtDireccion.setText(punto.getDireccionPunto());
+
+						btnEliminarPto.setEnabled(true);
+						btnVincularParadas.setEnabled(true);
+						btnIncluirPuntoDe.setEnabled(false);
+						
+						Parada[] todasParadas = bd_principal.getParadas();
+						for (int i = 0; i < todasParadas.length; i++) {
+							if(todasParadas[i].pertenece.contains(punto)){
+								model.addElement(todasParadas[i].getNombreParada());
+							}
+						}
+						listParadas.setModel(model);
+						
+						if(model.size()>0){
+							txtParadaCercana.setText(model.elementAt(0));
+						}
+					}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		btnEliminarPto = new JButton("Eliminar Punto");
 		sl_panel.putConstraint(SpringLayout.SOUTH, listPtos, -6, SpringLayout.NORTH, btnEliminarPto);
@@ -273,20 +319,6 @@ public class PtosInteresAdmin extends JPanel{
 			}
 		});
 		
-		txtParadaCercana.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if(txtParadaCercana.getText().equals("Parada cercana")){
-					txtParadaCercana.setText("");
-				}
-			}
-			public void focusLost(FocusEvent e) {
-				if(txtParadaCercana.getText().equals("")){
-					txtParadaCercana.setText("Parada cercana");
-				}
-			}
-		});
-		
 		//Accion para incluir punto de interes
 		
 		btnIncluirPuntoDe.addActionListener(new ActionListener() {
@@ -315,68 +347,38 @@ public class PtosInteresAdmin extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				vincularPtosInteres vincular = new vincularPtosInteres(txtNombre.getText(),
 						listParadas);
-				/*vincularParadas = new vincularParadas("punto",txtNombre.getText(),
-						listParadas);*/
-				/*jFrame = new JFrame();
-				jFrame.setTitle("Vincular Paradas");
-				jFrame.setBounds(300, 300, 520, 305);
-				jFrame.getContentPane().add(vincularParadas.contentPane);
-				jFrame.setVisible(true);*/
-				/*vincularParadas.vincular.btnVolver
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								listParadas
-										.setModel(vincularParadas.vincular.listIncluidos
-												.getModel());
-								if(listParadas.getModel().getSize()>0){
-									txtParadaCercana.setText(""+listParadas.getModel().getElementAt(0));
-								}
-								jFrame.dispose();
-							}
-						});*/
 			}
 
 		});
 		
-		
-		listPtos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				DefaultListModel<String> model = new DefaultListModel<>();
-				Object[] select = listPtos.getSelectedValues();
-				try {
-					if(select[0].equals("Nuevo punto")){
-						txtNombre.setText("Nombre");
-						txtrDescripcion.setText("Descripcion");
-						txtDireccion.setText("Direccion");
-						txtParadaCercana.setText("Parada cercana");
-						//btnIncluirPuntoDe.setText("Incluir punto");
-						btnIncluirPuntoDe.setEnabled(true);
-						btnEliminarPto.setEnabled(false);
-						btnVincularParadas.setEnabled(false);
-					}else{
-						PuntoInteres punto = consultarPunto(select[0].toString());
-						txtNombre.setText(punto.getNombrePunto());
-						txtDireccion.setText(punto.getDireccionPunto());
-						//txtParadaCercana.setText("");
-						//txtNombreParada.setText(parada.getNombreParada());
-						//txtDireccion.setText(parada.getDireccionParada());
-						//textArea.setText(parada.getObservaciones());
-						btnEliminarPto.setEnabled(true);
-						btnVincularParadas.setEnabled(true);
-						//btnIncluirPuntoDe.setText("Modificar punto");
-						btnIncluirPuntoDe.setEnabled(false);
-					}
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 		//lineasAdmin();
 		//servicios.btnLineas.setEnabled(false);
 		//servicios.btnParadas.setEnabled(true);
+	}
+	
+	public void borrarPtoInteres() {
+		throw new UnsupportedOperationException();
+	}
+
+	public PuntoInteres consultarPunto(String aNombre){
+		PuntoInteres[] puntosInteres;
+		PuntoInteres puntoInteres = null;
+		int id = 0;
+		try {
+			puntosInteres = bd_principal.getPtosInteres();
+			for(int i = 0; i < puntosInteres.length;i++){
+				if(puntosInteres[i].getNombrePunto().equals(aNombre)){
+					id = puntosInteres[i].getID();
+					break;
+				}
+			}
+			puntoInteres = bd_principal.getPtoInteres(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return puntoInteres;
 	}
 	
 	public void incluirPtoInteres() {
@@ -394,30 +396,5 @@ public class PtosInteresAdmin extends JPanel{
 			e.printStackTrace();
 		}
 		
-	}
-
-	public PuntoInteres consultarPunto(String aNombre){
-		PuntoInteres[] puntosInteres;
-		PuntoInteres puntoInteres = null;
-		int id = 0;
-		try {
-			puntosInteres = bd_puntos.getPuntosInteres();
-			for(int i = 0; i < puntosInteres.length;i++){
-				if(puntosInteres[i].getNombrePunto().equals(aNombre)){
-					id = puntosInteres[i].getID();
-					break;
-				}
-			}
-			puntoInteres = bd_puntos.getPtoInteres(id);
-		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return puntoInteres;
-	}
-	
-	public void borrarPtoInteres() {
-		throw new UnsupportedOperationException();
 	}
 }

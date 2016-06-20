@@ -6,6 +6,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -37,7 +38,7 @@ public class vincularPtosInteres extends JFrame{
 	private JTextField txtId;
 	public BD_Principal bd_principal;
 	public IAdministrador bd;
-	//private BD_Paradas bd_paradas;	
+	public Parada[] paradas;
 	
 	public vincularPtosInteres(String key, JList listParadas) {
 		if (System.getSecurityManager() == null) {
@@ -71,15 +72,25 @@ public class vincularPtosInteres extends JFrame{
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		
 		if (listParadas.getModel().getSize() > 0) {
-			model = (DefaultListModel<String>) listParadas.getModel();
-			vincular.listIncluidos.setModel(model);
+			//Lista incluidos
+			DefaultListModel<String> modelIncluidos = (DefaultListModel<String>) listParadas.getModel();
+			vincular.listIncluidos.setModel(modelIncluidos);
+			//Lista excluidos
+			paradas = bd_principal.getParadas();
+			DefaultListModel<String> modelExcluidos = new DefaultListModel<>();
+			for(int i = 0; i < paradas.length;i++){
+				if(!modelIncluidos.contains(paradas[i].getNombreParada())){
+					modelExcluidos.addElement(paradas[i].getNombreParada());
+				}
+			}
+			vincular.listExcluidos.setModel(modelExcluidos);
 		} else {
-			Parada[] arrPar = null;
+			
 			try {
-				arrPar = bd_principal.getParadas();
+				paradas = bd_principal.getParadas();
 				
-				for(int i = 0; i < arrPar.length;i++){
-					model.addElement(arrPar[i].getNombreParada());
+				for(int i = 0; i < paradas.length;i++){
+					model.addElement(paradas[i].getNombreParada());
 				}
 				vincular.listExcluidos.setModel(model);
 			} catch (Exception e1) {
@@ -107,81 +118,6 @@ public class vincularPtosInteres extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		
-		/*
-		 if(tipo.equals("linea")){
-			txtDistancia = new JTextField();
-			txtDistancia.addFocusListener(new FocusAdapter() {
-				@Override
-				public void focusGained(FocusEvent e) {
-					if (txtDistancia.getText().equals("Distancia")) {
-						txtDistancia.setText("");
-					}
-				}
-
-				public void focusLost(FocusEvent e) {
-					if (txtDistancia.getText().equals("")) {
-						txtDistancia.setText("Distancia");
-					}
-				}
-			});
-			txtDistancia.setText("Distancia");
-			springLayout.putConstraint(SpringLayout.NORTH, txtDistancia, 11,
-					SpringLayout.SOUTH, vincular.listExcluidos);
-			springLayout.putConstraint(SpringLayout.WEST, txtDistancia, 0,
-					SpringLayout.WEST, vincular.listExcluidos);
-			vincular.add(txtDistancia);
-			txtDistancia.setColumns(10);
-
-			txtHoraPaso = new JTextField();
-			txtHoraPaso.addFocusListener(new FocusAdapter() {
-				@Override
-				public void focusGained(FocusEvent e) {
-					if (txtHoraPaso.getText().equals("Hora Paso")) {
-						txtHoraPaso.setText("");
-					}
-				}
-
-				public void focusLost(FocusEvent e) {
-					if (txtHoraPaso.getText().equals("")) {
-						txtHoraPaso.setText("Hora Paso");
-					}
-				}
-			});
-			springLayout.putConstraint(SpringLayout.NORTH, txtHoraPaso, 10,
-					SpringLayout.SOUTH, txtDistancia);
-			springLayout.putConstraint(SpringLayout.WEST, txtHoraPaso, 0,
-					SpringLayout.WEST, vincular.listExcluidos);
-			txtHoraPaso.setText("Hora Paso");
-			txtHoraPaso.setColumns(10);
-			vincular.add(txtHoraPaso);
-
-			txtId = new JTextField();
-			txtId.addFocusListener(new FocusAdapter() {
-				@Override
-				public void focusGained(FocusEvent e) {
-					if (txtId.getText().equals("Id")) {
-						txtId.setText("");
-					}
-				}
-
-				@Override
-				public void focusLost(FocusEvent e) {
-					if (txtId.getText().equals("")) {
-						txtId.setText("Id");
-					}
-				}
-			});
-			springLayout.putConstraint(SpringLayout.NORTH, txtId, 11,
-					SpringLayout.SOUTH, vincular.listExcluidos);
-			springLayout.putConstraint(SpringLayout.WEST, txtId, 6,
-					SpringLayout.EAST, txtDistancia);
-			springLayout.putConstraint(SpringLayout.EAST, txtId, 48,
-					SpringLayout.EAST, txtDistancia);
-			txtId.setText("Id");
-			vincular.add(txtId);
-			txtId.setColumns(10);
-		}*/
 		
 		vincular.btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -262,6 +198,27 @@ public class vincularPtosInteres extends JFrame{
 				vincular.listExcluidos.setModel(modelExcluidos);
 				vincular.listIncluidos.setModel(modelIncluidos);
 				
+			}
+		});
+		
+		vincular.btnVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> arrIn =new ArrayList<String>();
+				ArrayList<String> arrEx = new ArrayList<String>();
+				if(modelIncluidos != null){
+					for (int i = 0; i < modelIncluidos.size(); i++) {
+						arrIn.add(modelIncluidos.get(i));
+					}
+				}
+				
+				if(modelExcluidos != null){
+					for (int i = 0; i < modelExcluidos.size(); i++) {
+						arrEx.add(modelExcluidos.get(i));
+					}
+				}
+				
+				bd_principal.vincularPtosInteres(arrIn, arrEx,key);
 			}
 		});
 	}

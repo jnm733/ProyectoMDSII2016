@@ -68,7 +68,6 @@ public class BD_Paradas {
 			 as.setImagenParada("");
 			 as.setNombreParada(nombre);
 			 as.setObservaciones(observaciones);
-			 
 			 ParadaDAO.save(as);
 			 id_parada = as.getORMID();
 			 t.commit();

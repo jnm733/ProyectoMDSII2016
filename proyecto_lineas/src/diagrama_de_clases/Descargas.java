@@ -128,15 +128,17 @@ public class Descargas extends JPanel {
 						btnAgregarDescarga_1.setEnabled(true);
 					} else {
 						Descarga descarga = bd_principal.getDescarga(select[0].toString());
+						btnDescargar.setEnabled(true);
+						btnAgregarDescarga_1.setEnabled(false);
 						txtrDescripcion.setText(descarga.getDescripcionDescarga());
 						txtSize.setText(descarga.getTamaño().toString());
 						txtTitulo.setText(descarga.getTituloDescarga());
 						txtUrl.setText(descarga.getUrlDescarga());
-						btnDescargar.setEnabled(true);
-						btnAgregarDescarga_1.setEnabled(false);
+						
+						
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 				}
 			}
 		});

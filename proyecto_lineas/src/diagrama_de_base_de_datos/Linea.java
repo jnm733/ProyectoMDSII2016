@@ -156,6 +156,8 @@ public class Linea implements Serializable {
 		return ORM_pertenece;
 	}
 	
+	
+	
 	public final diagrama_de_base_de_datos.ParadaSetCollection pertenece = new diagrama_de_base_de_datos.ParadaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PERTENECE, diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_CONTIENE, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	private void setORM_Es_usada(java.util.Set value) {

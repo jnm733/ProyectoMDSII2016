@@ -83,10 +83,12 @@ public class Lineas extends JPanel {
 	public JTextField txtFrecuencia;
 	public vincularParadas vincularParadas;
 	
+	public BD_Principal bd_principal;
 	public IAdministrador bd;
 	
 	
 	public Lineas(){
+		bd_principal = new BD_Principal();
 		if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
@@ -159,25 +161,25 @@ public class Lineas extends JPanel {
 				Object[] select = listLineas.getSelectedValues();
 				
 					// Preparamos la consulta
-					
+					//TODO
 					try {
 						if (!select[0].equals("Nueva linea")) {
 							// Obtenemos la linea elegida
-							/*s = conexion.createStatement();
-							ResultSet rs = s
-									.executeQuery("select numeroLinea,horario,recorrido,tiempopaso,tarifa from ilineas where nombreLinea = '"
-											+ select[0] + "'");
-							while (rs.next()) {
-								txtNombreLinea.setText("" + select[0]);
-								numero = rs.getString(1);
-								txtNumeroLinea.setText(rs.getString(1));
-								textAreaHorario.setText(rs.getString(2));
-								txtRecorrido.setText(rs.getString(3));
-								tiempoPaso = rs.getString(4);
-								txtFrecuencia.setText(tiempoPaso + " minutos");
-								txtTarifa.setText(rs.getString(5));
-							}
-
+							Linea linea = bd_principal.getLinea(select[0].toString());
+								txtNombreLinea.setText(linea.getNombreLinea());
+								txtNumeroLinea.setText(linea.getNumeroLinea());
+								textAreaHorario.setText(linea.getHorario());
+								txtRecorrido.setText(linea.getRecorrido());
+								//txtFrecuencia.setText(linea.);
+								txtTarifa.setText(linea.getTarifaLinea().toString());
+								
+								btnEliminarLinea.setEnabled(true);
+								btnConsultarEvento.setEnabled(true);
+								btnConsultarParada.setEnabled(true);
+								btnConsultarPunto.setEnabled(true);
+								btnVincularParada.setEnabled(true);
+								btnIncluirLinea.setEnabled(false);
+/*
 							// Obtenemos las paradas asociadas a esa linea
 							s = conexion.createStatement();
 							rs = s.executeQuery("select * from ilineas_iparadas where ilineasnumerolinea = "
@@ -193,15 +195,16 @@ public class Lineas extends JPanel {
 							txtRecorrido.setText("Recorrido");
 							txtTarifa.setText("Tarifa");
 							txtFrecuencia.setText("Frecuencia");
-							listParadas
-									.setModel(new DefaultListModel<String>());
-							listEventos
-									.setModel(new DefaultListModel<String>());
-							listPtosInteres
-									.setModel(new DefaultListModel<String>());
+							
+							btnEliminarLinea.setEnabled(false);
+							btnConsultarEvento.setEnabled(false);
+							btnConsultarParada.setEnabled(false);
+							btnConsultarPunto.setEnabled(false);
+							btnVincularParada.setEnabled(false);
+							btnIncluirLinea.setEnabled(true);
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 
@@ -217,7 +220,11 @@ public class Lineas extends JPanel {
 				SpringLayout.EAST, panel);
 
 		DefaultListModel<String> model = new DefaultListModel<>();
-		
+		Linea[] lineas = bd_principal.getLineas();
+		for(int i = 0; i < lineas.length;i++){
+			model.addElement(lineas[i].getNombreLinea());
+		}
+		listLineas.setModel(model);
 		
 		servicios.btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -353,7 +360,7 @@ public class Lineas extends JPanel {
 				SpringLayout.SOUTH, lblTarifa);
 		sl_panel_1.putConstraint(SpringLayout.WEST, txtTarifa, 0,
 				SpringLayout.WEST, lblNewLabel);
-		txtTarifa.setText("Tarifa");
+		txtTarifa.setText("1.05");
 		panel_1.add(txtTarifa);
 		txtTarifa.setColumns(10);
 
@@ -725,7 +732,7 @@ public class Lineas extends JPanel {
 				txtTarifa.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent arg0) {
-						if (txtTarifa.getText().equals("Tarifa")) {
+						if (txtTarifa.getText().equals("1.05")) {
 							txtTarifa.setText("");
 						}
 					}
@@ -733,7 +740,7 @@ public class Lineas extends JPanel {
 					@Override
 					public void focusLost(FocusEvent arg0) {
 						if (txtTarifa.getText().equals("")) {
-							txtTarifa.setText("Tarifa");
+							txtTarifa.setText("1.05");
 						}
 					}
 				});
@@ -797,9 +804,9 @@ public class Lineas extends JPanel {
 							datos.add(txtFrecuencia.getText());
 							
 							try {
-								BD_Lineas lineas = new BD_Lineas();
-								lineas.addLinea(datos);
-								boolean exito = bd.incluirLinea(datos);
+								int frec = Integer.parseInt(txtFrecuencia.getText());
+								double tar = Double.parseDouble(txtTarifa.getText());
+								bd_principal.incluirLinea(datos);
 								if (bd.incluirLinea(datos)) {
 									model = (DefaultListModel<String>) listLineas.getModel();
 									model.removeElement("Nueva linea");
@@ -808,8 +815,10 @@ public class Lineas extends JPanel {
 									listLineas.setModel(model);
 								}
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								JOptionPane.showMessageDialog(null,
+										"Frecuencia y tarifa deben ser valores numericos",
+										"Error", JOptionPane.ERROR_MESSAGE);
+								//e.printStackTrace();
 							}
 						}
 					}

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.persistence.Id;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import org.orm.PersistentException;
 
 import diagrama_de_base_de_datos.Parada;
+import diagrama_de_base_de_datos.PuntoInteres;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -43,7 +45,7 @@ public class vincularParadas extends JFrame {
 	public String key;
 	public int tipoInt;
 	private JTextField txtId;
-	private BD_Paradas bd_paradas;	
+	private BD_Principal bd_principal;
 	/**
 	 * Create the frame.
 	 * 
@@ -52,6 +54,8 @@ public class vincularParadas extends JFrame {
 	public vincularParadas(String key, JList listParadas) {
 
 		this.key = key;
+		
+		bd_principal = new BD_Principal();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 480, 400);
@@ -64,7 +68,7 @@ public class vincularParadas extends JFrame {
 		SpringLayout springLayout = (SpringLayout) vincular.getLayout();
 		contentPane.add(vincular);
 
-		bd_paradas = new BD_Paradas();
+		
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		
 		if (listParadas.getModel().getSize() > 0) {
@@ -73,13 +77,13 @@ public class vincularParadas extends JFrame {
 		} else {
 			Parada[] arrPar = null;
 			try {
-				arrPar = bd_paradas.getParadas();
+				arrPar = bd_principal.getParadas();
 				
 				for(int i = 0; i < arrPar.length;i++){
 					model.addElement(arrPar[i].getNombreParada());
 				}
 				vincular.listExcluidos.setModel(model);
-			} catch (PersistentException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -92,9 +96,40 @@ public class vincularParadas extends JFrame {
 
 		vincular.btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
-				Object[] select = vincular.listIncluidos.getSelectedValues();
+				PuntoInteres puntoInteres = null;
+				puntoInteres = bd_principal.getPtoInteres(key);
 				
+				Parada parada = null;
+				
+				if(vincular.listIncluidos.getModel().getSize()>0){
+					modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
+				}else{
+					modelIncluidos = new DefaultListModel<String>();
+				}
+				
+				if(vincular.listExcluidos.getModel().getSize()>0){
+					modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
+				}else{
+					modelExcluidos = new DefaultListModel<String>();
+				}
+				
+				int[] select = vincular.listIncluidos.getSelectedIndices();
+				for(int i = 0; i < select.length;i++){
+					//Sacamos de la lista de excluidos
+					modelExcluidos.addElement(modelIncluidos.get(select[i]));
+					
+					//Obtenemos la parada
+					parada = bd_principal.getParada(modelIncluidos.get(select[i]));
+					
+					//Añadimos en la base de datos
+					//bd_principal.vincularPntoInteres(evento.getID(),parada.getID());
+				}
+				for(int i = 0; i < modelExcluidos.getSize();i++){
+					//Metemos en la lista de incluidos
+					modelIncluidos.removeElement(modelExcluidos.getElementAt(i));
+				}
+				vincular.listIncluidos.setModel(modelIncluidos);
+				vincular.listExcluidos.setModel(modelExcluidos);
 			}
 		});
 		
@@ -135,7 +170,7 @@ public class vincularParadas extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		/*if(tipo.equals("linea")){
+		
 			txtDistancia = new JTextField();
 			txtDistancia.addFocusListener(new FocusAdapter() {
 				@Override
@@ -207,7 +242,26 @@ public class vincularParadas extends JFrame {
 			txtId.setText("Id");
 			vincular.add(txtId);
 			txtId.setColumns(10);
-		}*/
 		
+			vincular.btnVolver.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ArrayList<String> arrIn =new ArrayList<String>();
+					ArrayList<String> arrEx = new ArrayList<String>();
+					if(modelIncluidos != null){
+						for (int i = 0; i < modelIncluidos.size(); i++) {
+							arrIn.add(modelIncluidos.get(i));
+						}
+					}
+					
+					if(modelExcluidos != null){
+						for (int i = 0; i < modelExcluidos.size(); i++) {
+							arrEx.add(modelExcluidos.get(i));
+						}
+					}
+					
+					bd_principal.vincularParada(arrIn, arrEx,key);
+				}
+			});
 	}
 }
