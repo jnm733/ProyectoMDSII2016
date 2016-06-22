@@ -132,7 +132,6 @@ public class UsuarioAdministrador extends JFrame{
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (cabeceraAdministrador.btnVistaUsuario.isEnabled()) {
-							//TODO
 							panelDescargasAdmin();
 						} else {
 							panelDescarga();
@@ -180,13 +179,13 @@ public class UsuarioAdministrador extends JFrame{
 		cabeceraAdministrador.btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO
-				/*contentPane.remove(cabeceraAdministrador);
-				cabeceraInvitado();
+				dispose();
+				UsuarioInvitado.main(null);
 				if (recordar) {
-					cabeceraInvitado.txtUsuario.setText(Index.this.usuario);
-					cabeceraInvitado.passwordField.setText(password);
+					//cabeceraInvitado.txtUsuario.setText(Index.this.usuario);
+					//cabeceraInvitado.passwordField.setText(password);
 				}
-				repaint();*/
+				//repaint();
 			}
 		});
 
@@ -204,18 +203,7 @@ public class UsuarioAdministrador extends JFrame{
 								.setEnabled(true);
 					}
 				});
-		//TODO
-		/*cabeceraAdministrador.cabeceraComun.btnDescargas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
-						cabeceraAdministrador.btnPagoDeServicios
-								.setEnabled(true);
-						descarga = new Descargas();
-						descarga.descargasAdmin();
-						
-					}
-				});*/
+
 
 		panelLineasAdmin();
 		

@@ -106,7 +106,6 @@ public class Descargas extends JPanel {
 				model.addElement(descargas[i].getTituloDescarga());
 			}
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		listDescarga.setModel(model);
@@ -153,7 +152,6 @@ public class Descargas extends JPanel {
 				if (select.length > 0) {
 					Descarga descarga = bd_principal.getDescarga(select[0].toString());
 					ComenzarDescarga comenzarDescarga= new ComenzarDescarga(descarga); 
-					// TODO 
 					jFrame = new JFrame();
 					jFrame.setTitle("Descargar");
 					jFrame.setBounds(300, 300, 520, 305);

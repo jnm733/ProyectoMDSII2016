@@ -39,6 +39,7 @@ public class UsuarioInvitado extends JFrame {
 	public String usuario;
 	public String password;
 	public boolean recordar;
+	public CalcularRutaInvitado calcularRuta;
 	
 	/**
 	 * Launch the application.
@@ -77,12 +78,12 @@ public class UsuarioInvitado extends JFrame {
 		contentPane.removeAll();
 		cabeceraInvitado = new CabeceraInvitado();
 		// Calcular Ruta
-		/*cabeceraInvitado.cabeceraComun.btnCalcularRuta
+		cabeceraInvitado.cabeceraComun.btnCalcularRuta
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						panelCalcularRuta();
 					}
-				});*/
+				});
 		// Servicios
 		cabeceraInvitado.cabeceraComun.btnServicios
 				.addActionListener(new ActionListener() {
@@ -98,7 +99,7 @@ public class UsuarioInvitado extends JFrame {
 					}
 				});
 		// Identificarse
-		/*cabeceraInvitado.btnIdentificarse
+		cabeceraInvitado.btnIdentificarse
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						usuario = cabeceraInvitado.txtUsuario.getText();
@@ -107,8 +108,10 @@ public class UsuarioInvitado extends JFrame {
 							recordar = true;
 						}
 						
+						
+						
 					}
-				});*/
+				});
 		// Añadir al panel
 		layout.putConstraint(SpringLayout.NORTH, cabeceraInvitado, 0,
 				SpringLayout.NORTH, contentPane);
@@ -157,15 +160,15 @@ public class UsuarioInvitado extends JFrame {
 		repaint();
 	}
 	
-	/*public void panelCalcularRuta() {
+	public void panelCalcularRuta() {
 		panel.removeAll();
 
-		calcularRuta = new CalcularRuta();
+		calcularRuta = new CalcularRutaInvitado();
 
 		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-					panelSolucion();	
+					//panelSolucion();	
 				
 			}
 		});
@@ -174,7 +177,7 @@ public class UsuarioInvitado extends JFrame {
 		panel.repaint();
 		panel.updateUI();
 		repaint();
-	}*/
+	}
 
 	/*public void panelCalcularRutaUsuario() {
 		// TODO borrar
@@ -226,16 +229,6 @@ public class UsuarioInvitado extends JFrame {
 		repaint();
 	}
 
-	/*public void panelPagoServicios() {
-		panel.removeAll();
-
-		panel.add(new PagoServicios());
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}*/
-
 	public void panelParadas() {
 		panel.removeAll();
 
@@ -254,185 +247,7 @@ public class UsuarioInvitado extends JFrame {
 		repaint();
 	}
 
-	/*public void panelLineasAdmin() {
-		panel.removeAll();
-
-		lineasAdmin = new LineasAdmin();
-		panel.add(lineasAdmin);
-		lineasAdmin.lineas.servicios.btnPtosInteres
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelPtosInteres();
-					}
-				});
-		lineasAdmin.lineas.servicios.btnParadas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelParadasAdmin();
-					}
-				});
-		lineasAdmin.lineas.servicios.btnEventos
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelEventos();
-					}
-				});
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}*/
-
-	/*public void panelParadasAdmin() {
-		panel.removeAll();
-
-		paradasAdmin = new ParadasAdmin();
-		panel.add(paradasAdmin);
-
-		paradasAdmin.paradas.servicios.btnLineas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelLineasAdmin();
-					}
-				});
-		paradasAdmin.paradas.servicios.btnPtosInteres
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelPtosInteres();
-					}
-				});
-		paradasAdmin.paradas.servicios.btnEventos
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelEventos();
-					}
-				});
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}*/
-/*
-	public void panelPtosInteres() {
-		panel.removeAll();
-
-		ptosInteres = new PtosInteresAdmin();
-		panel.add(ptosInteres);
-
-		ptosInteres.servicios.btnLineas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelLineasAdmin();
-			}
-		});
-		ptosInteres.btnVincularParadas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ptosInteres.vincularParadas = new VincularParadas("punto",ptosInteres.txtNombre.getText(),
-						ptosInteres.listParadas);
-				jFrame = new JFrame();
-				jFrame.setTitle("Vincular Paradas");
-				jFrame.setBounds(300, 300, 520, 305);
-				jFrame.getContentPane().add(ptosInteres.vincularParadas.contentPane);
-				jFrame.setVisible(true);
-				ptosInteres.vincularParadas.vincular.btnVolver
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								ptosInteres.listParadas
-										.setModel(ptosInteres.vincularParadas.vincular.listIncluidos
-												.getModel());
-								if(ptosInteres.listParadas.getModel().getSize()>0){
-									ptosInteres.txtParadaCercana.setText(""+ptosInteres.listParadas.getModel().getElementAt(0));
-								}
-								jFrame.dispose();
-							}
-						});
-				ptosInteres.vincularParadas.btnCrearParada
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								panelParadasAdmin();
-								jFrame.dispose();
-							}
-						});
-			}
-
-		});
-		ptosInteres.servicios.btnParadas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelParadasAdmin();
-					}
-				});
-		ptosInteres.servicios.btnEventos
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelEventos();
-					}
-				});
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}*/
-/*
-	public void panelEventos() {
-		panel.removeAll();
-
-		eventosAdmin = new EventosAdmin();
-		panel.add(eventosAdmin);
-
-		eventosAdmin.servicios.btnLineas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelLineasAdmin();
-					}
-				});
-		eventosAdmin.servicios.btnParadas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelParadasAdmin();
-					}
-				});
-		eventosAdmin.servicios.btnPtosInteres
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelPtosInteres();
-					}
-				});
-		eventosAdmin.btnVincularParadas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				eventosAdmin.vincularParadas = new VincularParadas("evento",eventosAdmin.txtNombre.getText(),
-						eventosAdmin.listParadas);
-				jFrame = new JFrame();
-				jFrame.setTitle("Vincular Paradas");
-				jFrame.setBounds(300, 300, 520, 305);
-				jFrame.getContentPane().add(eventosAdmin.vincularParadas.contentPane);
-				jFrame.setVisible(true);
-				eventosAdmin.vincularParadas.vincular.btnVolver
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								eventosAdmin.listParadas
-										.setModel(eventosAdmin.vincularParadas.vincular.listIncluidos
-												.getModel());
-								if(eventosAdmin.listParadas.getModel().getSize()>0){
-									eventosAdmin.txtParadaCercana.setText(""+eventosAdmin.listParadas.getModel().getElementAt(0));
-								}
-								jFrame.dispose();
-							}
-						});
-				eventosAdmin.vincularParadas.btnCrearParada
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								panelParadasAdmin();
-								jFrame.dispose();
-							}
-						});
-			}
-
-		});
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}*/
+	
 /*
 	public void panelSolucion() {
 		if (calcularRuta.exito) {
