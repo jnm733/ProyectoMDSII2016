@@ -773,6 +773,7 @@ public class Lineas extends JPanel {
 				// algo sin completar
 				btnIncluirLinea.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+	
 						ArrayList<String> datos = new ArrayList<String>();
 						if (txtNumeroLinea.getText().equals("Numero Linea")) {
 							JOptionPane.showMessageDialog(null,
@@ -813,12 +814,15 @@ public class Lineas extends JPanel {
 									model.addElement(txtNombreLinea.getText());
 									model.addElement("Nueva linea");
 									listLineas.setModel(model);
+									
+									JOptionPane.showMessageDialog(null,
+											"Línea incluida con éxito",
+											"Exito", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e) {
 								JOptionPane.showMessageDialog(null,
 										"Frecuencia y tarifa deben ser valores numericos",
 										"Error", JOptionPane.ERROR_MESSAGE);
-								//e.printStackTrace();
 							}
 						}
 					}

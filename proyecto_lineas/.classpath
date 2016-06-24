@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="img"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/orm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Carlos/Desktop/Nueva carpeta (2)/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Carlos/git/ProyectoMDSII2016/proyecto_lineas/lib/hibernate3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

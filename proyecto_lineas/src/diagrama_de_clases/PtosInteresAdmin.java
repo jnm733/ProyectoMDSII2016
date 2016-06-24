@@ -143,7 +143,6 @@ public class PtosInteresAdmin extends JPanel{
 			model.addElement("Nuevo punto");
 			listPtos.setModel(model);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -187,7 +186,6 @@ public class PtosInteresAdmin extends JPanel{
 					}
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -337,6 +335,9 @@ public class PtosInteresAdmin extends JPanel{
 					datos.add(txtParadaCercana.getText());
 					incluirPtoInteres();
 					
+					JOptionPane.showMessageDialog(null,
+							"Punto incluido con éxito",
+							"Exito", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -351,12 +352,10 @@ public class PtosInteresAdmin extends JPanel{
 
 		});
 		
-		//lineasAdmin();
-		//servicios.btnLineas.setEnabled(false);
-		//servicios.btnParadas.setEnabled(true);
 	}
 	
 	public void borrarPtoInteres() {
+		//TODO
 		throw new UnsupportedOperationException();
 	}
 
@@ -374,7 +373,6 @@ public class PtosInteresAdmin extends JPanel{
 			}
 			puntoInteres = bd_principal.getPtoInteres(id);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -392,7 +390,6 @@ public class PtosInteresAdmin extends JPanel{
 			model.addElement("Nuevo Punto");
 			listPtos.setModel(model);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

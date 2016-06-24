@@ -534,8 +534,8 @@ public class Paradas extends JPanel{
 				}
 			}
 		});
-		
-		btnIncluirParada.addActionListener(new ActionListener() {
+		//Acción boton incluir linea
+			btnIncluirParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (txtNombreParada.getText().equals("Nombre Parada")) {
 					JOptionPane.showMessageDialog(null,
@@ -562,6 +562,10 @@ public class Paradas extends JPanel{
 						model.addElement(txtNombreParada.getText());
 						model.addElement("Nueva parada");
 						listParadas.setModel(model);
+						
+						JOptionPane.showMessageDialog(null,
+								"Parada incluida con éxito",
+								"Exito", JOptionPane.INFORMATION_MESSAGE);
 						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

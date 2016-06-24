@@ -183,13 +183,12 @@ public class EventosAdmin extends JPanel{
 			}
 			model.addElement("Nuevo evento");
 			listEventos.setModel(model);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
+		} catch (Exception e1){
 			e1.printStackTrace();
 		}
 
 		//Accion elegir un evento
-				//TODO
 				listEventos.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
@@ -233,7 +232,6 @@ public class EventosAdmin extends JPanel{
 							}
 							
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -432,7 +430,6 @@ public class EventosAdmin extends JPanel{
 		
 		
 		//Accion incluir evento
-		
 		btnEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ok = true;
@@ -489,6 +486,10 @@ public class EventosAdmin extends JPanel{
 						model.addElement(txtNombre.getText());
 						model.addElement("Nuevo evento");
 						listEventos.setModel(model);
+						
+						JOptionPane.showMessageDialog(null,
+								"Línea incluida con éxito",
+								"Exito", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
