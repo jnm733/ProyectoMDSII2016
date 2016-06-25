@@ -1,6 +1,8 @@
 package diagrama_de_clases;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -36,6 +38,8 @@ public class UsuarioRegistrado extends JFrame{
 	public String usuario;
 	public String password;
 	public boolean recordar;
+	public CalcularRutaInvitado calcularRuta;
+	public HistorialConsultas consultaHistorial;
 	
 	/**
 	 * Launch the application.
@@ -44,7 +48,7 @@ public class UsuarioRegistrado extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UsuarioRegistrado frame = new UsuarioRegistrado();
+					UsuarioRegistrado frame = new UsuarioRegistrado("Default");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +57,7 @@ public class UsuarioRegistrado extends JFrame{
 		});
 	}
 	
-	public UsuarioRegistrado(){
+	public UsuarioRegistrado(String user){
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel();
@@ -65,10 +69,10 @@ public class UsuarioRegistrado extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		layout = new SpringLayout();
-		cabeceraRegistrado();
+		cabeceraRegistrado(user);
 	}
 	
-	public void cabeceraUsuario(String usuario) {
+	public void cabeceraRegistrado(String usuario) {
 		contentPane.removeAll();
 		cabeceraUsuario = new CabeceraUsuario(usuario);
 		cabeceraUsuario.cabeceraComun.btnCalcularRuta
@@ -102,10 +106,12 @@ public class UsuarioRegistrado extends JFrame{
 
 		cabeceraUsuario.btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cabeceraInvitado();
+				dispose();
+				UsuarioInvitado.main(null);
 				if (recordar) {
-					cabeceraInvitado.txtUsuario.setText(Index.this.usuario);
-					cabeceraInvitado.passwordField.setText(password);
+					
+					//cabeceraInvitado.txtUsuario.setText(Index.this.usuario);
+					//cabeceraInvitado.passwordField.setText(password);
 				}
 
 			}
@@ -142,5 +148,140 @@ public class UsuarioRegistrado extends JFrame{
 		repaint();
 	}
 	
+	public void panelLineas() {
+		panel.removeAll();
+		lineas = new Lineas();
+		panel.add(lineas);
+		lineas.servicios.btnParadas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelParadas();
+			}
+		});
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
 	
+	public void panelDescarga() {
+		panel.removeAll();
+		descarga = new Descargas();
+		panel.add(descarga);
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
+	
+	public void panelParadas() {
+		panel.removeAll();
+
+		paradas = new Paradas();
+		panel.add(paradas);
+		paradas.servicios.btnParadas.setEnabled(false);
+		lineas.servicios.btnLineas.setEnabled(true);
+		paradas.servicios.btnLineas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelLineas();
+			}
+		});
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
+	
+	public void panelPagoServicios() {
+		panel.removeAll();
+
+		panel.add(new PagoServicios());
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
+	
+	public void panelCalcularRutaUsuario() {
+		// TODO borrar
+		//usuario = "admin";
+		panelCalcularRuta();
+		calcularRuta.usuario();
+		calcularRuta.btnConsultarHistorial
+				.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						consultaHistorial = new HistorialConsultas(usuario);
+						jFrame = new JFrame();
+						jFrame.setTitle("Historial de consultas");
+						jFrame.setBounds(300, 300, 520, 305);
+						jFrame.getContentPane().add(
+								consultaHistorial.contentPane);
+						jFrame.setVisible(true);
+						consultaHistorial.btnCancelar
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										jFrame.dispose();
+									}
+								});
+						consultaHistorial.btnConsultar
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										String origen = consultaHistorial.txtOrigen
+												.getText();
+										calcularRuta.txtOrigen.setText(origen);
+										String destino = consultaHistorial.txtDestino
+												.getText();
+										calcularRuta.txtDestino
+												.setText(destino);
+										jFrame.dispose();
+										calcularRuta.btnConsultar.doClick();
+										panelSolucion();
+									}
+								});
+					}
+				});
+	}
+	
+	public void panelSolucion() {
+		if (calcularRuta.exito) {
+			panel.removeAll();
+
+			String usuario = "invitado";
+			if (cabeceraUsuario != null) {
+				usuario = cabeceraUsuario.getUsuario();
+			}
+
+			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
+					calcularRuta.nDestino, usuario, calcularRuta.hora,
+					calcularRuta.txtConsulta.getText());
+			solucion.btnVolver.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+						panelCalcularRutaUsuario();
+				}
+			});
+			panel.add(solucion);
+
+			panel.repaint();
+			panel.updateUI();
+			repaint();
+		}
+
+	}
+	
+	public void panelCalcularRuta() {
+		panel.removeAll();
+
+		calcularRuta = new CalcularRutaInvitado();
+
+		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+					//panelSolucion();	
+				
+			}
+		});
+		panel.add(calcularRuta);
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
 }

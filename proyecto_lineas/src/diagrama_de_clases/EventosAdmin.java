@@ -55,7 +55,6 @@ public class EventosAdmin extends JPanel{
 	private JTextField txtFechaInicio;
 	public JTextField txtNombre;
 	public JTextField txtParadaCercana;
-	
 	public vincularEventos vincularParadas;
 
 	/**
@@ -197,8 +196,8 @@ public class EventosAdmin extends JPanel{
 						try {
 							if(select[0].equals("Nuevo evento")){
 								txtNombre.setText("Nombre");
-								txtFechaFin.setText("Fecha de fin");
-								txtFechaInicio.setText("Fecha inicio");
+								txtFechaFin.setText("Fecha de Fin");
+								txtFechaInicio.setText("Fecha Inicio");
 								txtDireccion.setText("Direccion");
 								txtParadaCercana.setText("Parada Cercana");
 								
@@ -243,8 +242,11 @@ public class EventosAdmin extends JPanel{
 		
 		btnEliminarEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
 				Object[] select = listEventos.getSelectedValues();
+				borrarEvento(select[0].toString());
+				DefaultListModel<String> model = (DefaultListModel<String>) listEventos.getModel();
+				model.removeElement(select[0].toString());
+				listEventos.setModel(model);
 				
 			}
 		});
@@ -292,6 +294,20 @@ public class EventosAdmin extends JPanel{
 				SpringLayout.WEST, txtNombre);
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
+		
+		txtDireccion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtDireccion.getText().equals("Direccion")){
+					txtDireccion.setText("");
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if(txtDireccion.getText().equals("")){
+					txtDireccion.setText("Direccion");
+				}
+			}
+		});
 
 		//Informacion
 		
@@ -329,7 +345,7 @@ public class EventosAdmin extends JPanel{
 		sl_panel.putConstraint(SpringLayout.NORTH, lblFechaFin, 3, SpringLayout.NORTH, txtFechaFin);
 		sl_panel.putConstraint(SpringLayout.NORTH, txtFechaFin, 21, SpringLayout.SOUTH, txtFechaInicio);
 		sl_panel.putConstraint(SpringLayout.WEST, txtFechaFin, 0, SpringLayout.WEST, txtNombre);
-		txtFechaFin.setText("Fecha Fin");
+		txtFechaFin.setText("Fecha de Fin");
 		panel.add(txtFechaFin);
 		txtFechaFin.setColumns(10);
 
@@ -338,11 +354,10 @@ public class EventosAdmin extends JPanel{
 		txtParadaCercana = new JTextField();
 		sl_panel.putConstraint(SpringLayout.WEST, txtParadaCercana, 0,
 				SpringLayout.WEST, txtNombre);
-		txtParadaCercana.setText("Parada cercana");
+		txtParadaCercana.setText("Parada Cercana");
 		panel.add(txtParadaCercana);
 		txtParadaCercana.setColumns(10);
 		
-
 		lblParada = new JLabel("Parada");
 		sl_panel.putConstraint(SpringLayout.NORTH, lblFechaInicio, 40,
 				SpringLayout.SOUTH, lblParada);
@@ -353,10 +368,6 @@ public class EventosAdmin extends JPanel{
 		sl_panel.putConstraint(SpringLayout.WEST, lblParada, 0,
 				SpringLayout.WEST, lblNombre);
 		panel.add(lblParada);
-
-		//Creo que no sirve
-		//model = new DefaultListModel<>();
-		
 		
 		txtNombre.addFocusListener(new FocusAdapter() {
 			@Override
@@ -372,30 +383,16 @@ public class EventosAdmin extends JPanel{
 			}
 		});
 		
-		txtDireccion.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if(txtDireccion.getText().equals("Direccion")){
-					txtDireccion.setText("");
-				}
-			}
-			public void focusLost(FocusEvent e) {
-				if(txtDireccion.getText().equals("")){
-					txtDireccion.setText("Direccion");
-				}
-			}
-		});
-		
 		txtParadaCercana.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtParadaCercana.getText().equals("Parada cercana")){
+				if(txtParadaCercana.getText().equals("Parada Cercana")){
 					txtParadaCercana.setText("");
 				}
 			}
 			public void focusLost(FocusEvent e) {
 				if(txtParadaCercana.getText().equals("")){
-					txtParadaCercana.setText("Parada cercana");
+					txtParadaCercana.setText("Parada Cercana");
 				}
 			}
 		});
@@ -417,13 +414,13 @@ public class EventosAdmin extends JPanel{
 		txtFechaFin.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtFechaFin.getText().equals("Fecha Fin")){
+				if(txtFechaFin.getText().equals("Fecha de Fin")){
 					txtFechaFin.setText("");
 				}
 			}
 			public void focusLost(FocusEvent e) {
 				if(txtFechaFin.getText().equals("")){
-					txtFechaFin.setText("Fecha Fin");
+					txtFechaFin.setText("Fecha de Fin");
 				}
 			}
 		});
@@ -480,21 +477,17 @@ public class EventosAdmin extends JPanel{
 						datos.add(txtFechaInicio.getText());
 						datos.add(txtFechaFin.getText());
 						incluirEvento();
-
-						model = (DefaultListModel<String>) listEventos.getModel();
-						model.removeElement("Nuevo Evento");
-						model.addElement(txtNombre.getText());
-						model.addElement("Nuevo evento");
-						listEventos.setModel(model);
 						
 						JOptionPane.showMessageDialog(null,
-								"Línea incluida con éxito",
+								"Evento incluido con éxito",
 								"Exito", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
 		});
 		
+		
+		//Accion boton vincular paradas
 		btnVincularParadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vincularEventos vincular = new vincularEventos(txtNombre.getText(),
@@ -503,13 +496,11 @@ public class EventosAdmin extends JPanel{
 			}
 
 		});
-		// lineasAdmin();
-		// servicios.btnLineas.setEnabled(false);
-		// servicios.btnParadas.setEnabled(true);
 	}
 	
-	public void borrarEvento() {
-		throw new UnsupportedOperationException();
+	public void borrarEvento(String nombre) {
+		Evento evento = bd_principal.getEvento(nombre);
+		bd_principal.borrarEvento(evento);
 	}
 
 	public Evento consultarEvento(String aNombre) {
@@ -538,10 +529,10 @@ public class EventosAdmin extends JPanel{
 			evento.incluirEvento(datos);
 			
 			model = (DefaultListModel<String>) listEventos.getModel();
-			model.removeElement("Nueva parada");
+			model.removeElement("Nuevo evento");
 			model.addElement(txtNombre.getText());
-			model.addElement("Nueva parada");
-			listParadas.setModel(model);
+			model.addElement("Nuevo evento");
+			listEventos.setModel(model);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 		}

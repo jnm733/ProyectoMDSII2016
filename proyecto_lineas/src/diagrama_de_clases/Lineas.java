@@ -173,12 +173,15 @@ public class Lineas extends JPanel {
 								//txtFrecuencia.setText(linea.);
 								txtTarifa.setText(linea.getTarifaLinea().toString());
 								
-								btnEliminarLinea.setEnabled(true);
-								btnConsultarEvento.setEnabled(true);
-								btnConsultarParada.setEnabled(true);
-								btnConsultarPunto.setEnabled(true);
-								btnVincularParada.setEnabled(true);
-								btnIncluirLinea.setEnabled(false);
+								try {
+									btnEliminarLinea.setEnabled(true);
+									btnConsultarEvento.setEnabled(true);
+									btnConsultarParada.setEnabled(true);
+									btnConsultarPunto.setEnabled(true);
+									btnVincularParada.setEnabled(true);
+									btnIncluirLinea.setEnabled(false);
+								} catch (Exception e) {}
+								
 /*
 							// Obtenemos las paradas asociadas a esa linea
 							s = conexion.createStatement();
@@ -196,12 +199,15 @@ public class Lineas extends JPanel {
 							txtTarifa.setText("Tarifa");
 							txtFrecuencia.setText("Frecuencia");
 							
-							btnEliminarLinea.setEnabled(false);
-							btnConsultarEvento.setEnabled(false);
-							btnConsultarParada.setEnabled(false);
-							btnConsultarPunto.setEnabled(false);
-							btnVincularParada.setEnabled(false);
-							btnIncluirLinea.setEnabled(true);
+							try {
+								btnEliminarLinea.setEnabled(false);
+								btnConsultarEvento.setEnabled(false);
+								btnConsultarParada.setEnabled(false);
+								btnConsultarPunto.setEnabled(false);
+								btnVincularParada.setEnabled(false);
+								btnIncluirLinea.setEnabled(true);
+							} catch (Exception e) {}
+							
 						}
 					} catch (Exception e) {
 						
@@ -631,12 +637,7 @@ public class Lineas extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 						// TODO
 						Object[] select = listLineas.getSelectedValues();
-						try {
-							bd.borrarLinea("0");
-						} catch (RemoteException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						
 					}
 				});
 

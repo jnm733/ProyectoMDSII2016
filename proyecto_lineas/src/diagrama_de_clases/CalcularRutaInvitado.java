@@ -419,6 +419,15 @@ public class CalcularRutaInvitado extends JPanel{
 			add(btnConsultar);
 	}
 	
+	//TODO Traspasar a calcular ruta usuario
+	public void usuario(){
+		btnConsultarHistorial = new JButton("Consultar Historial");
+		sl_panel_3.putConstraint(SpringLayout.NORTH, btnConsultarHistorial, 17, SpringLayout.SOUTH, txtConsulta);
+		sl_panel_3.putConstraint(SpringLayout.WEST, btnConsultarHistorial, 0, SpringLayout.WEST, lblConsultarPorId);
+		sl_panel_3.putConstraint(SpringLayout.EAST, btnConsultarHistorial, -335, SpringLayout.EAST, panel_3);
+		panel_3.add(btnConsultarHistorial);
+	}
+	
 	public void consultarID() {
 		throw new UnsupportedOperationException();
 	}

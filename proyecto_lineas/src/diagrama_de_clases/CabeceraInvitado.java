@@ -102,7 +102,6 @@ public class CabeceraInvitado extends CabeceraComun {
 	
 		
 		btnRegistrarse.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
 				registrarse = new Registrarse();
 				jFrame = new JFrame();
@@ -113,6 +112,14 @@ public class CabeceraInvitado extends CabeceraComun {
 				registrarse.btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						jFrame.dispose();
+					}
+				});
+				registrarse.btnRegistrarse.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						registrarse.registrarse();
+						if(registrarse.exito){
+							jFrame.dispose();
+						}
 					}
 				});
 			}

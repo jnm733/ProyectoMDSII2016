@@ -13,7 +13,7 @@ import org.orm.PersistentTransaction;
 import diagrama_de_base_de_datos.*;
 
 public class BD_PuntosInteres {
-	public BD_Principal _bD_Principal;
+	public BD_Principal _bd_Principal;
 	public Vector<PuntoInteres> _cont_puntosInteres = new Vector<PuntoInteres>();
 
 	public PuntoInteres getPtoInteres(int ID)throws PersistentException {
@@ -70,8 +70,25 @@ public class BD_PuntosInteres {
 		}
 	}
 
-	public void borrarPto(String aNombre)throws PersistentException {
-		throw new UnsupportedOperationException();
+	public void borrarPto(PuntoInteres punto)throws PersistentException {
+		_bd_Principal = new BD_Principal();
+		Parada[] paradas = _bd_Principal.getParadas();
+		PuntoInteresSetCollection puntos = null;
+		
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		try {
+			for(int i = 0 ; i< paradas.length;i++){
+				puntos = paradas[i].pertenece;
+				if(puntos.contains(punto)){
+					paradas[i].pertenece.remove(punto);
+				}
+			}
+			diagrama_de_base_de_datos.PuntoInteresDAO.delete(punto);
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+		}
 	}
 	
 	

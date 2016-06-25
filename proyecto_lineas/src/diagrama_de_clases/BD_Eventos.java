@@ -92,7 +92,24 @@ public class BD_Eventos {
 		}
 	}
 
-	public void borrarEvento(String aId)throws PersistentException {
-		throw new UnsupportedOperationException();
+	public void borrarEvento(Evento evento)throws PersistentException {
+		_bd_Principal = new BD_Principal();
+		Parada[] paradas = _bd_Principal.getParadas();
+		EventoSetCollection eventos = null;
+		
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		try {
+			for(int i = 0 ; i< paradas.length;i++){
+				eventos = paradas[i].evento_pertenece;
+				if(eventos.contains(evento)){
+					paradas[i].evento_pertenece.remove(evento);
+				}
+			}
+			diagrama_de_base_de_datos.EventoDAO.delete(evento);
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+		}
 	}
 }

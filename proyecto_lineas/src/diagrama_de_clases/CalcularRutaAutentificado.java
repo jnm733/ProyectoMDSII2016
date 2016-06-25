@@ -5,12 +5,8 @@ import javax.swing.JButton;
 import diagrama_de_base_de_datos.*;
 
 public class CalcularRutaAutentificado extends CalcularRutaInvitado {
-	private JButton _historial;
-	private HistorialConsultas _attribute;
-	public HistorialConsultas _unnamed_HistorialConsultas_;
-	public CabeceraUsuario _unnamed_CabeceraUsuario_;
 
-	public void historialConsulta() {
+	public CalcularRutaAutentificado() {
 		throw new UnsupportedOperationException();
 	}
 }

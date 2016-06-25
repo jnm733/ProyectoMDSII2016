@@ -9,13 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 public class CabeceraAdministrador extends CabeceraUsuario {
+	
 	public CabeceraComun cabeceraComun;
 	public JButton btnPagoDeServicios;
 	public JButton btnVistaUsuario;
 	public JButton btnVistaAdministrador;
 	public JButton btnSalir;
 	
-	public CabeceraAdministrador() {
+	public CabeceraAdministrador(String usuario) {
+		super(usuario);
 		setBackground(Color.RED);
 		cabeceraComun = new CabeceraComun();
 		SpringLayout springLayout = new SpringLayout();

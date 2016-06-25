@@ -2,12 +2,16 @@ package diagrama_de_clases;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -26,6 +30,7 @@ public class Registrarse extends JFrame{
 	public Usuario iUsuarios;
 	public boolean exito;
 	IAdministrador bd;
+	BD_Principal bd_principal = new BD_Principal();
 	
 public Registrarse() {
 	
@@ -64,6 +69,20 @@ public Registrarse() {
 		txtUsuario.setText("Usuario");
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
+		txtUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtUsuario.getText().equals("Usuario")){
+					txtUsuario.setText("");
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if(txtUsuario.getText().equals("")){
+					txtUsuario.setText("Usuario");
+				}
+			}
+		});
+		
 		
 		JLabel lblPassword = new JLabel("Password");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 67, SpringLayout.NORTH, contentPane);
@@ -82,22 +101,26 @@ public Registrarse() {
 		txtEmail.setText("Email");
 		txtEmail.setColumns(10);
 		contentPane.add(txtEmail);
+		txtEmail.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtEmail.getText().equals("Email")){
+					txtEmail.setText("");
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if(txtEmail.getText().equals("")){
+					txtEmail.setText("Email");
+				}
+			}
+		});
 		
 		btnCancelar = new JButton("Cancelar");
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnCancelar, 0, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, btnCancelar, -2, SpringLayout.EAST, contentPane);
 		
 		btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String usuario = txtUsuario.getText();
-				String password = passwordField.getText();
-				String email = txtEmail.getText();
-				exito = true;
-				
-				
-			}
-		});
+		
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btnRegistrarse, 0, SpringLayout.NORTH, btnCancelar);
 		sl_contentPane.putConstraint(SpringLayout.EAST, btnRegistrarse, -6, SpringLayout.WEST, btnCancelar);
 		contentPane.add(btnRegistrarse);
@@ -110,9 +133,42 @@ public Registrarse() {
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, passwordField, -2, SpringLayout.NORTH, txtEmail);
 		sl_contentPane.putConstraint(SpringLayout.EAST, passwordField, 160, SpringLayout.EAST, lblPassword);
 		contentPane.add(passwordField);
+		
+		passwordField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(passwordField.getText().equals("password")){
+					passwordField.setText("");
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if(passwordField.getText().equals("")){
+					passwordField.setText("password");
+				}
+			}
+		});
+		
 	}
 
 	public void registrarse() {
-		throw new UnsupportedOperationException();
+		String usuario = txtUsuario.getText();
+		String password = passwordField.getText();
+		String email = txtEmail.getText();
+		
+		try {
+			Usuario User = bd_principal.getUsuario(email);
+			if(User == null){
+				bd_principal.registrarse(usuario, password, email);
+				JOptionPane.showMessageDialog(null,
+						"Usuario registrado con éxito",
+						"Exito", JOptionPane.INFORMATION_MESSAGE);
+				exito = true;
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuario ya registrado","Error",JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

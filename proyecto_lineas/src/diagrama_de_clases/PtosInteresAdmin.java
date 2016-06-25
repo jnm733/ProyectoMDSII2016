@@ -199,7 +199,10 @@ public class PtosInteresAdmin extends JPanel{
 		btnEliminarPto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object[] select = listPtos.getSelectedValues();
-				//TODO
+				borrarPtoInteres(select[0].toString());
+				DefaultListModel<String> model = (DefaultListModel<String>) listPtos.getModel();
+				model.removeElement(select[0].toString());
+				listPtos.setModel(model);
 			}
 		});
 		btnEliminarPto.setEnabled(false);
@@ -318,7 +321,6 @@ public class PtosInteresAdmin extends JPanel{
 		});
 		
 		//Accion para incluir punto de interes
-		
 		btnIncluirPuntoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(txtNombre.getText().equals("Nombre")){
@@ -354,9 +356,9 @@ public class PtosInteresAdmin extends JPanel{
 		
 	}
 	
-	public void borrarPtoInteres() {
-		//TODO
-		throw new UnsupportedOperationException();
+	public void borrarPtoInteres(String nombre) {
+		PuntoInteres punto = bd_principal.getPtoInteres(nombre);
+		bd_principal.borrarPto(punto);
 	}
 
 	public PuntoInteres consultarPunto(String aNombre){
@@ -385,9 +387,9 @@ public class PtosInteresAdmin extends JPanel{
 			ptosinteres.incluirPtoInteres(datos);
 			
 			model = (DefaultListModel<String>) listPtos.getModel();
-			model.removeElement("Nuevo Punto");
+			model.removeElement("Nuevo punto");
 			model.addElement(txtNombre.getText());
-			model.addElement("Nuevo Punto");
+			model.addElement("Nuevo punto");
 			listPtos.setModel(model);
 		} catch (PersistentException e) {
 			e.printStackTrace();

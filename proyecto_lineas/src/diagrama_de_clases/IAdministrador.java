@@ -11,25 +11,29 @@ import diagrama_de_base_de_datos.*;
 public interface IAdministrador extends  Remote{
 	public boolean agregarDescargas(ArrayList<String> datos, Object archivo) throws RemoteException;
 	
-	public boolean borrarEvento(String id) throws RemoteException;
+	public boolean borrarEvento(Evento evento) throws RemoteException;
 	
-	public boolean borrarLinea(String id) throws RemoteException;
+	public boolean borrarLinea(Linea linea) throws RemoteException;
 	
-	public boolean borrarParada(String nombre) throws RemoteException;
+	public boolean borrarParada(Parada parada) throws RemoteException;
 	
-	public boolean borrarPto(String nombre) throws RemoteException;
+	public boolean borrarPto(PuntoInteres punto) throws RemoteException;
 	
 	public Descarga getDescarga(String select) throws RemoteException;
 	
 	public Descarga[] getDescargas() throws RemoteException;
 	
-	public Evento getEvento(String nombre)throws RemoteException;
+	public Evento getEvento(String nombre) throws RemoteException;
 	
 	public Evento[] getEventos() throws RemoteException;
 	
 	public Linea[] getLineas() throws RemoteException;
 	
-	public Parada[] getParadas()throws RemoteException;
+	public Parada[] getParadas() throws RemoteException;
+	
+	public Usuario[] getUsuarios() throws RemoteException;
+	
+	public Usuario getUsuario(String email) throws RemoteException;
 	
 	public PuntoInteres getPtoInteres(String nombre) throws RemoteException;
 	

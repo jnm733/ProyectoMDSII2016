@@ -179,7 +179,7 @@ public class Descargas extends JPanel {
 
 	public void descargasAdmin() {
 		DefaultListModel<String> model = (DefaultListModel<String>) listDescarga.getModel();
-		model.add(0, "Nueva Descarga");
+		model.add(model.size(), "Nueva Descarga");
 		listDescarga.setModel(model);
 
 		txtTitulo = new JTextField("Titulo");
@@ -316,6 +316,12 @@ public class Descargas extends JPanel {
 						Double tam = Double.parseDouble(txtSize.getText());
 						datos.add(txtSize.getText());
 						bd_principal.agregarDescargas(datos, null);
+						
+						model = (DefaultListModel<String>) listDescarga.getModel();
+						model.removeElement("Nueva Descarga");
+						model.addElement(txtTitulo.getText());
+						model.addElement("Nueva Descarga");
+						listDescarga.setModel(model);
 					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(null, "El tamaño debe ser un valor decimal", "Error",
 								JOptionPane.ERROR_MESSAGE);

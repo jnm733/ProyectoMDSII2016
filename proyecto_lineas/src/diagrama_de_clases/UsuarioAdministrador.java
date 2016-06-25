@@ -39,6 +39,8 @@ public class UsuarioAdministrador extends JFrame{
 	public String usuario;
 	public String password;
 	public boolean recordar;
+	public CalcularRutaInvitado calcularRuta;
+	public HistorialConsultas consultaHistorial;
 	
 	/**
 	 * Launch the application.
@@ -74,7 +76,7 @@ public class UsuarioAdministrador extends JFrame{
 	
 	public void cabeceraAdministrador() {
 		contentPane.removeAll();
-		cabeceraAdministrador = new CabeceraAdministrador();
+		cabeceraAdministrador = new CabeceraAdministrador("admin");
 		
 		layout.putConstraint(SpringLayout.NORTH, cabeceraAdministrador, 0,
 				SpringLayout.NORTH, contentPane);
@@ -94,12 +96,8 @@ public class UsuarioAdministrador extends JFrame{
 		cabeceraAdministrador.cabeceraComun.btnCalcularRuta
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//TODO
-						/*if (cabeceraAdministrador.btnVistaUsuario.isEnabled()) {
-							panelCalcularRutaUsuario();
-						} else {
-							panelCalcularRuta();
-						}*/
+						panelCalcularRutaUsuario();
+						
 					}
 				});
 		cabeceraAdministrador.btnPagoDeServicios
@@ -264,64 +262,7 @@ public class UsuarioAdministrador extends JFrame{
 		panel.updateUI();
 		repaint();
 	}
-	//TODO Descomentar
-	/*public void panelCalcularRutaUsuario() {
-		// TODO borrar
-		usuario = "admin";
-		panelCalcularRuta();
-		calcularRuta.usuario();
-		calcularRuta.btnConsultarHistorial
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						consultaHistorial = new Historial(usuario);
-						jFrame = new JFrame();
-						jFrame.setTitle("Historial de consultas");
-						jFrame.setBounds(300, 300, 520, 305);
-						jFrame.getContentPane().add(
-								consultaHistorial.contentPane);
-						jFrame.setVisible(true);
-						consultaHistorial.btnCancelar
-								.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										jFrame.dispose();
-									}
-								});
-						consultaHistorial.btnConsultar
-								.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										String origen = consultaHistorial.txtOrigen
-												.getText();
-										calcularRuta.txtOrigen.setText(origen);
-										String destino = consultaHistorial.txtDestino
-												.getText();
-										calcularRuta.txtDestino
-												.setText(destino);
-										jFrame.dispose();
-										calcularRuta.btnConsultar.doClick();
-										panelSolucion();
-									}
-								});
-					}
-				});
-	}*/
-	
-	/*public void panelCalcularRuta() {
-		panel.removeAll();
 
-		calcularRuta = new CalcularRuta();
-
-		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelSolucion();
-			}
-		});
-		panel.add(calcularRuta);
-
-		panel.repaint();
-		panel.updateUI();
-		repaint();
-	}
-	*/
 	public void panelLineas() {
 		panel.removeAll();
 		lineas = new Lineas();
@@ -557,5 +498,86 @@ public class UsuarioAdministrador extends JFrame{
 		repaint();
 	}
 	
+	public void panelCalcularRutaUsuario() {
+		panelCalcularRuta();
+		calcularRuta.usuario();
+		calcularRuta.btnConsultarHistorial
+				.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						consultaHistorial = new HistorialConsultas(usuario);
+						jFrame = new JFrame();
+						jFrame.setTitle("Historial de consultas");
+						jFrame.setBounds(300, 300, 520, 305);
+						jFrame.getContentPane().add(
+								consultaHistorial.contentPane);
+						jFrame.setVisible(true);
+						consultaHistorial.btnCancelar
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										jFrame.dispose();
+									}
+								});
+						consultaHistorial.btnConsultar
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										String origen = consultaHistorial.txtOrigen
+												.getText();
+										calcularRuta.txtOrigen.setText(origen);
+										String destino = consultaHistorial.txtDestino
+												.getText();
+										calcularRuta.txtDestino
+												.setText(destino);
+										jFrame.dispose();
+										calcularRuta.btnConsultar.doClick();
+										panelSolucion();
+									}
+								});
+					}
+				});
+	}
 	
+	public void panelSolucion() {
+		if (calcularRuta.exito) {
+			panel.removeAll();
+
+			String usuario = "invitado";
+			if (cabeceraUsuario != null) {
+				usuario = cabeceraUsuario.getUsuario();
+			}
+
+			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
+					calcularRuta.nDestino, usuario, calcularRuta.hora,
+					calcularRuta.txtConsulta.getText());
+			solucion.btnVolver.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+						panelCalcularRutaUsuario();
+				}
+			});
+			panel.add(solucion);
+
+			panel.repaint();
+			panel.updateUI();
+			repaint();
+		}
+
+	}
+	
+	public void panelCalcularRuta() {
+		panel.removeAll();
+
+		calcularRuta = new CalcularRutaInvitado();
+
+		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+					panelSolucion();	
+				
+			}
+		});
+		panel.add(calcularRuta);
+
+		panel.repaint();
+		panel.updateUI();
+		repaint();
+	}
 }

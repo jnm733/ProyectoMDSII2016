@@ -77,20 +77,20 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	}
 
 	@Override
-	public boolean borrarEvento(String id) {
+	public boolean borrarEvento(Evento evento) {
 		try {
-			return false;
+			bd_eventos.borrarEvento(evento);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
 
 	@Override
-	public boolean borrarLinea(String id) {
+	public boolean borrarLinea(Linea linea) {
 		try {
-			bd_lineas.deleteLinea(id);
+			//bd_lineas.deleteLinea(id);
+			int x = 0;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	}
 	
 	@Override
-	public boolean borrarParada(String nombre) {
+	public boolean borrarParada(Parada parada) {
 		try {
 			return false;
 		} catch (Exception e) {
@@ -110,14 +110,14 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	}
 	
 	@Override
-	public boolean borrarPto(String nombre) {
+	public boolean borrarPto(PuntoInteres punto) {
 		try {
-			return false;
+			bd_puntosInteres.borrarPto(punto);
+			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -420,9 +420,8 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	@Override
 	public boolean registrarse(String aNombre, String aPassword, String aEmail) {
 		try {
-			return false;
+			bd_usuarios.registrarse(aNombre, aPassword, aEmail);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -511,5 +510,34 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Usuario[] getUsuarios() throws RemoteException {
+		Usuario[] usuarios = null;
+		try {
+			usuarios = bd_usuarios.getUsuarios();
+		} catch (PersistentException e) {
+			e.printStackTrace();
+		}
+		return usuarios;
+	}
+
+	@Override
+	public Usuario getUsuario(String email) throws RemoteException {
+		Usuario[] usuarios = null;
+		Usuario usuario = null;
+		try {
+			usuarios = bd_usuarios.getUsuarios();
+			for(int i = 0; i < usuarios.length;i++){
+				if(usuarios[i].getEmail().equals(email)){
+					usuario = usuarios[i];
+					break;
+				}
+			}
+		} catch (Exception e) {
+			
+		}
+		return usuario;
 	}
 }

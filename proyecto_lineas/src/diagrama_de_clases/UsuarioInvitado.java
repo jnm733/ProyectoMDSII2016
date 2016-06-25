@@ -6,11 +6,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Layout;
+
+import diagrama_de_base_de_datos.Usuario;
 
 public class UsuarioInvitado extends JFrame {
 	public JPanel contentPane;
@@ -107,6 +110,15 @@ public class UsuarioInvitado extends JFrame {
 						if (cabeceraInvitado.checkRecordarme.isSelected()) {
 							recordar = true;
 						}
+						Identificarse iden = new Identificarse();
+						Usuario user = iden.identificarse(usuario, password);
+						if(user == null){
+							JOptionPane.showMessageDialog(null, "Usuario no registrado","Error",JOptionPane.ERROR_MESSAGE);
+						}else{
+							dispose();
+							UsuarioRegistrado usuario = new UsuarioRegistrado(user.getNombre());
+							usuario.main(null);
+						}
 						
 						
 						
@@ -168,7 +180,7 @@ public class UsuarioInvitado extends JFrame {
 		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-					//panelSolucion();	
+					panelSolucion();	
 				
 			}
 		});
@@ -246,9 +258,6 @@ public class UsuarioInvitado extends JFrame {
 		panel.updateUI();
 		repaint();
 	}
-
-	
-/*
 	public void panelSolucion() {
 		if (calcularRuta.exito) {
 			panel.removeAll();
@@ -258,14 +267,11 @@ public class UsuarioInvitado extends JFrame {
 				usuario = cabeceraUsuario.getUsuario();
 			}
 
-			solucion = new Solucion(calcularRuta.lineas, calcularRuta.nOrigen,
+			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
 					calcularRuta.nDestino, usuario, calcularRuta.hora,
 					calcularRuta.txtConsulta.getText());
 			solucion.btnVolver.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (Index.this.usuario == "admin")
-						panelCalcularRutaUsuario();
-					else
 						panelCalcularRuta();
 				}
 			});
@@ -276,81 +282,5 @@ public class UsuarioInvitado extends JFrame {
 			repaint();
 		}
 
-	}*/
-
-	/*
-	public void cabeceraUsuario(String usuario) {
-		contentPane.removeAll();
-		cabeceraUsuario = new CabeceraUsuario(usuario);
-		cabeceraUsuario.cabeceraComun.btnCalcularRuta
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						panelCalcularRutaUsuario();
-					}
-				});
-
-		cabeceraUsuario.cabeceraComun.btnServicios
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelLineas();
-					}
-				});
-
-		cabeceraUsuario.cabeceraComun.btnServicios.setEnabled(false);
-		cabeceraUsuario.cabeceraComun.btnDescargas
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelDescarga();
-					}
-				});
-
-		cabeceraUsuario.btnPagoServicios
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panelPagoServicios();
-					}
-				});
-
-		cabeceraUsuario.btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cabeceraInvitado();
-				if (recordar) {
-					cabeceraInvitado.txtUsuario.setText(Index.this.usuario);
-					cabeceraInvitado.passwordField.setText(password);
-				}
-
-			}
-		});
-		layout.putConstraint(SpringLayout.NORTH, cabeceraUsuario, 0,
-				SpringLayout.NORTH, contentPane);
-		layout.putConstraint(SpringLayout.WEST, cabeceraUsuario, 0,
-				SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, cabeceraUsuario, 102,
-				SpringLayout.NORTH, contentPane);
-		layout.putConstraint(SpringLayout.EAST, cabeceraUsuario, 924,
-				SpringLayout.WEST, contentPane);
-		contentPane.add(cabeceraUsuario);
-
-		contentPane.setLayout(layout);
-
-		// Se coloca en el JFrame
-
-		layout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.SOUTH,
-				cabeceraUsuario);
-		layout.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST,
-				contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, panel, 495,
-				SpringLayout.SOUTH, cabeceraUsuario);
-		layout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST,
-				cabeceraUsuario);
-		contentPane.add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-
-		panelLineas();
-
-		contentPane.repaint();
-		contentPane.updateUI();
-		repaint();
 	}
-	*/
 }
