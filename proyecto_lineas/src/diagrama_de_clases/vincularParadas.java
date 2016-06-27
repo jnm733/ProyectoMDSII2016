@@ -43,9 +43,11 @@ public class vincularParadas extends JFrame {
 	private JTextField txtDistancia;
 	private JTextField txtHoraPaso;
 	public String key;
-	public int tipoInt;
 	private JTextField txtId;
 	private BD_Principal bd_principal;
+	public ArrayList<String> datos;
+	public ArrayList<ArrayList<String>> arrIn;
+	public ArrayList<String> arrEx;
 	/**
 	 * Create the frame.
 	 * 
@@ -53,6 +55,10 @@ public class vincularParadas extends JFrame {
 	 */
 	public vincularParadas(String key, JList listParadas) {
 
+		datos = new ArrayList<>();
+		arrIn =new ArrayList<ArrayList<String>>();
+		arrEx = new ArrayList<String>();
+		
 		this.key = key;
 		
 		bd_principal = new BD_Principal();
@@ -70,15 +76,22 @@ public class vincularParadas extends JFrame {
 
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
+		Parada[] arrPar = null;
+		arrPar = bd_principal.getParadas();
 		
 		if (listParadas.getModel().getSize() > 0) {
 			model = (DefaultListModel<String>) listParadas.getModel();
 			vincular.listIncluidos.setModel(model);
+			DefaultListModel<String> modelEx = new DefaultListModel<>();
+			for (int i = 0; i < arrPar.length; i++) {
+				if(!model.contains(arrPar[i].getNombreParada())){
+					modelEx.addElement(arrPar[i].getNombreParada());
+				}
+			}
+			vincular.listExcluidos.setModel(modelEx);
 		} else {
-			Parada[] arrPar = null;
+			
 			try {
-				arrPar = bd_principal.getParadas();
-				
 				for(int i = 0; i < arrPar.length;i++){
 					model.addElement(arrPar[i].getNombreParada());
 				}
@@ -92,7 +105,7 @@ public class vincularParadas extends JFrame {
 		}
 		
 
-		// vincular.listIncluidos.setModel(listParadas.getModel());
+		vincular.listIncluidos.setModel(listParadas.getModel());
 
 		vincular.btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,26 +148,74 @@ public class vincularParadas extends JFrame {
 		
 		vincular.btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
-				if(vincular.listExcluidos.getModel().getSize()>0)
-				modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
-				else
+				boolean ok = true;
+				//Si la lista de excluidos está vacia se inicializa
+				if(vincular.listExcluidos.getModel().getSize()>0){
+					modelExcluidos = (DefaultListModel<String>) vincular.listExcluidos.getModel();
+				}
+				//Si no está vacia se copia
+				else{
 					modelExcluidos = new DefaultListModel<String>();
-				if(vincular.listIncluidos.getModel().getSize()>0)
-				modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
-				else
+				}
+				//Si la lista de incluidos está vacia se inicializa
+				if(vincular.listIncluidos.getModel().getSize()>0){
+					modelIncluidos = (DefaultListModel<String>) vincular.listIncluidos.getModel();
+				}
+				//Si no está vacia se copia
+				else{
 					modelIncluidos = new DefaultListModel<String>();
-				//modelParadas = new DefaultListModel<String>();
+				}
 				
+				//Se cogen los nombres de los elegidos
 				int[] select = vincular.listExcluidos.getSelectedIndices();
+				//Y se añaden al modelo de la lista de incluidos
 				for(int i = 0; i < select.length;i++){
 					modelIncluidos.addElement(modelExcluidos.get(select[i]));
+					datos = new ArrayList<>();
+					try {
+						//Parseamos la distancia, si no falla seguimos recorriendo
+						Double.parseDouble(txtDistancia.getText());
+						try {
+							//Parseamos la posicion
+							Integer.parseInt(txtId.getText());
+							//Comprobamos el horario
+							if(txtHoraPaso.getText().equals("Hora Paso")){
+								JOptionPane.showMessageDialog(null, "Introduzca la primera hora de paso de la linea por la parada", "Error",
+										JOptionPane.ERROR_MESSAGE);
+								ok = false;
+							}else{
+								datos.add(modelExcluidos.get(select[i]));
+								datos.add(txtDistancia.getText());
+								datos.add(txtHoraPaso.getText());
+								datos.add(txtId.getText());
+								arrIn.add(datos);
+								
+								ok = true;
+							}
+							
+						} catch (Exception e3) {
+							JOptionPane.showMessageDialog(null, "Introduzca el número de la parada en la línea", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							ok = false;
+						}
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Introduzca distancia de la parada a la anterior (en numero)", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						ok = false;
+					}
+					
 				}
-				for(int i = 0; i < select.length;i++){
-					modelExcluidos.remove(select[i]);
+				//Si no hay errores
+				if(ok){
+					//Se borra del modelo de la lista de excluidos
+					for(int i = 0; i < select.length;i++){
+						modelExcluidos.remove(select[i]);
+					}
+					//Se cambian las listas
+					vincular.listExcluidos.setModel(modelExcluidos);
+					vincular.listIncluidos.setModel(modelIncluidos);
 				}
-				vincular.listExcluidos.setModel(modelExcluidos);
-				vincular.listIncluidos.setModel(modelIncluidos);
+				
 			}
 		});
 
@@ -246,13 +307,6 @@ public class vincularParadas extends JFrame {
 			vincular.btnVolver.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					ArrayList<String> arrIn =new ArrayList<String>();
-					ArrayList<String> arrEx = new ArrayList<String>();
-					if(modelIncluidos != null){
-						for (int i = 0; i < modelIncluidos.size(); i++) {
-							arrIn.add(modelIncluidos.get(i));
-						}
-					}
 					
 					if(modelExcluidos != null){
 						for (int i = 0; i < modelExcluidos.size(); i++) {

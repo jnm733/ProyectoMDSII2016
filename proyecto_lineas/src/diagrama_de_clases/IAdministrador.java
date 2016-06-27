@@ -57,7 +57,7 @@ public interface IAdministrador extends  Remote{
 	
 	public boolean vincularLinea(ArrayList<String> incluidos, ArrayList<String> excluidos) throws RemoteException;
 	
-	public boolean vincularParada(ArrayList<String> incluidos, ArrayList<String> excluidos,String key) throws RemoteException;
+	public boolean vincularParada(ArrayList<ArrayList<String>> incluidos, ArrayList<String> excluidos,String key) throws RemoteException;
 	
 	public boolean vincularPtosInteres(ArrayList<String> incluidos, ArrayList<String> excluidos,String key) throws RemoteException;
 

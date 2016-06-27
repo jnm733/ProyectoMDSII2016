@@ -16,6 +16,7 @@ import diagrama_de_base_de_datos.Evento;
 import diagrama_de_base_de_datos.EventoSetCollection;
 import diagrama_de_base_de_datos.Imagen;
 import diagrama_de_base_de_datos.Linea;
+import diagrama_de_base_de_datos.Linea_Parada;
 import diagrama_de_base_de_datos.Parada;
 import diagrama_de_base_de_datos.PuntoInteres;
 import diagrama_de_base_de_datos.Usuario;
@@ -462,14 +463,31 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	}
 
 	@Override
-	public boolean vincularParada(ArrayList<String> incluidos, ArrayList<String> excluidos,String key) {
+	public boolean vincularParada(ArrayList<ArrayList<String>> incluidos, ArrayList<String> excluidos,String key) {
+		Linea linea = getLinea(key);
+		Parada parada = null;
+		Linea_Parada linpar = null;
 		try {
-			return false;
+			for(int i = 0 ; i < excluidos.size();i++){
+				parada = getParada(excluidos.get(i));
+				linpar = bd_lineas.getLinea_Parada(linea,parada);
+				if(linpar != null){
+					bd_lineas.borrarLinea_Parada(linea,parada);
+				}
+			}
+			for(int i = 0; i < incluidos.size();i++){
+				parada = getParada(incluidos.get(i).get(0));
+				linpar = bd_lineas.getLinea_Parada(linea,parada);
+				if(linpar == null){
+					bd_lineas.vincularParada(linea, parada,incluidos.get(i));
+				}
+			}
+			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -525,5 +543,16 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			
 		}
 		return usuario;
+	}
+
+	public Parada[] getParadas_Linea(String nombreLinea)throws RemoteException {
+		Parada[] paradas = null;
+		try {
+			paradas = bd_lineas.getParadas_Linea(nombreLinea);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return paradas;
+		
 	}
 }

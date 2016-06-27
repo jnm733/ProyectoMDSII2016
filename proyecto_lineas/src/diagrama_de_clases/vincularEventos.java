@@ -170,14 +170,6 @@ public class vincularEventos extends JFrame{
 				for(int i = 0; i < select.length;i++){
 					//Sacamos de la lista de excluidos
 					modelIncluidos.addElement(modelExcluidos.get(select[i]));
-					
-					//Obtenemos la parada
-					parada = bd_principal.getParada(modelExcluidos.get(select[i]));
-					
-					//Añadimos en la base de datos
-					//TODO
-					//bd_principal.vincularPntoInteres(evento.getID(),parada.getID());
-					
 				}
 				for(int i = 0; i < modelIncluidos.getSize();i++){
 					//Metemos en la lista de incluidos
