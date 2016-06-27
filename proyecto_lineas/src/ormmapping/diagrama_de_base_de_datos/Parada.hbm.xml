@@ -6,30 +6,32 @@ License Type: Academic
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="diagrama_de_base_de_datos.Parada" table="Parada" lazy="false">
-		<id name="ID" column="ID" type="integer" unsaved-value="0">
-			<generator class="native">
+		<id name="nombreParada" column="NombreParada" type="string">
+			<generator class="assigned">
 			</generator>
 		</id>
-		<property name="nombreParada" column="NombreParada" type="string" length="255" not-null="false" lazy="false"/>
+		<many-to-one name="paradaa" column="ParadaNombreParada" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="ID" column="ID" type="integer" length="11" not-null="true" lazy="false"/>
 		<property name="direccionParada" column="DireccionParada" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="observaciones" column="Observaciones" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="imagenParada" column="ImagenParada" type="string" length="255" not-null="false" lazy="false"/>
-		<set name="ORM_Contiene" table="Linea_Parada" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="ParadaID" not-null="true"/>
-			<many-to-many column="LineaID" class="diagrama_de_base_de_datos.Linea">
-			</many-to-many>
-		</set>
 		<one-to-one name="direccion_contiene" class="diagrama_de_base_de_datos.Direccion" cascade="save-update,lock" property-ref="parada_se_ubica" lazy="proxy" access="field"/>
 		<set name="ORM_Pertenece" table="Parada_PuntoInteres" lazy="true" cascade="save-update,lock">
-			<key column="ParadaID" not-null="true"/>
+			<key column="ParadaNombreParada" not-null="true"/>
 			<many-to-many column="PuntoInteresID" class="diagrama_de_base_de_datos.PuntoInteres">
 			</many-to-many>
 		</set>
 		<one-to-one name="imagen_pertenece" class="diagrama_de_base_de_datos.Imagen" cascade="save-update,lock" property-ref="contiene" lazy="proxy" access="field"/>
 		<set name="ORM_Evento_pertenece" table="Parada_Evento" lazy="true" cascade="save-update,lock">
-			<key column="ParadaID" not-null="true"/>
+			<key column="ParadaNombreParada" not-null="true"/>
 			<many-to-many column="EventoID" class="diagrama_de_base_de_datos.Evento">
 			</many-to-many>
+		</set>
+		<one-to-one name="parada" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" property-ref="paradaa" lazy="proxy" access="field"/>
+		<set name="ORM_Linea_Paradas" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="ParadaNombreParada" not-null="false"/>
+			<one-to-many class="diagrama_de_base_de_datos.Linea_Parada"/>
 		</set>
 	</class>
 </hibernate-mapping>

@@ -18,6 +18,23 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 	
+	public boolean equals(Object aObj) {
+		if (aObj == this)
+			return true;
+		if (!(aObj instanceof Usuario))
+			return false;
+		Usuario usuario = (Usuario)aObj;
+		if ((getEmail() != null && !getEmail().equals(usuario.getEmail())) || (getEmail() == null && usuario.getEmail() != null))
+			return false;
+		return true;
+	}
+	
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = hashcode + (getEmail() == null ? 0 : getEmail().hashCode());
+		return hashcode;
+	}
+	
 	private java.util.Set this_getSet (int key) {
 		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_USUARIO_REALIZADA_POR) {
 			return ORM_realizada_por;
@@ -33,26 +50,22 @@ public class Usuario implements Serializable {
 		
 	};
 	
+	private String email;
+	
 	private int ID;
 	
 	private String nombre;
 	
 	private String password;
 	
-	private String email;
-	
 	private java.util.Set ORM_realizada_por = new java.util.HashSet();
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	
 	public int getID() {
 		return ID;
-	}
-	
-	public int getORMID() {
-		return getID();
 	}
 	
 	public void setNombre(String value) {
@@ -79,6 +92,10 @@ public class Usuario implements Serializable {
 		return email;
 	}
 	
+	public String getORMID() {
+		return getEmail();
+	}
+	
 	private void setORM_Realizada_por(java.util.Set value) {
 		this.ORM_realizada_por = value;
 	}
@@ -100,7 +117,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public String toString() {
-		return String.valueOf(getID());
+		return String.valueOf(getEmail());
 	}
 	
 }

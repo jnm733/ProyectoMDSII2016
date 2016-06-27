@@ -24,7 +24,7 @@ public class DireccionCriteria extends AbstractORMCriteria {
 	public final AssociationExpression pto_se_ubica;
 	public final IntegerExpression evento_se_ubicaId;
 	public final AssociationExpression evento_se_ubica;
-	public final IntegerExpression parada_se_ubicaId;
+	public final StringExpression parada_se_ubicaId;
 	public final AssociationExpression parada_se_ubica;
 	public final IntegerExpression contieneId;
 	public final AssociationExpression contiene;
@@ -38,7 +38,7 @@ public class DireccionCriteria extends AbstractORMCriteria {
 		pto_se_ubica = new AssociationExpression("pto_se_ubica", this);
 		evento_se_ubicaId = new IntegerExpression("evento_se_ubica.ID", this);
 		evento_se_ubica = new AssociationExpression("evento_se_ubica", this);
-		parada_se_ubicaId = new IntegerExpression("parada_se_ubica.ID", this);
+		parada_se_ubicaId = new StringExpression("parada_se_ubica.nombreParada", this);
 		parada_se_ubica = new AssociationExpression("parada_se_ubica", this);
 		contieneId = new IntegerExpression("contiene.ID", this);
 		contiene = new AssociationExpression("contiene", this);

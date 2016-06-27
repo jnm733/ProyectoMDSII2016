@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class LineaDAO {
-	public static Linea loadLineaByORMID(int ID) throws PersistentException {
+	public static Linea loadLineaByORMID(String numeroLinea) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadLineaByORMID(session, ID);
+			return loadLineaByORMID(session, numeroLinea);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea getLineaByORMID(int ID) throws PersistentException {
+	public static Linea getLineaByORMID(String numeroLinea) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getLineaByORMID(session, ID);
+			return getLineaByORMID(session, numeroLinea);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea loadLineaByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Linea loadLineaByORMID(String numeroLinea, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadLineaByORMID(session, ID, lockMode);
+			return loadLineaByORMID(session, numeroLinea, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea getLineaByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Linea getLineaByORMID(String numeroLinea, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getLineaByORMID(session, ID, lockMode);
+			return getLineaByORMID(session, numeroLinea, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea loadLineaByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Linea loadLineaByORMID(PersistentSession session, String numeroLinea) throws PersistentException {
 		try {
-			return (Linea) session.load(diagrama_de_base_de_datos.Linea.class, new Integer(ID));
+			return (Linea) session.load(diagrama_de_base_de_datos.Linea.class, numeroLinea);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea getLineaByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Linea getLineaByORMID(PersistentSession session, String numeroLinea) throws PersistentException {
 		try {
-			return (Linea) session.get(diagrama_de_base_de_datos.Linea.class, new Integer(ID));
+			return (Linea) session.get(diagrama_de_base_de_datos.Linea.class, numeroLinea);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea loadLineaByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Linea loadLineaByORMID(PersistentSession session, String numeroLinea, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Linea) session.load(diagrama_de_base_de_datos.Linea.class, new Integer(ID), lockMode);
+			return (Linea) session.load(diagrama_de_base_de_datos.Linea.class, numeroLinea, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class LineaDAO {
 		}
 	}
 	
-	public static Linea getLineaByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Linea getLineaByORMID(PersistentSession session, String numeroLinea, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Linea) session.get(diagrama_de_base_de_datos.Linea.class, new Integer(ID), lockMode);
+			return (Linea) session.get(diagrama_de_base_de_datos.Linea.class, numeroLinea, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -327,9 +327,9 @@ public class LineaDAO {
 				linea.getImagen().setLinea(null);
 			}
 			
-			diagrama_de_base_de_datos.Parada[] lPerteneces = linea.pertenece.toArray();
-			for(int i = 0; i < lPerteneces.length; i++) {
-				lPerteneces[i].contiene.remove(linea);
+			diagrama_de_base_de_datos.Linea_Parada[] lLinea_Paradass = linea.linea_Paradas.toArray();
+			for(int i = 0; i < lLinea_Paradass.length; i++) {
+				lLinea_Paradass[i].setLinea(null);
 			}
 			diagrama_de_base_de_datos.Tarifa[] lEs_usadas = linea.es_usada.toArray();
 			for(int i = 0; i < lEs_usadas.length; i++) {
@@ -349,9 +349,9 @@ public class LineaDAO {
 				linea.getImagen().setLinea(null);
 			}
 			
-			diagrama_de_base_de_datos.Parada[] lPerteneces = linea.pertenece.toArray();
-			for(int i = 0; i < lPerteneces.length; i++) {
-				lPerteneces[i].contiene.remove(linea);
+			diagrama_de_base_de_datos.Linea_Parada[] lLinea_Paradass = linea.linea_Paradas.toArray();
+			for(int i = 0; i < lLinea_Paradass.length; i++) {
+				lLinea_Paradass[i].setLinea(null);
 			}
 			diagrama_de_base_de_datos.Tarifa[] lEs_usadas = linea.es_usada.toArray();
 			for(int i = 0; i < lEs_usadas.length; i++) {

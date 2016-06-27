@@ -19,9 +19,26 @@ public class Linea implements Serializable {
 	public Linea() {
 	}
 	
+	public boolean equals(Object aObj) {
+		if (aObj == this)
+			return true;
+		if (!(aObj instanceof Linea))
+			return false;
+		Linea linea = (Linea)aObj;
+		if ((getNumeroLinea() != null && !getNumeroLinea().equals(linea.getNumeroLinea())) || (getNumeroLinea() == null && linea.getNumeroLinea() != null))
+			return false;
+		return true;
+	}
+	
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = hashcode + (getNumeroLinea() == null ? 0 : getNumeroLinea().hashCode());
+		return hashcode;
+	}
+	
 	private java.util.Set this_getSet (int key) {
-		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PERTENECE) {
-			return ORM_pertenece;
+		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_LINEA_PARADAS) {
+			return ORM_linea_Paradas;
 		}
 		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_ES_USADA) {
 			return ORM_es_usada;
@@ -47,13 +64,13 @@ public class Linea implements Serializable {
 		
 	};
 	
-	private int ID;
+	private String numeroLinea;
 	
 	private diagrama_de_base_de_datos.Imagen imagen;
 	
-	private String nombreLinea;
+	private int ID;
 	
-	private String numeroLinea;
+	private String nombreLinea;
 	
 	private Double tarifaLinea;
 	
@@ -63,20 +80,16 @@ public class Linea implements Serializable {
 	
 	private String recorrido;
 	
-	private java.util.Set ORM_pertenece = new java.util.HashSet();
+	private java.util.Set ORM_linea_Paradas = new java.util.HashSet();
 	
 	private java.util.Set ORM_es_usada = new java.util.HashSet();
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	
 	public int getID() {
 		return ID;
-	}
-	
-	public int getORMID() {
-		return getID();
 	}
 	
 	public void setNombreLinea(String value) {
@@ -93,6 +106,10 @@ public class Linea implements Serializable {
 	
 	public String getNumeroLinea() {
 		return numeroLinea;
+	}
+	
+	public String getORMID() {
+		return getNumeroLinea();
 	}
 	
 	public void setTarifaLinea(double value) {
@@ -148,17 +165,15 @@ public class Linea implements Serializable {
 		return imagen;
 	}
 	
-	private void setORM_Pertenece(java.util.Set value) {
-		this.ORM_pertenece = value;
+	private void setORM_Linea_Paradas(java.util.Set value) {
+		this.ORM_linea_Paradas = value;
 	}
 	
-	private java.util.Set getORM_Pertenece() {
-		return ORM_pertenece;
+	private java.util.Set getORM_Linea_Paradas() {
+		return ORM_linea_Paradas;
 	}
 	
-	
-	
-	public final diagrama_de_base_de_datos.ParadaSetCollection pertenece = new diagrama_de_base_de_datos.ParadaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PERTENECE, diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_CONTIENE, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_MANY_TO_MANY);
+	public final diagrama_de_base_de_datos.Linea_ParadaSetCollection linea_Paradas = new diagrama_de_base_de_datos.Linea_ParadaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_LINEA_PARADAS, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PARADA_LINEA, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Es_usada(java.util.Set value) {
 		this.ORM_es_usada = value;
@@ -169,8 +184,6 @@ public class Linea implements Serializable {
 	}
 	
 	public final diagrama_de_base_de_datos.TarifaSetCollection es_usada = new diagrama_de_base_de_datos.TarifaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_ES_USADA, diagrama_de_base_de_datos.ORMConstants.KEY_TARIFA_COBRA, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_MANY_TO_MANY);
-
-	public boolean exito;
 	
 	public diagrama_de_clases.Lineas getLinea(String nombre) {
 		//TODO: Implement Method
@@ -198,7 +211,7 @@ public class Linea implements Serializable {
 	}
 	
 	public String toString() {
-		return String.valueOf(getID());
+		return String.valueOf(getNumeroLinea());
 	}
 	
 }

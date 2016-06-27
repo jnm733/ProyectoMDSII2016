@@ -30,13 +30,13 @@ public class BD_Lineas {
 	
 	public Linea getLinea(String aNombre) throws PersistentException{
 		Linea linea = null;
-		int id = -1;
+		String id = "-1";
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
 			Linea[] lineas = diagrama_de_base_de_datos.LineaDAO.listLineaByQuery(null, null);
 			for(int i = 0; i < lineas.length; i++){
 				if(aNombre == lineas[i].getNombreLinea()){
-					id = i;
+					id = i+"";
 				}
 			}
 			linea = diagrama_de_base_de_datos.LineaDAO.getLineaByORMID(id);
@@ -54,7 +54,7 @@ public class BD_Lineas {
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
 			
-			Linea linea = diagrama_de_base_de_datos.LineaDAO.loadLineaByORMID(0);
+			Linea linea = diagrama_de_base_de_datos.LineaDAO.loadLineaByORMID(id);
 			diagrama_de_base_de_datos.LineaDAO.delete(linea);
 			t.commit();
 		}
@@ -66,7 +66,7 @@ public class BD_Lineas {
 	}
 
 	public void addLinea(ArrayList<Object> aDatos)throws PersistentException {
-		int id_linea = -1;
+		String id_linea = "-1";
 		String numero =(String)aDatos.get(0);
 		String nombre =(String)aDatos.get(1);
 		String horario=(String)aDatos.get(2);
@@ -74,7 +74,6 @@ public class BD_Lineas {
 		double tarifa = Double.parseDouble((String)aDatos.get(4));
 		String frecuencia=(String)aDatos.get(5);
 
-		//Imagen
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
 			 Linea as = LineaDAO.createLinea();
@@ -83,8 +82,6 @@ public class BD_Lineas {
 			 as.setHorario(horario);
 			 as.setRecorrido(recorrido);
 			 as.setTarifaLinea(tarifa);
-			 as.setImagen((Imagen)aDatos.get(6));
-			 
 			 
 			 LineaDAO.save(as);
 			 id_linea = as.getORMID();

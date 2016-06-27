@@ -16,7 +16,7 @@ public class BD_Usuarios {
 	}
 
 	public boolean registrarse(String aNombre, String aPassword, String aEmail)throws PersistentException {
-		int id_usuario = -1;
+		String id_usuario = "-1";
 		
 		
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
@@ -60,7 +60,7 @@ public class BD_Usuarios {
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
 				.beginTransaction();
 		try {
-			usuario = diagrama_de_base_de_datos.UsuarioDAO.loadUsuarioByORMID(ID);
+			usuario = diagrama_de_base_de_datos.UsuarioDAO.loadUsuarioByORMID(ID+"");
 
 			t.commit();
 		} catch (Exception e) {

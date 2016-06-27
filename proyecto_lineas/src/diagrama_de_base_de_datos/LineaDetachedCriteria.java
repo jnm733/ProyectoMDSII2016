@@ -19,45 +19,45 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class LineaDetachedCriteria extends AbstractORMDetachedCriteria {
-	public final IntegerExpression ID;
+	public final StringExpression numeroLinea;
 	public final IntegerExpression imagenId;
 	public final AssociationExpression imagen;
+	public final IntegerExpression ID;
 	public final StringExpression nombreLinea;
-	public final StringExpression numeroLinea;
 	public final DoubleExpression tarifaLinea;
 	public final StringExpression empresaGestora;
 	public final StringExpression horario;
 	public final StringExpression recorrido;
-	public final CollectionExpression pertenece;
+	public final CollectionExpression linea_Paradas;
 	public final CollectionExpression es_usada;
 	
 	public LineaDetachedCriteria() {
 		super(diagrama_de_base_de_datos.Linea.class, diagrama_de_base_de_datos.LineaCriteria.class);
-		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		numeroLinea = new StringExpression("numeroLinea", this.getDetachedCriteria());
 		imagenId = new IntegerExpression("imagen.ID", this.getDetachedCriteria());
 		imagen = new AssociationExpression("imagen", this.getDetachedCriteria());
+		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		nombreLinea = new StringExpression("nombreLinea", this.getDetachedCriteria());
-		numeroLinea = new StringExpression("numeroLinea", this.getDetachedCriteria());
 		tarifaLinea = new DoubleExpression("tarifaLinea", this.getDetachedCriteria());
 		empresaGestora = new StringExpression("empresaGestora", this.getDetachedCriteria());
 		horario = new StringExpression("horario", this.getDetachedCriteria());
 		recorrido = new StringExpression("recorrido", this.getDetachedCriteria());
-		pertenece = new CollectionExpression("ORM_Pertenece", this.getDetachedCriteria());
+		linea_Paradas = new CollectionExpression("ORM_Linea_Paradas", this.getDetachedCriteria());
 		es_usada = new CollectionExpression("ORM_Es_usada", this.getDetachedCriteria());
 	}
 	
 	public LineaDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, diagrama_de_base_de_datos.LineaCriteria.class);
-		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		numeroLinea = new StringExpression("numeroLinea", this.getDetachedCriteria());
 		imagenId = new IntegerExpression("imagen.ID", this.getDetachedCriteria());
 		imagen = new AssociationExpression("imagen", this.getDetachedCriteria());
+		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		nombreLinea = new StringExpression("nombreLinea", this.getDetachedCriteria());
-		numeroLinea = new StringExpression("numeroLinea", this.getDetachedCriteria());
 		tarifaLinea = new DoubleExpression("tarifaLinea", this.getDetachedCriteria());
 		empresaGestora = new StringExpression("empresaGestora", this.getDetachedCriteria());
 		horario = new StringExpression("horario", this.getDetachedCriteria());
 		recorrido = new StringExpression("recorrido", this.getDetachedCriteria());
-		pertenece = new CollectionExpression("ORM_Pertenece", this.getDetachedCriteria());
+		linea_Paradas = new CollectionExpression("ORM_Linea_Paradas", this.getDetachedCriteria());
 		es_usada = new CollectionExpression("ORM_Es_usada", this.getDetachedCriteria());
 	}
 	
@@ -65,8 +65,8 @@ public class LineaDetachedCriteria extends AbstractORMDetachedCriteria {
 		return new ImagenDetachedCriteria(createCriteria("imagen"));
 	}
 	
-	public diagrama_de_base_de_datos.ParadaDetachedCriteria createPerteneceCriteria() {
-		return new diagrama_de_base_de_datos.ParadaDetachedCriteria(createCriteria("ORM_Pertenece"));
+	public diagrama_de_base_de_datos.Linea_ParadaDetachedCriteria createLinea_ParadasCriteria() {
+		return new diagrama_de_base_de_datos.Linea_ParadaDetachedCriteria(createCriteria("ORM_Linea_Paradas"));
 	}
 	
 	public diagrama_de_base_de_datos.TarifaDetachedCriteria createEs_usadaCriteria() {

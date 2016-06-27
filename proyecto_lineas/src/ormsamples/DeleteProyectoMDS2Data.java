@@ -42,6 +42,9 @@ public class DeleteProyectoMDS2Data {
 			diagrama_de_base_de_datos.Usuario diagrama_de_Base_de_DatosUsuario = diagrama_de_base_de_datos.UsuarioDAO.loadUsuarioByQuery(null, null);
 			// Delete the persistent object
 			diagrama_de_base_de_datos.UsuarioDAO.delete(diagrama_de_Base_de_DatosUsuario);
+			diagrama_de_base_de_datos.Linea_Parada diagrama_de_Base_de_DatosLinea_Parada = diagrama_de_base_de_datos.Linea_ParadaDAO.loadLinea_ParadaByQuery(null, null);
+			// Delete the persistent object
+			diagrama_de_base_de_datos.Linea_ParadaDAO.delete(diagrama_de_Base_de_DatosLinea_Parada);
 			t.commit();
 		}
 		catch (Exception e) {

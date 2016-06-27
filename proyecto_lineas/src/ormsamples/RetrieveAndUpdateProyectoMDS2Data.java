@@ -42,6 +42,9 @@ public class RetrieveAndUpdateProyectoMDS2Data {
 			diagrama_de_base_de_datos.Usuario diagrama_de_Base_de_DatosUsuario = diagrama_de_base_de_datos.UsuarioDAO.loadUsuarioByQuery(null, null);
 			// Update the properties of the persistent object
 			diagrama_de_base_de_datos.UsuarioDAO.save(diagrama_de_Base_de_DatosUsuario);
+			diagrama_de_base_de_datos.Linea_Parada diagrama_de_Base_de_DatosLinea_Parada = diagrama_de_base_de_datos.Linea_ParadaDAO.loadLinea_ParadaByQuery(null, null);
+			// Update the properties of the persistent object
+			diagrama_de_base_de_datos.Linea_ParadaDAO.save(diagrama_de_Base_de_DatosLinea_Parada);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -72,7 +75,7 @@ public class RetrieveAndUpdateProyectoMDS2Data {
 		System.out.println("Retrieving Parada by ParadaCriteria");
 		diagrama_de_base_de_datos.ParadaCriteria diagrama_de_Base_de_DatosParadaCriteria = new diagrama_de_base_de_datos.ParadaCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
-		//diagrama_de_Base_de_DatosParadaCriteria.ID.eq();
+		//diagrama_de_Base_de_DatosParadaCriteria.nombreParada.eq();
 		System.out.println(diagrama_de_Base_de_DatosParadaCriteria.uniqueParada());
 		
 		System.out.println("Retrieving Descarga by DescargaCriteria");
@@ -90,7 +93,7 @@ public class RetrieveAndUpdateProyectoMDS2Data {
 		System.out.println("Retrieving Linea by LineaCriteria");
 		diagrama_de_base_de_datos.LineaCriteria diagrama_de_Base_de_DatosLineaCriteria = new diagrama_de_base_de_datos.LineaCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
-		//diagrama_de_Base_de_DatosLineaCriteria.ID.eq();
+		//diagrama_de_Base_de_DatosLineaCriteria.numeroLinea.eq();
 		System.out.println(diagrama_de_Base_de_DatosLineaCriteria.uniqueLinea());
 		
 		System.out.println("Retrieving Evento by EventoCriteria");
@@ -114,8 +117,14 @@ public class RetrieveAndUpdateProyectoMDS2Data {
 		System.out.println("Retrieving Usuario by UsuarioCriteria");
 		diagrama_de_base_de_datos.UsuarioCriteria diagrama_de_Base_de_DatosUsuarioCriteria = new diagrama_de_base_de_datos.UsuarioCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
-		//diagrama_de_Base_de_DatosUsuarioCriteria.ID.eq();
+		//diagrama_de_Base_de_DatosUsuarioCriteria.email.eq();
 		System.out.println(diagrama_de_Base_de_DatosUsuarioCriteria.uniqueUsuario());
+		
+		System.out.println("Retrieving Linea_Parada by Linea_ParadaCriteria");
+		diagrama_de_base_de_datos.Linea_ParadaCriteria diagrama_de_Base_de_DatosLinea_ParadaCriteria = new diagrama_de_base_de_datos.Linea_ParadaCriteria();
+		// Please uncomment the follow line and fill in parameter(s)
+		//diagrama_de_Base_de_DatosLinea_ParadaCriteria.ID.eq();
+		System.out.println(diagrama_de_Base_de_DatosLinea_ParadaCriteria.uniqueLinea_Parada());
 		
 	}
 	

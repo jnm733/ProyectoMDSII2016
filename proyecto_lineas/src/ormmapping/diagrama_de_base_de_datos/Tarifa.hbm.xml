@@ -13,7 +13,7 @@ License Type: Academic
 		<property name="precio" column="Precio" type="double" not-null="false" lazy="false"/>
 		<set name="ORM_Cobra" table="Linea_Tarifa" lazy="true" cascade="save-update,lock" inverse="true">
 			<key column="TarifaID" not-null="true"/>
-			<many-to-many column="LineaID" class="diagrama_de_base_de_datos.Linea">
+			<many-to-many column="LineaNumeroLinea" class="diagrama_de_base_de_datos.Linea">
 			</many-to-many>
 		</set>
 	</class>

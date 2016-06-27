@@ -20,7 +20,7 @@ import org.orm.criteria.*;
 
 public class ConsultaCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression realizaId;
+	public final StringExpression realizaId;
 	public final AssociationExpression realiza;
 	public final StringExpression origenConsulta;
 	public final StringExpression destinoConsulta;
@@ -28,7 +28,7 @@ public class ConsultaCriteria extends AbstractORMCriteria {
 	public ConsultaCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
-		realizaId = new IntegerExpression("realiza.ID", this);
+		realizaId = new StringExpression("realiza.email", this);
 		realiza = new AssociationExpression("realiza", this);
 		origenConsulta = new StringExpression("origenConsulta", this);
 		destinoConsulta = new StringExpression("destinoConsulta", this);

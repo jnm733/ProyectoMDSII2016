@@ -24,7 +24,7 @@ public class DireccionDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression pto_se_ubica;
 	public final IntegerExpression evento_se_ubicaId;
 	public final AssociationExpression evento_se_ubica;
-	public final IntegerExpression parada_se_ubicaId;
+	public final StringExpression parada_se_ubicaId;
 	public final AssociationExpression parada_se_ubica;
 	public final IntegerExpression contieneId;
 	public final AssociationExpression contiene;
@@ -38,7 +38,7 @@ public class DireccionDetachedCriteria extends AbstractORMDetachedCriteria {
 		pto_se_ubica = new AssociationExpression("pto_se_ubica", this.getDetachedCriteria());
 		evento_se_ubicaId = new IntegerExpression("evento_se_ubica.ID", this.getDetachedCriteria());
 		evento_se_ubica = new AssociationExpression("evento_se_ubica", this.getDetachedCriteria());
-		parada_se_ubicaId = new IntegerExpression("parada_se_ubica.ID", this.getDetachedCriteria());
+		parada_se_ubicaId = new StringExpression("parada_se_ubica.nombreParada", this.getDetachedCriteria());
 		parada_se_ubica = new AssociationExpression("parada_se_ubica", this.getDetachedCriteria());
 		contieneId = new IntegerExpression("contiene.ID", this.getDetachedCriteria());
 		contiene = new AssociationExpression("contiene", this.getDetachedCriteria());
@@ -53,7 +53,7 @@ public class DireccionDetachedCriteria extends AbstractORMDetachedCriteria {
 		pto_se_ubica = new AssociationExpression("pto_se_ubica", this.getDetachedCriteria());
 		evento_se_ubicaId = new IntegerExpression("evento_se_ubica.ID", this.getDetachedCriteria());
 		evento_se_ubica = new AssociationExpression("evento_se_ubica", this.getDetachedCriteria());
-		parada_se_ubicaId = new IntegerExpression("parada_se_ubica.ID", this.getDetachedCriteria());
+		parada_se_ubicaId = new StringExpression("parada_se_ubica.nombreParada", this.getDetachedCriteria());
 		parada_se_ubica = new AssociationExpression("parada_se_ubica", this.getDetachedCriteria());
 		contieneId = new IntegerExpression("contiene.ID", this.getDetachedCriteria());
 		contiene = new AssociationExpression("contiene", this.getDetachedCriteria());

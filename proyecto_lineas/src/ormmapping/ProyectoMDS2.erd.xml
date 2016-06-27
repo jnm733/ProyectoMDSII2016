@@ -61,12 +61,12 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="ParadaID">
+    <Column name="ParadaNombreParada">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Parada.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -144,23 +144,35 @@
     </Column>
   </Entity>
   <Entity name="Parada">
-    <Column name="ID">
+    <Column name="NombreParada">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>9</Type>
-      <Length>11</Length>
-      <Nullable>false</Nullable>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ParadaNombreParada">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="NombreParada">
+    <Column name="ID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>27</Type>
-      <Length>255</Length>
-      <Nullable>true</Nullable>
+      <Type>9</Type>
+      <Length>11</Length>
+      <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
@@ -294,13 +306,13 @@
     </Column>
   </Entity>
   <Entity name="Linea">
-    <Column name="ID">
+    <Column name="NumeroLinea">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>9</Type>
-      <Length>11</Length>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
+      <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
@@ -311,6 +323,17 @@
       <ReferencedColumn>Diagrama de Base de Datos.Imagen.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>11</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ID">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>9</Type>
+      <Length>11</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -318,17 +341,6 @@
       <UserTypes/>
     </Column>
     <Column name="NombreLinea">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>27</Type>
-      <Length>255</Length>
-      <Nullable>true</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
-    <Column name="NumeroLinea">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
@@ -453,12 +465,12 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="UsuarioID">
+    <Column name="UsuarioEmail">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Usuario.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+      <ReferencedColumn>Diagrama de Base de Datos.Usuario.Email</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -500,13 +512,13 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="ParadaID">
+    <Column name="ParadaNombreParada">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Parada.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
-      <Nullable>false</Nullable>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
@@ -536,8 +548,19 @@
     </Column>
   </Entity>
   <Entity name="Usuario">
-    <Column name="ID">
+    <Column name="Email">
       <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ID">
+      <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>9</Type>
       <Length>11</Length>
@@ -569,9 +592,23 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="Email">
-      <PrimaryKey>false</PrimaryKey>
+  </Entity>
+  <Entity name="Linea_Parada">
+    <Column name="ID">
+      <PrimaryKey>true</PrimaryKey>
       <ForeignKey>false</ForeignKey>
+      <Type>9</Type>
+      <Length>11</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="LineaNumeroLinea">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>Diagrama de Base de Datos.Linea.NumeroLinea</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
@@ -580,40 +617,81 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-  </Entity>
-  <Entity name="Linea_Parada">
-    <Column name="LineaID">
-      <PrimaryKey>true</PrimaryKey>
+    <Column name="ParadaNombreParada">
+      <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Linea.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>assigned</IDGenerator>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="ParadaID">
-      <PrimaryKey>true</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Parada.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+    <Column name="NombreParada">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="NumeroLinea">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="Distancia">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>6</Type>
+      <Length>0</Length>
       <Nullable>false</Nullable>
-      <IDGenerator>assigned</IDGenerator>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="HoraPaso">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="Posicion">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
   </Entity>
   <Entity name="Parada_PuntoInteres">
-    <Column name="ParadaID">
+    <Column name="ParadaNombreParada">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Parada.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
@@ -634,12 +712,12 @@
     </Column>
   </Entity>
   <Entity name="Parada_Evento">
-    <Column name="ParadaID">
+    <Column name="ParadaNombreParada">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Parada.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+      <ReferencedColumn>Diagrama de Base de Datos.Parada.NombreParada</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
@@ -660,12 +738,12 @@
     </Column>
   </Entity>
   <Entity name="Linea_Tarifa">
-    <Column name="LineaID">
+    <Column name="LineaNumeroLinea">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Diagrama de Base de Datos.Linea.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
+      <ReferencedColumn>Diagrama de Base de Datos.Linea.NumeroLinea</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
@@ -695,14 +773,14 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKDireccion108845">
+  <ForeignKey name="FKDireccion782467">
     <ReferenceTable>Direccion</ReferenceTable>
     <ReferencedTable>Parada</ReferencedTable>
     <Columns>
-      <Column>ParadaID</Column>
+      <Column>ParadaNombreParada</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>NombreParada</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKDireccion812807">
@@ -710,26 +788,6 @@
     <ReferencedTable>Evento</ReferencedTable>
     <Columns>
       <Column>EventoID</Column>
-    </Columns>
-    <RefColumns>
-      <Column>ID</Column>
-    </RefColumns>
-  </ForeignKey>
-  <ForeignKey name="FKLinea_Para100662">
-    <ReferenceTable>Linea_Parada</ReferenceTable>
-    <ReferencedTable>Linea</ReferencedTable>
-    <Columns>
-      <Column>LineaID</Column>
-    </Columns>
-    <RefColumns>
-      <Column>ID</Column>
-    </RefColumns>
-  </ForeignKey>
-  <ForeignKey name="FKLinea_Para123602">
-    <ReferenceTable>Linea_Parada</ReferenceTable>
-    <ReferencedTable>Parada</ReferencedTable>
-    <Columns>
-      <Column>ParadaID</Column>
     </Columns>
     <RefColumns>
       <Column>ID</Column>
@@ -745,14 +803,14 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKParada_Pun232095">
+  <ForeignKey name="FKParada_Pun848182">
     <ReferenceTable>Parada_PuntoInteres</ReferenceTable>
     <ReferencedTable>Parada</ReferencedTable>
     <Columns>
-      <Column>ParadaID</Column>
+      <Column>ParadaNombreParada</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>NombreParada</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKParada_Pun791958">
@@ -775,24 +833,24 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKImagen823088">
+  <ForeignKey name="FKImagen68224">
     <ReferenceTable>Imagen</ReferenceTable>
     <ReferencedTable>Parada</ReferencedTable>
     <Columns>
-      <Column>ParadaID</Column>
+      <Column>ParadaNombreParada</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>NombreParada</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKParada_Eve944792">
+  <ForeignKey name="FKParada_Eve135485">
     <ReferenceTable>Parada_Evento</ReferenceTable>
     <ReferencedTable>Parada</ReferencedTable>
     <Columns>
-      <Column>ParadaID</Column>
+      <Column>ParadaNombreParada</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>NombreParada</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKParada_Eve105145">
@@ -805,14 +863,14 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKLinea_Tari576193">
+  <ForeignKey name="FKLinea_Tari600610">
     <ReferenceTable>Linea_Tarifa</ReferenceTable>
     <ReferencedTable>Linea</ReferencedTable>
     <Columns>
-      <Column>LineaID</Column>
+      <Column>LineaNumeroLinea</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>NumeroLinea</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKLinea_Tari74574">
@@ -825,14 +883,44 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKConsulta102438">
+  <ForeignKey name="FKConsulta626613">
     <ReferenceTable>Consulta</ReferenceTable>
     <ReferencedTable>Usuario</ReferencedTable>
     <Columns>
-      <Column>UsuarioID</Column>
+      <Column>UsuarioEmail</Column>
     </Columns>
     <RefColumns>
-      <Column>ID</Column>
+      <Column>Email</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKParada245592">
+    <ReferenceTable>Parada</ReferenceTable>
+    <ReferencedTable>Parada</ReferencedTable>
+    <Columns>
+      <Column>ParadaNombreParada</Column>
+    </Columns>
+    <RefColumns>
+      <Column>NombreParada</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKLinea_Para767710">
+    <ReferenceTable>Linea_Parada</ReferenceTable>
+    <ReferencedTable>Parada</ReferencedTable>
+    <Columns>
+      <Column>ParadaNombreParada</Column>
+    </Columns>
+    <RefColumns>
+      <Column>NombreParada</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKLinea_Para76142">
+    <ReferenceTable>Linea_Parada</ReferenceTable>
+    <ReferencedTable>Linea</ReferencedTable>
+    <Columns>
+      <Column>LineaNumeroLinea</Column>
+    </Columns>
+    <RefColumns>
+      <Column>NumeroLinea</Column>
     </RefColumns>
   </ForeignKey>
 </Model>

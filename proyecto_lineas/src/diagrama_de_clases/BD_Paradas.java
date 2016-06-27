@@ -15,18 +15,18 @@ public class BD_Paradas {
 	public Parada getParada(String aNombre)throws PersistentException {
 		Parada[] paradas = null;
 		Parada parada = null;
-		int ID = -1;
+		String nombre = "";
 		paradas = diagrama_de_base_de_datos.ParadaDAO.listParadaByQuery(null, null);
 		for(int i = 0; i<paradas.length;i++){
 			if(paradas[i].getNombreParada().equals(aNombre)){
-				ID = paradas[i].getID();
+				nombre = paradas[i].getNombreParada();
 				break;
 			}
 		}
 		
 		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
 		try {
-			parada = diagrama_de_base_de_datos.ParadaDAO.loadParadaByORMID(ID);
+			parada = diagrama_de_base_de_datos.ParadaDAO.loadParadaByORMID(nombre);
 			
 			t.commit();
 		}
@@ -69,7 +69,7 @@ public class BD_Paradas {
 			 as.setNombreParada(nombre);
 			 as.setObservaciones(observaciones);
 			 ParadaDAO.save(as);
-			 id_parada = as.getORMID();
+			 //id_parada = as.getORMID();
 			 t.commit();
 		}
 		catch (Exception e) {

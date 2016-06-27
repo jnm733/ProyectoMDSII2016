@@ -19,30 +19,30 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class LineaCriteria extends AbstractORMCriteria {
-	public final IntegerExpression ID;
+	public final StringExpression numeroLinea;
 	public final IntegerExpression imagenId;
 	public final AssociationExpression imagen;
+	public final IntegerExpression ID;
 	public final StringExpression nombreLinea;
-	public final StringExpression numeroLinea;
 	public final DoubleExpression tarifaLinea;
 	public final StringExpression empresaGestora;
 	public final StringExpression horario;
 	public final StringExpression recorrido;
-	public final CollectionExpression pertenece;
+	public final CollectionExpression linea_Paradas;
 	public final CollectionExpression es_usada;
 	
 	public LineaCriteria(Criteria criteria) {
 		super(criteria);
-		ID = new IntegerExpression("ID", this);
+		numeroLinea = new StringExpression("numeroLinea", this);
 		imagenId = new IntegerExpression("imagen.ID", this);
 		imagen = new AssociationExpression("imagen", this);
+		ID = new IntegerExpression("ID", this);
 		nombreLinea = new StringExpression("nombreLinea", this);
-		numeroLinea = new StringExpression("numeroLinea", this);
 		tarifaLinea = new DoubleExpression("tarifaLinea", this);
 		empresaGestora = new StringExpression("empresaGestora", this);
 		horario = new StringExpression("horario", this);
 		recorrido = new StringExpression("recorrido", this);
-		pertenece = new CollectionExpression("ORM_Pertenece", this);
+		linea_Paradas = new CollectionExpression("ORM_Linea_Paradas", this);
 		es_usada = new CollectionExpression("ORM_Es_usada", this);
 	}
 	
@@ -58,8 +58,8 @@ public class LineaCriteria extends AbstractORMCriteria {
 		return new ImagenCriteria(createCriteria("imagen"));
 	}
 	
-	public diagrama_de_base_de_datos.ParadaCriteria createPerteneceCriteria() {
-		return new diagrama_de_base_de_datos.ParadaCriteria(createCriteria("ORM_Pertenece"));
+	public diagrama_de_base_de_datos.Linea_ParadaCriteria createLinea_ParadasCriteria() {
+		return new diagrama_de_base_de_datos.Linea_ParadaCriteria(createCriteria("ORM_Linea_Paradas"));
 	}
 	
 	public diagrama_de_base_de_datos.TarifaCriteria createEs_usadaCriteria() {

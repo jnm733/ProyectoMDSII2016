@@ -6,15 +6,15 @@ License Type: Academic
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="diagrama_de_base_de_datos.Usuario" table="Usuario" lazy="false">
-		<id name="ID" column="ID" type="integer" unsaved-value="0">
-			<generator class="native">
+		<id name="email" column="Email" type="string">
+			<generator class="assigned">
 			</generator>
 		</id>
+		<property name="ID" column="ID" type="integer" length="11" not-null="true" lazy="false"/>
 		<property name="nombre" column="Nombre" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="password" column="Password" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="email" column="Email" type="string" length="255" not-null="true" lazy="false"/>
 		<set name="ORM_Realizada_por" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="UsuarioID" not-null="true"/>
+			<key column="UsuarioEmail" not-null="true"/>
 			<one-to-many class="diagrama_de_base_de_datos.Consulta"/>
 		</set>
 	</class>

@@ -15,12 +15,12 @@ package diagrama_de_base_de_datos;
 
 import org.orm.*;
 
-public class ParadaSetCollection extends org.orm.util.ORMSet {
-	public ParadaSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int targetKey, int collType) {
+public class Linea_ParadaSetCollection extends org.orm.util.ORMSet {
+	public Linea_ParadaSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int targetKey, int collType) {
 		super(owner, adapter, ownerKey, targetKey, true, collType);
 	}
 	
-	public ParadaSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int collType) {
+	public Linea_ParadaSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int collType) {
 		super(owner, adapter, ownerKey, -1, false, collType);
 	}
 	
@@ -36,7 +36,7 @@ public class ParadaSetCollection extends org.orm.util.ORMSet {
 	 * Add the specified persistent object to ORMSet
 	 * @param value the persistent object
 	 */
-	public void add(Parada value) {
+	public void add(Linea_Parada value) {
 		if (value != null) {
 			super.add(value, value._ormAdapter);
 		}
@@ -46,7 +46,7 @@ public class ParadaSetCollection extends org.orm.util.ORMSet {
 	 * Remove the specified persistent object from ORMSet
 	 * @param value the persistent object
 	 */
-	public void remove(Parada value) {
+	public void remove(Linea_Parada value) {
 		super.remove(value, value._ormAdapter);
 	}
 	
@@ -55,7 +55,7 @@ public class ParadaSetCollection extends org.orm.util.ORMSet {
 	 * @param value the persistent object
 	 * @return True if this contains the specified persistent object
 	 */
-	public boolean contains(Parada value) {
+	public boolean contains(Linea_Parada value) {
 		return super.contains(value);
 	}
 	
@@ -63,39 +63,41 @@ public class ParadaSetCollection extends org.orm.util.ORMSet {
 	 * Return an array containing all of the persistent objects in ORMSet
 	 * @return The persistent objects array
 	 */
-	public Parada[] toArray() {
-		return (Parada[]) super.toArray(new Parada[size()]);
+	public Linea_Parada[] toArray() {
+		return (Linea_Parada[]) super.toArray(new Linea_Parada[size()]);
 	}
 	
 	/**
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
-	 * <li>nombreParada</li>
 	 * <li>ID</li>
-	 * <li>direccionParada</li>
-	 * <li>observaciones</li>
-	 * <li>imagenParada</li>
+	 * <li>nombreParada</li>
+	 * <li>numeroLinea</li>
+	 * <li>distancia</li>
+	 * <li>horaPaso</li>
+	 * <li>posicion</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
 	 */
-	public Parada[] toArray(String propertyName) {
+	public Linea_Parada[] toArray(String propertyName) {
 		return toArray(propertyName, true);
 	}
 	
 	/**
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
-	 * <li>nombreParada</li>
 	 * <li>ID</li>
-	 * <li>direccionParada</li>
-	 * <li>observaciones</li>
-	 * <li>imagenParada</li>
+	 * <li>nombreParada</li>
+	 * <li>numeroLinea</li>
+	 * <li>distancia</li>
+	 * <li>horaPaso</li>
+	 * <li>posicion</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending
 	 * @return The persistent objects sorted array
 	 */
-	public Parada[] toArray(String propertyName, boolean ascending) {
-		return (Parada[]) super.toArray(new Parada[size()], propertyName, ascending);
+	public Linea_Parada[] toArray(String propertyName, boolean ascending) {
+		return (Linea_Parada[]) super.toArray(new Linea_Parada[size()], propertyName, ascending);
 	}
 	
 	protected PersistentManager getPersistentManager() throws PersistentException {

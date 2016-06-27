@@ -19,7 +19,7 @@ public class CreateProyectoMDS2Data {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : pertenece
 			diagrama_de_base_de_datos.BarrioDAO.save(diagrama_de_Base_de_DatosBarrio);
 			diagrama_de_base_de_datos.Parada diagrama_de_Base_de_DatosParada = diagrama_de_base_de_datos.ParadaDAO.createParada();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : evento_pertenece, imagen_pertenece, pertenece, contiene
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : evento_pertenece, pertenece, ID, nombreParada
 			diagrama_de_base_de_datos.ParadaDAO.save(diagrama_de_Base_de_DatosParada);
 			diagrama_de_base_de_datos.Descarga diagrama_de_Base_de_DatosDescarga = diagrama_de_base_de_datos.DescargaDAO.createDescarga();
 			// Initialize the properties of the persistent object here
@@ -28,7 +28,7 @@ public class CreateProyectoMDS2Data {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : contiene
 			diagrama_de_base_de_datos.PuntoInteresDAO.save(diagrama_de_Base_de_DatosPuntoInteres);
 			diagrama_de_base_de_datos.Linea diagrama_de_Base_de_DatosLinea = diagrama_de_base_de_datos.LineaDAO.createLinea();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : es_usada, pertenece, imagen
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : es_usada, linea_Paradas, ID, numeroLinea
 			diagrama_de_base_de_datos.LineaDAO.save(diagrama_de_Base_de_DatosLinea);
 			diagrama_de_base_de_datos.Evento diagrama_de_Base_de_DatosEvento = diagrama_de_base_de_datos.EventoDAO.createEvento();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : contiene
@@ -37,11 +37,14 @@ public class CreateProyectoMDS2Data {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : realiza
 			diagrama_de_base_de_datos.ConsultaDAO.save(diagrama_de_Base_de_DatosConsulta);
 			diagrama_de_base_de_datos.Imagen diagrama_de_Base_de_DatosImagen = diagrama_de_base_de_datos.ImagenDAO.createImagen();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : linea, contiene
+			// Initialize the properties of the persistent object here
 			diagrama_de_base_de_datos.ImagenDAO.save(diagrama_de_Base_de_DatosImagen);
 			diagrama_de_base_de_datos.Usuario diagrama_de_Base_de_DatosUsuario = diagrama_de_base_de_datos.UsuarioDAO.createUsuario();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : realizada_por, email
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : realizada_por, ID, email
 			diagrama_de_base_de_datos.UsuarioDAO.save(diagrama_de_Base_de_DatosUsuario);
+			diagrama_de_base_de_datos.Linea_Parada diagrama_de_Base_de_DatosLinea_Parada = diagrama_de_base_de_datos.Linea_ParadaDAO.createLinea_Parada();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : distancia, linea
+			diagrama_de_base_de_datos.Linea_ParadaDAO.save(diagrama_de_Base_de_DatosLinea_Parada);
 			t.commit();
 		}
 		catch (Exception e) {

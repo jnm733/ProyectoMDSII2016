@@ -19,27 +19,27 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class UsuarioDetachedCriteria extends AbstractORMDetachedCriteria {
+	public final StringExpression email;
 	public final IntegerExpression ID;
 	public final StringExpression nombre;
 	public final StringExpression password;
-	public final StringExpression email;
 	public final CollectionExpression realizada_por;
 	
 	public UsuarioDetachedCriteria() {
 		super(diagrama_de_base_de_datos.Usuario.class, diagrama_de_base_de_datos.UsuarioCriteria.class);
+		email = new StringExpression("email", this.getDetachedCriteria());
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		nombre = new StringExpression("nombre", this.getDetachedCriteria());
 		password = new StringExpression("password", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		realizada_por = new CollectionExpression("ORM_Realizada_por", this.getDetachedCriteria());
 	}
 	
 	public UsuarioDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, diagrama_de_base_de_datos.UsuarioCriteria.class);
+		email = new StringExpression("email", this.getDetachedCriteria());
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		nombre = new StringExpression("nombre", this.getDetachedCriteria());
 		password = new StringExpression("password", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		realizada_por = new CollectionExpression("ORM_Realizada_por", this.getDetachedCriteria());
 	}
 	

@@ -10,7 +10,7 @@ License Type: Academic
 			<generator class="native">
 			</generator>
 		</id>
-		<many-to-one name="realiza" cascade="lock" column="UsuarioID" class="diagrama_de_base_de_datos.Usuario" not-null="true" lazy="proxy" access="field">
+		<many-to-one name="realiza" cascade="lock" column="UsuarioEmail" class="diagrama_de_base_de_datos.Usuario" not-null="true" lazy="proxy" access="field">
 		</many-to-one>
 		<property name="origenConsulta" column="OrigenConsulta" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="destinoConsulta" column="DestinoConsulta" type="string" length="255" not-null="false" lazy="false"/>

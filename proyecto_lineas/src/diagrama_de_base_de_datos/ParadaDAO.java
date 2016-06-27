@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class ParadaDAO {
-	public static Parada loadParadaByORMID(int ID) throws PersistentException {
+	public static Parada loadParadaByORMID(String nombreParada) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadParadaByORMID(session, ID);
+			return loadParadaByORMID(session, nombreParada);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada getParadaByORMID(int ID) throws PersistentException {
+	public static Parada getParadaByORMID(String nombreParada) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getParadaByORMID(session, ID);
+			return getParadaByORMID(session, nombreParada);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada loadParadaByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Parada loadParadaByORMID(String nombreParada, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadParadaByORMID(session, ID, lockMode);
+			return loadParadaByORMID(session, nombreParada, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada getParadaByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Parada getParadaByORMID(String nombreParada, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getParadaByORMID(session, ID, lockMode);
+			return getParadaByORMID(session, nombreParada, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada loadParadaByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Parada loadParadaByORMID(PersistentSession session, String nombreParada) throws PersistentException {
 		try {
-			return (Parada) session.load(diagrama_de_base_de_datos.Parada.class, new Integer(ID));
+			return (Parada) session.load(diagrama_de_base_de_datos.Parada.class, nombreParada);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada getParadaByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Parada getParadaByORMID(PersistentSession session, String nombreParada) throws PersistentException {
 		try {
-			return (Parada) session.get(diagrama_de_base_de_datos.Parada.class, new Integer(ID));
+			return (Parada) session.get(diagrama_de_base_de_datos.Parada.class, nombreParada);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada loadParadaByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Parada loadParadaByORMID(PersistentSession session, String nombreParada, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Parada) session.load(diagrama_de_base_de_datos.Parada.class, new Integer(ID), lockMode);
+			return (Parada) session.load(diagrama_de_base_de_datos.Parada.class, nombreParada, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class ParadaDAO {
 		}
 	}
 	
-	public static Parada getParadaByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Parada getParadaByORMID(PersistentSession session, String nombreParada, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Parada) session.get(diagrama_de_base_de_datos.Parada.class, new Integer(ID), lockMode);
+			return (Parada) session.get(diagrama_de_base_de_datos.Parada.class, nombreParada, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -323,10 +323,10 @@ public class ParadaDAO {
 	
 	public static boolean deleteAndDissociate(diagrama_de_base_de_datos.Parada parada)throws PersistentException {
 		try {
-			diagrama_de_base_de_datos.Linea[] lContienes = parada.contiene.toArray();
-			for(int i = 0; i < lContienes.length; i++) {
-				lContienes[i].pertenece.remove(parada);
+			if (parada.getParadaa() != null) {
+				parada.getParadaa().setParada(null);
 			}
+			
 			if (parada.getDireccion_contiene() != null) {
 				parada.getDireccion_contiene().setParada_se_ubica(null);
 			}
@@ -342,6 +342,14 @@ public class ParadaDAO {
 			diagrama_de_base_de_datos.Evento[] lEvento_perteneces = parada.evento_pertenece.toArray();
 			for(int i = 0; i < lEvento_perteneces.length; i++) {
 				lEvento_perteneces[i].contiene.remove(parada);
+			}
+			if (parada.getParada() != null) {
+				parada.getParada().setParadaa(null);
+			}
+			
+			diagrama_de_base_de_datos.Linea_Parada[] lLinea_Paradass = parada.linea_Paradas.toArray();
+			for(int i = 0; i < lLinea_Paradass.length; i++) {
+				lLinea_Paradass[i].setParada(null);
 			}
 			return delete(parada);
 		}
@@ -353,10 +361,10 @@ public class ParadaDAO {
 	
 	public static boolean deleteAndDissociate(diagrama_de_base_de_datos.Parada parada, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			diagrama_de_base_de_datos.Linea[] lContienes = parada.contiene.toArray();
-			for(int i = 0; i < lContienes.length; i++) {
-				lContienes[i].pertenece.remove(parada);
+			if (parada.getParadaa() != null) {
+				parada.getParadaa().setParada(null);
 			}
+			
 			if (parada.getDireccion_contiene() != null) {
 				parada.getDireccion_contiene().setParada_se_ubica(null);
 			}
@@ -372,6 +380,14 @@ public class ParadaDAO {
 			diagrama_de_base_de_datos.Evento[] lEvento_perteneces = parada.evento_pertenece.toArray();
 			for(int i = 0; i < lEvento_perteneces.length; i++) {
 				lEvento_perteneces[i].contiene.remove(parada);
+			}
+			if (parada.getParada() != null) {
+				parada.getParada().setParadaa(null);
+			}
+			
+			diagrama_de_base_de_datos.Linea_Parada[] lLinea_Paradass = parada.linea_Paradas.toArray();
+			for(int i = 0; i < lLinea_Paradass.length; i++) {
+				lLinea_Paradass[i].setParada(null);
 			}
 			try {
 				session.delete(parada);

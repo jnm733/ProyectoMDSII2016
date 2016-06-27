@@ -24,6 +24,7 @@ License Type: Academic
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/Evento.hbm.xml" />
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/Imagen.hbm.xml" />
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/Linea.hbm.xml" />
+		<mapping resource="ormmapping/diagrama_de_base_de_datos/Linea_Parada.hbm.xml" />
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/Parada.hbm.xml" />
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/PuntoInteres.hbm.xml" />
 		<mapping resource="ormmapping/diagrama_de_base_de_datos/Tarifa.hbm.xml" />

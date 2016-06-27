@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class UsuarioDAO {
-	public static Usuario loadUsuarioByORMID(int ID) throws PersistentException {
+	public static Usuario loadUsuarioByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadUsuarioByORMID(session, ID);
+			return loadUsuarioByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario getUsuarioByORMID(int ID) throws PersistentException {
+	public static Usuario getUsuarioByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getUsuarioByORMID(session, ID);
+			return getUsuarioByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario loadUsuarioByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Usuario loadUsuarioByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return loadUsuarioByORMID(session, ID, lockMode);
+			return loadUsuarioByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario getUsuarioByORMID(int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Usuario getUsuarioByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession();
-			return getUsuarioByORMID(session, ID, lockMode);
+			return getUsuarioByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario loadUsuarioByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Usuario loadUsuarioByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Usuario) session.load(diagrama_de_base_de_datos.Usuario.class, new Integer(ID));
+			return (Usuario) session.load(diagrama_de_base_de_datos.Usuario.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario getUsuarioByORMID(PersistentSession session, int ID) throws PersistentException {
+	public static Usuario getUsuarioByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Usuario) session.get(diagrama_de_base_de_datos.Usuario.class, new Integer(ID));
+			return (Usuario) session.get(diagrama_de_base_de_datos.Usuario.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario loadUsuarioByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Usuario loadUsuarioByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Usuario) session.load(diagrama_de_base_de_datos.Usuario.class, new Integer(ID), lockMode);
+			return (Usuario) session.load(diagrama_de_base_de_datos.Usuario.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public static Usuario getUsuarioByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Usuario getUsuarioByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Usuario) session.get(diagrama_de_base_de_datos.Usuario.class, new Integer(ID), lockMode);
+			return (Usuario) session.get(diagrama_de_base_de_datos.Usuario.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

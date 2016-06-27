@@ -20,7 +20,7 @@ import org.orm.criteria.*;
 
 public class ImagenCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression contieneId;
+	public final StringExpression contieneId;
 	public final AssociationExpression contiene;
 	public final StringExpression imagen;
 	public final StringExpression tipo;
@@ -30,7 +30,7 @@ public class ImagenCriteria extends AbstractORMCriteria {
 	public ImagenCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
-		contieneId = new IntegerExpression("contiene.ID", this);
+		contieneId = new StringExpression("contiene.nombreParada", this);
 		contiene = new AssociationExpression("contiene", this);
 		imagen = new StringExpression("imagen", this);
 		tipo = new StringExpression("tipo", this);

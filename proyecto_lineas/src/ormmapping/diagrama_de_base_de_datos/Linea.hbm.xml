@@ -6,25 +6,24 @@ License Type: Academic
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="diagrama_de_base_de_datos.Linea" table="Linea" lazy="false">
-		<id name="ID" column="ID" type="integer" unsaved-value="0">
-			<generator class="native">
+		<id name="numeroLinea" column="NumeroLinea" type="string">
+			<generator class="assigned">
 			</generator>
 		</id>
-		<many-to-one name="imagen" column="ImagenID" class="diagrama_de_base_de_datos.Imagen" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		<many-to-one name="imagen" column="ImagenID" class="diagrama_de_base_de_datos.Imagen" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
+		<property name="ID" column="ID" type="integer" length="11" not-null="true" lazy="false"/>
 		<property name="nombreLinea" column="NombreLinea" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="numeroLinea" column="NumeroLinea" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="tarifaLinea" column="TarifaLinea" type="double" not-null="false" lazy="false"/>
 		<property name="empresaGestora" column="EmpresaGestora" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="horario" column="Horario" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="recorrido" column="Recorrido" type="string" length="255" not-null="false" lazy="false"/>
-		<set name="ORM_Pertenece" table="Linea_Parada" lazy="true" cascade="save-update,lock">
-			<key column="LineaID" not-null="true"/>
-			<many-to-many column="ParadaID" class="diagrama_de_base_de_datos.Parada">
-			</many-to-many>
+		<set name="ORM_Linea_Paradas" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="LineaNumeroLinea" not-null="true"/>
+			<one-to-many class="diagrama_de_base_de_datos.Linea_Parada"/>
 		</set>
 		<set name="ORM_Es_usada" table="Linea_Tarifa" lazy="true" cascade="save-update,lock">
-			<key column="LineaID" not-null="true"/>
+			<key column="LineaNumeroLinea" not-null="true"/>
 			<many-to-many column="TarifaID" class="diagrama_de_base_de_datos.Tarifa">
 			</many-to-many>
 		</set>

@@ -20,7 +20,7 @@ import org.orm.criteria.*;
 
 public class ImagenDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression contieneId;
+	public final StringExpression contieneId;
 	public final AssociationExpression contiene;
 	public final StringExpression imagen;
 	public final StringExpression tipo;
@@ -30,7 +30,7 @@ public class ImagenDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ImagenDetachedCriteria() {
 		super(diagrama_de_base_de_datos.Imagen.class, diagrama_de_base_de_datos.ImagenCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		contieneId = new IntegerExpression("contiene.ID", this.getDetachedCriteria());
+		contieneId = new StringExpression("contiene.nombreParada", this.getDetachedCriteria());
 		contiene = new AssociationExpression("contiene", this.getDetachedCriteria());
 		imagen = new StringExpression("imagen", this.getDetachedCriteria());
 		tipo = new StringExpression("tipo", this.getDetachedCriteria());
@@ -41,7 +41,7 @@ public class ImagenDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ImagenDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, diagrama_de_base_de_datos.ImagenCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		contieneId = new IntegerExpression("contiene.ID", this.getDetachedCriteria());
+		contieneId = new StringExpression("contiene.nombreParada", this.getDetachedCriteria());
 		contiene = new AssociationExpression("contiene", this.getDetachedCriteria());
 		imagen = new StringExpression("imagen", this.getDetachedCriteria());
 		tipo = new StringExpression("tipo", this.getDetachedCriteria());

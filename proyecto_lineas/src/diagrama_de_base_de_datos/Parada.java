@@ -19,27 +19,52 @@ public class Parada implements Serializable {
 	public Parada() {
 	}
 	
+	public boolean equals(Object aObj) {
+		if (aObj == this)
+			return true;
+		if (!(aObj instanceof Parada))
+			return false;
+		Parada parada = (Parada)aObj;
+		if ((getNombreParada() != null && !getNombreParada().equals(parada.getNombreParada())) || (getNombreParada() == null && parada.getNombreParada() != null))
+			return false;
+		return true;
+	}
+	
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = hashcode + (getNombreParada() == null ? 0 : getNombreParada().hashCode());
+		return hashcode;
+	}
+	
 	private java.util.Set this_getSet (int key) {
-		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_CONTIENE) {
-			return ORM_contiene;
-		}
-		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_PERTENECE) {
+		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_PERTENECE) {
 			return ORM_pertenece;
 		}
 		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_EVENTO_PERTENECE) {
 			return ORM_evento_pertenece;
+		}
+		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_LINEA_PARADAS) {
+			return ORM_linea_Paradas;
 		}
 		
 		return null;
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_DIRECCION_CONTIENE) {
+		if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_PARADAA) {
+			this.paradaa = (diagrama_de_base_de_datos.Parada) owner;
+		}
+		
+		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_DIRECCION_CONTIENE) {
 			this.direccion_contiene = (diagrama_de_base_de_datos.Direccion) owner;
 		}
 		
 		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_IMAGEN_PERTENECE) {
 			this.imagen_pertenece = (diagrama_de_base_de_datos.Imagen) owner;
+		}
+		
+		else if (key == diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_PARADA) {
+			this.parada = (diagrama_de_base_de_datos.Parada) owner;
 		}
 	}
 	
@@ -54,17 +79,17 @@ public class Parada implements Serializable {
 		
 	};
 	
-	private int ID;
-	
 	private String nombreParada;
+	
+	private diagrama_de_base_de_datos.Parada paradaa;
+	
+	private int ID;
 	
 	private String direccionParada;
 	
 	private String observaciones;
 	
 	private String imagenParada;
-	
-	private java.util.Set ORM_contiene = new java.util.HashSet();
 	
 	private diagrama_de_base_de_datos.Direccion direccion_contiene;
 	
@@ -74,16 +99,16 @@ public class Parada implements Serializable {
 	
 	private java.util.Set ORM_evento_pertenece = new java.util.HashSet();
 	
-	private void setID(int value) {
+	private diagrama_de_base_de_datos.Parada parada;
+	
+	private java.util.Set ORM_linea_Paradas = new java.util.HashSet();
+	
+	public void setID(int value) {
 		this.ID = value;
 	}
 	
 	public int getID() {
 		return ID;
-	}
-	
-	public int getORMID() {
-		return getID();
 	}
 	
 	public void setNombreParada(String value) {
@@ -92,6 +117,10 @@ public class Parada implements Serializable {
 	
 	public String getNombreParada() {
 		return nombreParada;
+	}
+	
+	public String getORMID() {
+		return getNombreParada();
 	}
 	
 	public void setDireccionParada(String value) {
@@ -118,15 +147,22 @@ public class Parada implements Serializable {
 		return imagenParada;
 	}
 	
-	private void setORM_Contiene(java.util.Set value) {
-		this.ORM_contiene = value;
+	public void setParadaa(diagrama_de_base_de_datos.Parada value) {
+		if (this.paradaa != value) {
+			diagrama_de_base_de_datos.Parada lparadaa = this.paradaa;
+			this.paradaa = value;
+			if (value != null) {
+				paradaa.setParada(this);
+			}
+			if (lparadaa != null && lparadaa.getParada() == this) {
+				lparadaa.setParada(null);
+			}
+		}
 	}
 	
-	private java.util.Set getORM_Contiene() {
-		return ORM_contiene;
+	public diagrama_de_base_de_datos.Parada getParadaa() {
+		return paradaa;
 	}
-	
-	public final diagrama_de_base_de_datos.LineaSetCollection contiene = new diagrama_de_base_de_datos.LineaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_CONTIENE, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PERTENECE, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public void setDireccion_contiene(diagrama_de_base_de_datos.Direccion value) {
 		if (this.direccion_contiene != value) {
@@ -182,6 +218,33 @@ public class Parada implements Serializable {
 	
 	public final diagrama_de_base_de_datos.EventoSetCollection evento_pertenece = new diagrama_de_base_de_datos.EventoSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_EVENTO_PERTENECE, diagrama_de_base_de_datos.ORMConstants.KEY_EVENTO_CONTIENE, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
+	public void setParada(diagrama_de_base_de_datos.Parada value) {
+		if (this.parada != value) {
+			diagrama_de_base_de_datos.Parada lparada = this.parada;
+			this.parada = value;
+			if (value != null) {
+				parada.setParadaa(this);
+			}
+			if (lparada != null && lparada.getParadaa() == this) {
+				lparada.setParadaa(null);
+			}
+		}
+	}
+	
+	public diagrama_de_base_de_datos.Parada getParada() {
+		return parada;
+	}
+	
+	private void setORM_Linea_Paradas(java.util.Set value) {
+		this.ORM_linea_Paradas = value;
+	}
+	
+	private java.util.Set getORM_Linea_Paradas() {
+		return ORM_linea_Paradas;
+	}
+	
+	public final diagrama_de_base_de_datos.Linea_ParadaSetCollection linea_Paradas = new diagrama_de_base_de_datos.Linea_ParadaSetCollection(this, _ormAdapter, diagrama_de_base_de_datos.ORMConstants.KEY_PARADA_LINEA_PARADAS, diagrama_de_base_de_datos.ORMConstants.KEY_LINEA_PARADA_PARADA, diagrama_de_base_de_datos.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	
 	public diagrama_de_clases.Paradas getParada(String nombre) {
 		//TODO: Implement Method
 		throw new UnsupportedOperationException();
@@ -203,7 +266,7 @@ public class Parada implements Serializable {
 	}
 	
 	public String toString() {
-		return String.valueOf(getID());
+		return String.valueOf(getNombreParada());
 	}
 	
 }

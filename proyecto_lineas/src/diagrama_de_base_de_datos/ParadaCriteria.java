@@ -19,33 +19,41 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class ParadaCriteria extends AbstractORMCriteria {
-	public final IntegerExpression ID;
 	public final StringExpression nombreParada;
+	public final StringExpression paradaaId;
+	public final AssociationExpression paradaa;
+	public final IntegerExpression ID;
 	public final StringExpression direccionParada;
 	public final StringExpression observaciones;
 	public final StringExpression imagenParada;
-	public final CollectionExpression contiene;
-	public final IntegerExpression direccion_contieneId;
+	public final StringExpression direccion_contieneId;
 	public final AssociationExpression direccion_contiene;
 	public final CollectionExpression pertenece;
-	public final IntegerExpression imagen_perteneceId;
+	public final StringExpression imagen_perteneceId;
 	public final AssociationExpression imagen_pertenece;
 	public final CollectionExpression evento_pertenece;
+	public final StringExpression paradaId;
+	public final AssociationExpression parada;
+	public final CollectionExpression linea_Paradas;
 	
 	public ParadaCriteria(Criteria criteria) {
 		super(criteria);
-		ID = new IntegerExpression("ID", this);
 		nombreParada = new StringExpression("nombreParada", this);
+		paradaaId = new StringExpression("paradaa.nombreParada", this);
+		paradaa = new AssociationExpression("paradaa", this);
+		ID = new IntegerExpression("ID", this);
 		direccionParada = new StringExpression("direccionParada", this);
 		observaciones = new StringExpression("observaciones", this);
 		imagenParada = new StringExpression("imagenParada", this);
-		contiene = new CollectionExpression("ORM_Contiene", this);
-		direccion_contieneId = new IntegerExpression("direccion_contiene.ID", this);
+		direccion_contieneId = new StringExpression("direccion_contiene.nombreParada", this);
 		direccion_contiene = new AssociationExpression("direccion_contiene", this);
 		pertenece = new CollectionExpression("ORM_Pertenece", this);
-		imagen_perteneceId = new IntegerExpression("imagen_pertenece.ID", this);
+		imagen_perteneceId = new StringExpression("imagen_pertenece.nombreParada", this);
 		imagen_pertenece = new AssociationExpression("imagen_pertenece", this);
 		evento_pertenece = new CollectionExpression("ORM_Evento_pertenece", this);
+		paradaId = new StringExpression("parada.nombreParada", this);
+		parada = new AssociationExpression("parada", this);
+		linea_Paradas = new CollectionExpression("ORM_Linea_Paradas", this);
 	}
 	
 	public ParadaCriteria(PersistentSession session) {
@@ -56,8 +64,8 @@ public class ParadaCriteria extends AbstractORMCriteria {
 		this(diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession());
 	}
 	
-	public diagrama_de_base_de_datos.LineaCriteria createContieneCriteria() {
-		return new diagrama_de_base_de_datos.LineaCriteria(createCriteria("ORM_Contiene"));
+	public ParadaCriteria createParadaaCriteria() {
+		return new ParadaCriteria(createCriteria("paradaa"));
 	}
 	
 	public DireccionCriteria createDireccion_contieneCriteria() {
@@ -74,6 +82,14 @@ public class ParadaCriteria extends AbstractORMCriteria {
 	
 	public diagrama_de_base_de_datos.EventoCriteria createEvento_perteneceCriteria() {
 		return new diagrama_de_base_de_datos.EventoCriteria(createCriteria("ORM_Evento_pertenece"));
+	}
+	
+	public ParadaCriteria createParadaCriteria() {
+		return new ParadaCriteria(createCriteria("parada"));
+	}
+	
+	public diagrama_de_base_de_datos.Linea_ParadaCriteria createLinea_ParadasCriteria() {
+		return new diagrama_de_base_de_datos.Linea_ParadaCriteria(createCriteria("ORM_Linea_Paradas"));
 	}
 	
 	public Parada uniqueParada() {

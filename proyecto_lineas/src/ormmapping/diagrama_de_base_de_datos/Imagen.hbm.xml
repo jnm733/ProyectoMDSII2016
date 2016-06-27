@@ -10,7 +10,7 @@ License Type: Academic
 			<generator class="native">
 			</generator>
 		</id>
-		<many-to-one name="contiene" column="ParadaID" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		<many-to-one name="contiene" column="ParadaNombreParada" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
 		<property name="imagen" column="Imagen" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>

@@ -14,7 +14,7 @@ License Type: Academic
 		</many-to-one>
 		<many-to-one name="evento_se_ubica" column="EventoID" class="diagrama_de_base_de_datos.Evento" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
-		<many-to-one name="parada_se_ubica" column="ParadaID" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+		<many-to-one name="parada_se_ubica" column="ParadaNombreParada" class="diagrama_de_base_de_datos.Parada" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
 		<many-to-one name="contiene" cascade="lock" column="BarrioID" class="diagrama_de_base_de_datos.Barrio" not-null="true" lazy="proxy" access="field">
 		</many-to-one>

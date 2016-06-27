@@ -109,7 +109,7 @@ public class PuntoInteres implements Serializable {
 		return tiene;
 	}
 	
-	public diagrama_de_clases.InfoPtoInteres getPtoInteres(String nombre) {
+	public PuntoInteres getPtoInteres(String nombre) {
 		//TODO: Implement Method
 		throw new UnsupportedOperationException();
 	}

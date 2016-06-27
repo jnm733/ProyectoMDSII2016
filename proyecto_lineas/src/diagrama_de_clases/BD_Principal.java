@@ -368,22 +368,8 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	public boolean incluirLinea(ArrayList<String> datos) {
 		try {
 			Parada[] parada = bd_paradas.getParadas();
-			BD_Imagenes bd_imagen = new BD_Imagenes();
-			 Imagen imagen = null;
-			 Imagen[] imagenes = bd_imagen.getImagenes();
-			 for(int i = 0; i < imagenes.length;i++){
-				 if(imagenes[i].getTipo().equals("linea")&&imagenes[i].getImagen().equals("Por defecto")){
-					 imagen = imagenes[i];
-					 break;
-				 }
-			 }
-			 if(imagen == null){
-				 bd_imagen.addImagen("linea", "Por defecto",parada[0]);
-				 imagen = bd_imagen.getImagen("linea","Por defecto");
-			 }
 			 ArrayList<Object> datosLinea = new ArrayList<>();
 			 datosLinea.addAll(datos);
-			 datosLinea.add(imagen);
 			bd_lineas.addLinea(datosLinea);
 			return true;
 		} catch (Exception e) {

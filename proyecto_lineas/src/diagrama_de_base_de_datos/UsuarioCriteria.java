@@ -19,18 +19,18 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class UsuarioCriteria extends AbstractORMCriteria {
+	public final StringExpression email;
 	public final IntegerExpression ID;
 	public final StringExpression nombre;
 	public final StringExpression password;
-	public final StringExpression email;
 	public final CollectionExpression realizada_por;
 	
 	public UsuarioCriteria(Criteria criteria) {
 		super(criteria);
+		email = new StringExpression("email", this);
 		ID = new IntegerExpression("ID", this);
 		nombre = new StringExpression("nombre", this);
 		password = new StringExpression("password", this);
-		email = new StringExpression("email", this);
 		realizada_por = new CollectionExpression("ORM_Realizada_por", this);
 	}
 	

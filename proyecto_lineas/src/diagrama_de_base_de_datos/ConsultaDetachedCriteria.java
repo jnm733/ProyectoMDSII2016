@@ -20,7 +20,7 @@ import org.orm.criteria.*;
 
 public class ConsultaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression realizaId;
+	public final StringExpression realizaId;
 	public final AssociationExpression realiza;
 	public final StringExpression origenConsulta;
 	public final StringExpression destinoConsulta;
@@ -28,7 +28,7 @@ public class ConsultaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ConsultaDetachedCriteria() {
 		super(diagrama_de_base_de_datos.Consulta.class, diagrama_de_base_de_datos.ConsultaCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		realizaId = new IntegerExpression("realiza.ID", this.getDetachedCriteria());
+		realizaId = new StringExpression("realiza.email", this.getDetachedCriteria());
 		realiza = new AssociationExpression("realiza", this.getDetachedCriteria());
 		origenConsulta = new StringExpression("origenConsulta", this.getDetachedCriteria());
 		destinoConsulta = new StringExpression("destinoConsulta", this.getDetachedCriteria());
@@ -37,7 +37,7 @@ public class ConsultaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ConsultaDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, diagrama_de_base_de_datos.ConsultaCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		realizaId = new IntegerExpression("realiza.ID", this.getDetachedCriteria());
+		realizaId = new StringExpression("realiza.email", this.getDetachedCriteria());
 		realiza = new AssociationExpression("realiza", this.getDetachedCriteria());
 		origenConsulta = new StringExpression("origenConsulta", this.getDetachedCriteria());
 		destinoConsulta = new StringExpression("destinoConsulta", this.getDetachedCriteria());
