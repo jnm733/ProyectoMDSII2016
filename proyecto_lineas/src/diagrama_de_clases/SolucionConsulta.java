@@ -54,7 +54,7 @@ public class SolucionConsulta extends JPanel {
 	public Iterator<String> it;
 	public DefaultListModel<String> paradas;
 	public Double distancia;
-	public ArrayList<Double>distancias;
+	public ArrayList<Double> distancias;
 	public ArrayList<Float> precios;
 	public BD_Principal bd_principal;
 	public Linea_Parada[] linpars;
@@ -223,19 +223,6 @@ public class SolucionConsulta extends JPanel {
 		add(panel_3);
 
 		try {
-			boolean consultaExiste = false;
-			if (solucion.equals("")) {
-				// Obtenemos el email si estamos conectados
-
-				// Creamos la consulta, si estamos realizando una nueva consulta
-				if (!consultaExiste) {
-
-				}
-
-			} else {
-
-			}
-
 			createSolucion();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -246,25 +233,15 @@ public class SolucionConsulta extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				int select = listSolucion.getSelectedIndex();
 				txtIdSolucion.setText("" + (select + 1));
-				it = mapa.keySet().iterator();
-				int i = 0;
-				while (it.hasNext()) {
-					if (i == select) {
-						String key = it.next();
-						paradas = mapa.get(key);
-						DefaultListModel<String> model = new DefaultListModel<String>();
-						distancia = distancias.get(select);
-						listParadas.setModel(paradas);
-						txtDistancia.setText("" + distancia + " metros");
-						txtPrecio.setText("1.05 euros");
-
-						break;
-					} else {
-						it.next();
-						i++;
-					}
-
-				}
+				DefaultListModel<String> model = (DefaultListModel<String>) listSolucion.getModel();
+				String sol = model.getElementAt(select);
+				model = mapa.get(sol);
+				distancia = distancias.get(select);
+				listParadas.setModel(model);
+				txtDistancia.setText("" + distancia + " metros");
+				txtPrecio.setText("1.05 euros");
+				
+				
 			}
 		});
 	}
@@ -296,7 +273,8 @@ public class SolucionConsulta extends JPanel {
 						bolDestino = true;
 						paradas.addElement(linpars[j].getParada().getNombreParada());
 						distancia += linpars[j].getDistancia();
-					}else if(bolOrigen && linpars[j].getLinea().equals(lineas[i])){
+						break;
+					} else if (bolOrigen && linpars[j].getLinea().equals(lineas[i])) {
 						paradas.addElement(linpars[j].getParada().getNombreParada());
 						distancia += linpars[j].getDistancia();
 					}

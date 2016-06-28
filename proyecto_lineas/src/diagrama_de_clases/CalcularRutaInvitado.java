@@ -205,6 +205,7 @@ public class CalcularRutaInvitado extends JPanel {
 		panel_2.add(rdbtnMenorTiempo);
 
 		rdbtnMenorPrecio = new JRadioButton("Menor Precio");
+		rdbtnMenorPrecio.setSelected(true);
 		sl_panel_2.putConstraint(SpringLayout.NORTH, rdbtnMenorPrecio, 19, SpringLayout.SOUTH, rdbtnMenorTiempo);
 		sl_panel_2.putConstraint(SpringLayout.EAST, rdbtnMenorPrecio, 0, SpringLayout.EAST, rdbtnMenorTiempo);
 		panel_2.add(rdbtnMenorPrecio);
@@ -473,7 +474,18 @@ public class CalcularRutaInvitado extends JPanel {
 								JOptionPane.ERROR_MESSAGE);*/
 						txtDestino.setBackground(Color.red);
 					} else {
-						bd_principal.incluirConsulta(email,nOrigen, nDestino);
+						Consulta[] consultas = bd_principal.getConsultas();
+						boolean existeConsulta = false;
+						for (int i = 0; i < consultas.length; i++) {
+							if(consultas[i].getRealiza().getEmail().equals(email)){
+								if(consultas[i].getOrigenConsulta().equals(nOrigen)&&consultas[i].getDestinoConsulta().equals(nDestino)){
+									existeConsulta = true;
+								}
+							}
+						}
+						if(!existeConsulta){
+							bd_principal.incluirConsulta(email,nOrigen, nDestino);
+						}
 					}
 
 				}
