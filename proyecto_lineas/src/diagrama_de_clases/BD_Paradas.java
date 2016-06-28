@@ -12,6 +12,46 @@ public class BD_Paradas {
 	public BD_Principal _bd_Principal;
 	public Vector<Parada> _cont_paradas = new Vector<Parada>();
 
+	public void addParada(ArrayList aDatos)throws PersistentException {
+		int id_parada = -1;
+		
+		String nombre =(String)aDatos.get(0);
+		String observaciones =(String)aDatos.get(1);
+		String direccion =(String)aDatos.get(2);
+		
+
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		try {
+			 Parada as = ParadaDAO.createParada();
+			 as.setDireccionParada(direccion);
+			 as.setImagenParada("");
+			 as.setNombreParada(nombre);
+			 as.setObservaciones(observaciones);
+			 ParadaDAO.save(as);
+			 //id_parada = as.getORMID();
+			 t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+		}
+	}
+	
+	public void borrarParada(Parada parada)throws PersistentException {
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			parada.linea_Paradas.clear();
+			diagrama_de_base_de_datos.ParadaDAO.delete(parada);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+	}
+
+	public Lineas getLinea(Lineas aNombre)throws PersistentException {
+		throw new UnsupportedOperationException();
+	}
+
 	public Parada getParada(String aNombre)throws PersistentException {
 		Parada[] paradas = null;
 		Parada parada = null;
@@ -36,7 +76,7 @@ public class BD_Paradas {
 		 
 		return parada;
 	}
-	
+
 	public Parada[] getParadas() throws PersistentException {
 		Parada[] paradas = null;
 
@@ -53,39 +93,7 @@ public class BD_Paradas {
 		return paradas;
 	}
 
-	public void addParada(ArrayList aDatos)throws PersistentException {
-		int id_parada = -1;
-		
-		String nombre =(String)aDatos.get(0);
-		String direccion =(String)aDatos.get(1);
-		String observaciones =(String)aDatos.get(2);
-
-		//Imagen
-		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
-		try {
-			 Parada as = ParadaDAO.createParada();
-			 as.setDireccionParada(direccion);
-			 as.setImagenParada("");
-			 as.setNombreParada(nombre);
-			 as.setObservaciones(observaciones);
-			 ParadaDAO.save(as);
-			 //id_parada = as.getORMID();
-			 t.commit();
-		}
-		catch (Exception e) {
-			t.rollback();
-		}
-	}
-
-	public Lineas getLinea(Lineas aNombre)throws PersistentException {
-		throw new UnsupportedOperationException();
-	}
-
 	public void vincularPtosInteres(ArrayList aIncluidos, ArrayList aExcluidos)throws PersistentException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void borrarParada(String aNombre)throws PersistentException {
 		throw new UnsupportedOperationException();
 	}
 }

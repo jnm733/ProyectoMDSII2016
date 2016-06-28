@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 import diagrama_de_base_de_datos.*;
 
 public class InfoParada_Linea extends InfoParada {
-	public InfoParada_Linea(Object key, String tiempoPaso,
+	public InfoParada_Linea(String key, String tiempoPaso,
 			String numeroLineaLinea) {
 		super(key, tiempoPaso, numeroLineaLinea);
 		// TODO Auto-generated constructor stub

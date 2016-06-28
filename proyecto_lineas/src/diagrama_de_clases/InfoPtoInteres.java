@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,9 +25,28 @@ public class InfoPtoInteres extends JFrame{
 	public JTextField txtDireccion;
 	public JTextField paradaCercana;
 	public JButton btnAceptar;
+	
+	public IAdministrador bd;
+	public BD_Principal bd_principal;
 
-	public InfoPtoInteres(Object key) {
+	public InfoPtoInteres(String key) {
 
+		bd_principal = new BD_Principal();
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+			String nombre = "Servidor1";
+			Registry registry = LocateRegistry.getRegistry(1099);
+			bd = (IAdministrador) registry.lookup(nombre);
+
+		} catch (Exception e) {
+			System.err.println("Servidor no arrancado en lineas:");
+			e.printStackTrace();
+		}
+		
+		PuntoInteres punto = bd_principal.getPtoInteres(key);
+		
 		setTitle("Informacion Punto de Interes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -69,6 +90,7 @@ public class InfoPtoInteres extends JFrame{
 		contentPane.add(lblDireccion);
 
 		txtNombre = new JTextField();
+		txtNombre.setText(punto.getNombrePunto());
 		txtNombre.setEditable(false);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, txtNombre, -3,
 				SpringLayout.NORTH, lblPuntoDeInteres);
@@ -76,6 +98,7 @@ public class InfoPtoInteres extends JFrame{
 		txtNombre.setColumns(10);
 
 		txtDireccion = new JTextField();
+		txtDireccion.setText(punto.getDireccionPunto());
 		txtDireccion.setEditable(false);
 		sl_contentPane.putConstraint(SpringLayout.WEST, txtNombre, 0,
 				SpringLayout.WEST, txtDireccion);
@@ -85,6 +108,7 @@ public class InfoPtoInteres extends JFrame{
 		txtDireccion.setColumns(10);
 
 		JTextArea textAreaDescripcion = new JTextArea();
+		//textAreaDescripcion.setText(punto.ge);
 		textAreaDescripcion.setEditable(false);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, textAreaDescripcion,
 				6, SpringLayout.SOUTH, txtDireccion);
@@ -101,7 +125,16 @@ public class InfoPtoInteres extends JFrame{
 				SpringLayout.WEST, lblPuntoDeInteres);
 		contentPane.add(lblParadaCercana);
 
+		Parada[] paradas = bd_principal.getParadas();
+		String paradacercana = "";
+		for (int i = 0; i < paradas.length; i++) {
+			if(paradas[i].pertenece.contains(punto)){
+				paradacercana = paradas[i].getNombreParada();
+			}
+		}
+		
 		paradaCercana = new JTextField();
+		paradaCercana.setText(paradacercana);
 		paradaCercana.setEditable(false);
 		sl_contentPane.putConstraint(SpringLayout.WEST, textAreaDescripcion, 0,
 				SpringLayout.WEST, paradaCercana);

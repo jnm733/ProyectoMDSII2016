@@ -6,55 +6,15 @@ import java.util.Vector;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
-import diagrama_de_base_de_datos.*;
+import diagrama_de_base_de_datos.Linea;
+import diagrama_de_base_de_datos.LineaDAO;
+import diagrama_de_base_de_datos.Linea_Parada;
+import diagrama_de_base_de_datos.Linea_ParadaDAO;
+import diagrama_de_base_de_datos.Parada;
 
 public class BD_Lineas {
 	public BD_Principal _bd_Principal;
 	public Vector<Linea> _cont_lineas = new Vector<Linea>();
-
-	public Linea[] getLineas() throws PersistentException {
-		Linea[] lineas = null;
-
-		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
-				.beginTransaction();
-		try {
-			lineas = diagrama_de_base_de_datos.LineaDAO.listLineaByQuery(null, null);
-
-			t.commit();
-		} catch (Exception e) {
-			t.rollback();
-		}
-
-		return lineas;
-	}
-
-	public Linea getLinea(String aNombre) throws PersistentException {
-		Linea linea = null;
-		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
-				.beginTransaction();
-		try {
-			linea = diagrama_de_base_de_datos.LineaDAO.getLineaByORMID(aNombre);
-			t.commit();
-		} catch (Exception e) {
-			t.rollback();
-		}
-		return linea;
-	}
-
-	public void deleteLinea(String id) throws PersistentException {
-		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
-				.beginTransaction();
-		try {
-
-			Linea linea = diagrama_de_base_de_datos.LineaDAO.loadLineaByORMID(id);
-			diagrama_de_base_de_datos.LineaDAO.delete(linea);
-			t.commit();
-		} catch (Exception e) {
-			t.rollback();
-		}
-
-		diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().disposePersistentManager();
-	}
 
 	public void addLinea(ArrayList<Object> aDatos) throws PersistentException {
 		String id_linea = "-1";
@@ -83,32 +43,6 @@ public class BD_Lineas {
 		}
 	}
 
-	public void vincularParada(Linea linea, Parada parada, ArrayList<String> datos) throws PersistentException {
-		int id_parada_linea = -1;
-		Double dist = Double.parseDouble(datos.get(1));
-		String hora = datos.get(2);
-		String pos = datos.get(3);
-
-		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
-				.beginTransaction();
-		try {
-			Linea_Parada as = Linea_ParadaDAO.createLinea_Parada();
-			as.setDistancia(dist);
-			as.setHoraPaso(hora);
-			as.setPosicion(pos);
-			as.setLinea(linea);
-			as.setParada(parada);
-			as.setNombreParada(linea.getNombreLinea());
-			as.setNombreParada(parada.getNombreParada());
-
-			Linea_ParadaDAO.save(as);
-			id_parada_linea = as.getORMID();
-			t.commit();
-		} catch (Exception e) {
-			t.rollback();
-		}
-	}
-
 	public void borrarLinea_Parada(Linea linea,Parada parada) throws PersistentException {
 		Linea_Parada linpar  = getLinea_Parada(linea, parada);
 		
@@ -121,6 +55,47 @@ public class BD_Lineas {
 			t.rollback();
 		}
 
+	}
+
+	public void borrarLinea_Parada(Linea_Parada linpar) throws PersistentException {
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			Linea linea = linpar.getLinea();
+			Parada parada = linpar.getParada();
+			
+			diagrama_de_base_de_datos.Linea_ParadaDAO.delete(linpar);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+		
+	}
+
+	public void deleteLinea(Linea linea) throws PersistentException {
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			linea.linea_Paradas.clear();
+			diagrama_de_base_de_datos.LineaDAO.delete(linea);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+
+	}
+
+	public Linea getLinea(String aNombre) throws PersistentException {
+		Linea linea = null;
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			linea = diagrama_de_base_de_datos.LineaDAO.getLineaByORMID(aNombre);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+		return linea;
 	}
 
 	public Linea_Parada getLinea_Parada(Linea linea, Parada parada) throws PersistentException {
@@ -143,7 +118,66 @@ public class BD_Lineas {
 		return linpar;
 	}
 
-	public Parada[] getParadas_Linea(String nombreLinea)throws PersistentException {
+	public Linea[] getLineas() throws PersistentException {
+		Linea[] lineas = null;
+
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			lineas = diagrama_de_base_de_datos.LineaDAO.listLineaByQuery(null, null);
+
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+
+		return lineas;
+	}
+
+	public Linea_Parada[] getLineas_Paradas() throws PersistentException{
+		Linea_Parada[] linpars	= null;
+		PersistentTransaction t2 = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+				.beginTransaction();
+		try {
+			linpars = diagrama_de_base_de_datos.Linea_ParadaDAO.listLinea_ParadaByQuery(null, null);
+
+			t2.commit();
+		} catch (Exception e) {
+			t2.rollback();
+		}
+		return linpars;
+	}
+
+	public Linea[] getParada_Lineas(String nombreParada) throws PersistentException {
+		ArrayList<Linea> arrLin = new ArrayList<>();
+		Linea[] lineas = null;
+		Linea_Parada[] linpars = null;
+		BD_Principal bd = new BD_Principal();
+		Parada parada = bd.getParada(nombreParada);
+		linpars = getLineas_Paradas();
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+		.beginTransaction();
+		try {
+			
+			for(int i = 0 ; i < linpars.length;i++){
+				if(linpars[i].getParada().equals(parada)){
+					arrLin.add(linpars[i].getLinea());
+				}
+			}
+			if(arrLin.size()>0){
+				lineas = new Linea[arrLin.size()];
+				for (int i = 0; i < arrLin.size(); i++) {
+					lineas[i] = arrLin.get(i);
+				}
+			}
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+		}
+		return lineas;
+	}
+
+	public Parada[] getParadas_Linea(String nombreLinea) throws PersistentException {
 		ArrayList<Parada> arrPar = new ArrayList<>();
 		Parada[] paradas = null;
 		Linea_Parada[] linpars = null;
@@ -171,17 +205,29 @@ public class BD_Lineas {
 		return paradas;
 	}
 
-	private Linea_Parada[] getLineas_Paradas() throws PersistentException{
-		Linea_Parada[] linpars	= null;
-		PersistentTransaction t2 = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
+	public void vincularParada(Linea linea, Parada parada, ArrayList<String> datos) throws PersistentException {
+		int id_parada_linea = -1;
+		Double dist = Double.parseDouble(datos.get(1));
+		String hora = datos.get(2);
+		String pos = datos.get(3);
+
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession()
 				.beginTransaction();
 		try {
-			linpars = diagrama_de_base_de_datos.Linea_ParadaDAO.listLinea_ParadaByQuery(null, null);
+			Linea_Parada as = Linea_ParadaDAO.createLinea_Parada();
+			as.setDistancia(dist);
+			as.setHoraPaso(hora);
+			as.setPosicion(pos);
+			as.setLinea(linea);
+			as.setParada(parada);
+			as.setNombreParada(linea.getNombreLinea());
+			as.setNombreParada(parada.getNombreParada());
 
-			t2.commit();
+			Linea_ParadaDAO.save(as);
+			id_parada_linea = as.getORMID();
+			t.commit();
 		} catch (Exception e) {
-			t2.rollback();
+			t.rollback();
 		}
-		return linpars;
 	}
 }

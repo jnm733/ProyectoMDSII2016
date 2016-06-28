@@ -214,6 +214,10 @@ public class vincularParadas extends JFrame {
 					//Se cambian las listas
 					vincular.listExcluidos.setModel(modelExcluidos);
 					vincular.listIncluidos.setModel(modelIncluidos);
+					
+					txtDistancia.setText("Distancia");
+					txtHoraPaso.setText("Hora Paso");
+					txtId.setText("Id");
 				}
 				
 			}

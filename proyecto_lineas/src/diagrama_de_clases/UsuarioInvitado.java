@@ -43,6 +43,7 @@ public class UsuarioInvitado extends JFrame {
 	public String password;
 	public boolean recordar;
 	public CalcularRutaInvitado calcularRuta;
+	public HistorialConsultas consultaHistorial;
 	
 	/**
 	 * Launch the application.
@@ -116,8 +117,15 @@ public class UsuarioInvitado extends JFrame {
 							JOptionPane.showMessageDialog(null, "Usuario no registrado","Error",JOptionPane.ERROR_MESSAGE);
 						}else{
 							dispose();
-							UsuarioRegistrado usuario = new UsuarioRegistrado(user.getNombre());
-							usuario.main(null);
+							if(user.getNombre().equals("admin")){
+								UsuarioAdministrador.main(null);
+							}else{
+								String[] args = new String[2];
+								args[0] = user.getNombre();
+								args[1] = user.getEmail();
+								UsuarioRegistrado.main(args);
+							}
+							
 						}
 						
 						
@@ -179,9 +187,7 @@ public class UsuarioInvitado extends JFrame {
 
 		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-					panelSolucion();	
-				
+					panelSolucion();		
 			}
 		});
 		panel.add(calcularRuta);
@@ -199,7 +205,7 @@ public class UsuarioInvitado extends JFrame {
 		calcularRuta.btnConsultarHistorial
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						consultaHistorial = new Historial(usuario);
+						consultaHistorial = new HistorialConsultas(usuario);
 						jFrame = new JFrame();
 						jFrame.setTitle("Historial de consultas");
 						jFrame.setBounds(300, 300, 520, 305);
@@ -229,8 +235,8 @@ public class UsuarioInvitado extends JFrame {
 								});
 					}
 				});
-	}*/
-
+	}
+*/
 	public void panelDescarga() {
 		panel.removeAll();
 		descarga = new Descargas();
@@ -267,7 +273,7 @@ public class UsuarioInvitado extends JFrame {
 				usuario = cabeceraUsuario.getUsuario();
 			}
 
-			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
+			solucion = new SolucionConsulta(calcularRuta.nOrigen,
 					calcularRuta.nDestino, usuario, calcularRuta.hora,
 					calcularRuta.txtConsulta.getText());
 			solucion.btnVolver.addActionListener(new ActionListener() {

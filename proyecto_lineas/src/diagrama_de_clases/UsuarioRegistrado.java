@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import diagrama_de_base_de_datos.Usuario;
+
 public class UsuarioRegistrado extends JFrame{
 	public JPanel contentPane;
 	public CabeceraInvitado cabeceraInvitado;
@@ -40,6 +42,8 @@ public class UsuarioRegistrado extends JFrame{
 	public boolean recordar;
 	public CalcularRutaInvitado calcularRuta;
 	public HistorialConsultas consultaHistorial;
+	public BD_Principal bd_Principal;
+	public String email;
 	
 	/**
 	 * Launch the application.
@@ -47,8 +51,17 @@ public class UsuarioRegistrado extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				String usuario;
+				String email;
 				try {
-					UsuarioRegistrado frame = new UsuarioRegistrado("Default");
+					try {
+						usuario = args[0];
+						email = args[1];
+						} catch (Exception e) {
+						usuario = "Default";
+						email = "default@gmail.com";
+					}
+					UsuarioRegistrado frame = new UsuarioRegistrado(usuario,email);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +70,9 @@ public class UsuarioRegistrado extends JFrame{
 		});
 	}
 	
-	public UsuarioRegistrado(String user){
+	public UsuarioRegistrado(String user,String email){
+		bd_Principal = new BD_Principal();
+		setEmail(email);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel();
@@ -202,9 +217,10 @@ public class UsuarioRegistrado extends JFrame{
 	
 	public void panelCalcularRutaUsuario() {
 		// TODO borrar
-		//usuario = "admin";
+		
 		panelCalcularRuta();
 		calcularRuta.usuario();
+		calcularRuta.setUser(email);
 		calcularRuta.btnConsultarHistorial
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -249,7 +265,7 @@ public class UsuarioRegistrado extends JFrame{
 				usuario = cabeceraUsuario.getUsuario();
 			}
 
-			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
+			solucion = new SolucionConsulta(calcularRuta.nOrigen,
 					calcularRuta.nDestino, usuario, calcularRuta.hora,
 					calcularRuta.txtConsulta.getText());
 			solucion.btnVolver.addActionListener(new ActionListener() {
@@ -274,7 +290,7 @@ public class UsuarioRegistrado extends JFrame{
 		calcularRuta.btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-					//panelSolucion();	
+					panelSolucion();	
 				
 			}
 		});
@@ -283,5 +299,9 @@ public class UsuarioRegistrado extends JFrame{
 		panel.repaint();
 		panel.updateUI();
 		repaint();
+	}
+	
+	public void setEmail(String email){
+		this.email = email;
 	}
 }

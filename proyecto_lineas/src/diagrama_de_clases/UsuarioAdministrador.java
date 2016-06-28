@@ -36,7 +36,6 @@ public class UsuarioAdministrador extends JFrame{
 	public JFrame jFrame;
 	public PtosInteresAdmin ptosInteres;
 	public EventosAdmin eventosAdmin;
-	public String usuario;
 	public String password;
 	public boolean recordar;
 	public CalcularRutaInvitado calcularRuta;
@@ -176,7 +175,6 @@ public class UsuarioAdministrador extends JFrame{
 
 		cabeceraAdministrador.btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO
 				dispose();
 				UsuarioInvitado.main(null);
 				if (recordar) {
@@ -219,8 +217,7 @@ public class UsuarioAdministrador extends JFrame{
 		
 		lineasAdmin.lineas.btnVincularParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO
-				lineasAdmin.lineas.vincularParadas = new vincularParadas(lineasAdmin.lineas.txtNumeroLinea.getText(),
+				lineasAdmin.lineas.vincularParadas = new vincularParadas(lineasAdmin.lineas.txtNombreLinea.getText(),
 						lineasAdmin.lineas.listParadas);
 				jFrame = new JFrame();
 				jFrame.setTitle("Vincular Paradas");
@@ -501,9 +498,11 @@ public class UsuarioAdministrador extends JFrame{
 	public void panelCalcularRutaUsuario() {
 		panelCalcularRuta();
 		calcularRuta.usuario();
+		calcularRuta.setUser("admin@gmail.com");
 		calcularRuta.btnConsultarHistorial
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						String usuario = calcularRuta.getUser();
 						consultaHistorial = new HistorialConsultas(usuario);
 						jFrame = new JFrame();
 						jFrame.setTitle("Historial de consultas");
@@ -545,7 +544,7 @@ public class UsuarioAdministrador extends JFrame{
 				usuario = cabeceraUsuario.getUsuario();
 			}
 
-			solucion = new SolucionConsulta(calcularRuta.lineas, calcularRuta.nOrigen,
+			solucion = new SolucionConsulta(calcularRuta.nOrigen,
 					calcularRuta.nDestino, usuario, calcularRuta.hora,
 					calcularRuta.txtConsulta.getText());
 			solucion.btnVolver.addActionListener(new ActionListener() {

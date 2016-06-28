@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
+import diagrama_de_base_de_datos.Barrio;
+import diagrama_de_base_de_datos.Consulta;
 import diagrama_de_base_de_datos.Descarga;
+import diagrama_de_base_de_datos.Direccion;
 import diagrama_de_base_de_datos.Evento;
 import diagrama_de_base_de_datos.EventoSetCollection;
 import diagrama_de_base_de_datos.Imagen;
@@ -89,11 +92,17 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 
 	@Override
 	public boolean borrarLinea(Linea linea) {
+		BD_Lineas bd_lineas = new BD_Lineas();
 		try {
-			//bd_lineas.deleteLinea(id);
-			int x = 0;
+			Linea_Parada[] linpar =bd_lineas.getLineas_Paradas();
+			for (int i = 0; i < linpar.length; i++) {
+				if(linpar[i].getLinea().equals(linea)){
+					bd_lineas.borrarLinea_Parada(linpar[i]);
+				}
+			}
+			bd_lineas.deleteLinea(linea);
+			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -101,10 +110,18 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	
 	@Override
 	public boolean borrarParada(Parada parada) {
+		BD_Paradas bd_paradas = new BD_Paradas();
+		BD_Lineas bd_lineas = new BD_Lineas();
 		try {
-			return false;
+			Linea_Parada[] linpar =bd_lineas.getLineas_Paradas();
+			for (int i = 0; i < linpar.length; i++) {
+				if(linpar[i].getParada().equals(parada)){
+					bd_lineas.borrarLinea_Parada(linpar[i]);
+				}
+			}
+			bd_paradas.borrarParada(parada);
+			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -133,16 +150,40 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	}
 
 	@Override
-	public SolucionConsulta getConsulta(ArrayList<String> datos) {
+	public Barrio getBarrio(String nombre) {
+		Barrio barrio = null;
 		try {
-			return null;
-		} catch (Exception e) {
+			barrio = bd_barrios.getBarrio(nombre);
+		} catch (PersistentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return barrio;
 	}
 
+	@Override
+	public Consulta getConsulta(int id) {
+		Consulta consulta = null;
+		try {
+			consulta = bd_consultas.getSolucionConsulta(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return consulta;
+	}
+	
+	@Override
+	public Consulta[] getConsultas() {
+		Consulta[] consultas = null;
+		try {
+			consultas = bd_consultas.getConsultas();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return consultas;
+	}
+	
 	@Override
 	public Descarga getDescarga(String select){
 		Descarga descarga = null;
@@ -159,7 +200,7 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		}
 		return descarga;
 	}
-	
+
 	@Override
 	public Descarga[] getDescargas() throws RemoteException {
 		Descarga[] descargas = null;
@@ -171,7 +212,18 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		}
 		return descargas;
 	}
-
+	
+	public Direccion[] getDirecciones() {
+		Direccion[] direcciones = null;
+		try {
+			direcciones = bd_direcciones.getDirecciones();
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return direcciones;
+	}
+	
 	@Override
 	public Evento getEvento(String nombre){
 		Evento evento = null;
@@ -191,7 +243,7 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		
 		return evento;
 	}
-	
+
 	@Override
 	public Evento[] getEventos() {
 		Evento[] listEvento = null;
@@ -203,7 +255,16 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		}
 		return listEvento;
 	}
-	
+
+	public Linea_Parada[] getLinas_Paradas() {
+		Linea_Parada[] linpars = null;
+		try {
+			linpars = bd_lineas.getLineas_Paradas();
+		} catch (Exception e) {
+		}
+		return linpars;
+	}
+
 	@Override
 	public Linea getLinea(String nombre) {
 		Linea[] lineas = null;
@@ -234,6 +295,16 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			e.printStackTrace();
 		}
 		return listLineas;
+	}
+	
+
+	public Linea[] getLineas_Parada(String nombreParada) {
+		Linea[] lineas = null;
+		try {
+			lineas = bd_lineas.getParada_Lineas(nombreParada);
+		} catch (Exception e) {
+		}
+		return lineas;
 	}
 
 	@Override
@@ -267,6 +338,16 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		return paradas;
 	}
 
+	public Parada[] getParadas_Linea(String numeroLinea)throws RemoteException {
+		Parada[] paradas = null;
+		try {
+			paradas = bd_lineas.getParadas_Linea(numeroLinea);
+		} catch (Exception e) {
+		}
+		return paradas;
+		
+	}
+
 	@Override
 	public PuntoInteres getPtoInteres(int ID) {
 		PuntoInteres punto = null;
@@ -279,7 +360,6 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		return punto;
 	}
 	
-
 	@Override
 	public PuntoInteres getPtoInteres(String nombre) {
 		PuntoInteres punto = null;
@@ -321,6 +401,35 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		return null;
 	}
 
+	@Override
+	public Usuario getUsuario(String email) throws RemoteException {
+		Usuario[] usuarios = null;
+		Usuario usuario = null;
+		try {
+			usuarios = bd_usuarios.getUsuarios();
+			for(int i = 0; i < usuarios.length;i++){
+				if(usuarios[i].getEmail().equals(email)){
+					usuario = usuarios[i];
+					break;
+				}
+			}
+		} catch (Exception e) {
+			
+		}
+		return usuario;
+	}
+
+	@Override
+	public Usuario[] getUsuarios() throws RemoteException {
+		Usuario[] usuarios = null;
+		try {
+			usuarios = bd_usuarios.getUsuarios();
+		} catch (PersistentException e) {
+			e.printStackTrace();
+		}
+		return usuarios;
+	}
+
 	public boolean identificarse(String aNombre, String aPassword, String aEmail) {
 		Usuario us = null;
 		try {
@@ -342,16 +451,29 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean incluirDireccion(ArrayList<String> datos) {
+
+	public void incluirConsulta(String email,String nOrigen, String nDestino) {
 		try {
-			return false;
+			bd_consultas.addConsulta(email,nOrigen,nDestino);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		
+	}
+
+	@Override
+	public boolean incluirDireccion(ArrayList<String> datos) {
+		try {
+			datos.remove(2);
+			datos.remove(1);
+			bd_direcciones.addDireccion(datos);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	@Override
@@ -484,7 +606,6 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 			}
 			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -516,43 +637,4 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		return true;
 	}
 
-	@Override
-	public Usuario[] getUsuarios() throws RemoteException {
-		Usuario[] usuarios = null;
-		try {
-			usuarios = bd_usuarios.getUsuarios();
-		} catch (PersistentException e) {
-			e.printStackTrace();
-		}
-		return usuarios;
-	}
-
-	@Override
-	public Usuario getUsuario(String email) throws RemoteException {
-		Usuario[] usuarios = null;
-		Usuario usuario = null;
-		try {
-			usuarios = bd_usuarios.getUsuarios();
-			for(int i = 0; i < usuarios.length;i++){
-				if(usuarios[i].getEmail().equals(email)){
-					usuario = usuarios[i];
-					break;
-				}
-			}
-		} catch (Exception e) {
-			
-		}
-		return usuario;
-	}
-
-	public Parada[] getParadas_Linea(String nombreLinea)throws RemoteException {
-		Parada[] paradas = null;
-		try {
-			paradas = bd_lineas.getParadas_Linea(nombreLinea);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return paradas;
-		
-	}
 }

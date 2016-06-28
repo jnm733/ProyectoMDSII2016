@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.awt.event.ActionEvent;
 
 public class InfoLinea extends JFrame{
@@ -34,10 +36,27 @@ public class InfoLinea extends JFrame{
 	public JLabel lblNewLabel;
 	public JTextArea textAreaHorario;
 	
+	public IAdministrador bd;
+	public BD_Principal bd_principal;
+	
 	/**
 	 * Create the frame.
 	 */
-	public InfoLinea(Object key) {
+	public InfoLinea(String key) {
+		bd_principal = new BD_Principal();
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+			String nombre = "Servidor1";
+			Registry registry = LocateRegistry.getRegistry(1099);
+			bd = (IAdministrador) registry.lookup(nombre);
+
+		} catch (Exception e) {
+			System.err.println("Servidor no arrancado en lineas:");
+			e.printStackTrace();
+		}
+		Linea linea = bd_principal.getLinea(key);
 		
 		setTitle("Informacion Parada");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,13 +78,13 @@ public class InfoLinea extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.NORTH, txtNombre, 1, SpringLayout.NORTH, lblNewLabel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, txtNombre, 20, SpringLayout.EAST, lblNewLabel);
 		txtNombre.setEditable(false);
-		txtNombre.setText("Nombre");
+		txtNombre.setText(linea.getNombreLinea());
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtNumero = new JTextField();
 		sl_contentPane.putConstraint(SpringLayout.EAST, txtNumero, 0, SpringLayout.EAST, txtNombre);
-		txtNumero.setText("Numero");
+		txtNumero.setText(linea.getNumeroLinea());
 		txtNumero.setEditable(false);
 		txtNumero.setColumns(10);
 		contentPane.add(txtNumero);
@@ -83,6 +102,7 @@ public class InfoLinea extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.NORTH, textAreaRecorrido, 129, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, textAreaRecorrido, -29, SpringLayout.SOUTH, contentPane);
 		textAreaRecorrido.setEditable(false);
+		textAreaRecorrido.setText(linea.getRecorrido());
 		contentPane.add(textAreaRecorrido);
 		
 		lblHoraPrevistaDe = new JLabel("Frecuencia de paso");
@@ -96,7 +116,7 @@ public class InfoLinea extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, txtFrecuencia, -69, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, txtFrecuencia, -72, SpringLayout.EAST, contentPane);
 		txtFrecuencia.setEditable(false);
-		txtFrecuencia.setText("Frecuencia");
+		txtFrecuencia.setText("15");
 		contentPane.add(txtFrecuencia);
 		txtFrecuencia.setColumns(10);
 		
@@ -119,6 +139,7 @@ public class InfoLinea extends JFrame{
 		contentPane.add(lblHorario);
 		
 		textAreaHorario = new JTextArea();
+		textAreaHorario.setText(linea.getHorario());
 		sl_contentPane.putConstraint(SpringLayout.NORTH, textAreaHorario, 3, SpringLayout.NORTH, txtNumero);
 		sl_contentPane.putConstraint(SpringLayout.WEST, textAreaHorario, 63, SpringLayout.EAST, txtNumero);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, textAreaHorario, 0, SpringLayout.SOUTH, lblRecorrido);

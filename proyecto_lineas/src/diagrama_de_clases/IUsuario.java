@@ -16,11 +16,13 @@ public interface IUsuario extends Remote{
 	
 	SolucionConsulta getSolucionConsulta(String id) throws RemoteException;
 	
-	SolucionConsulta getConsulta(ArrayList<String> datos) throws RemoteException;
+	Consulta getConsulta(int id) throws RemoteException;
 	
 	PuntoInteres getPtoInteres(int ID) throws RemoteException;
 	
 	Parada getParada(String nombre) throws RemoteException;
 	
 	Linea getLinea(String linea) throws RemoteException;
+	
+	public void incluirConsulta(String email,String origen,String destino) throws RemoteException;
 }

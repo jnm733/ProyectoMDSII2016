@@ -19,9 +19,15 @@ public interface IAdministrador extends  Remote{
 	
 	public boolean borrarPto(PuntoInteres punto) throws RemoteException;
 	
+	public Barrio getBarrio(String nombre) throws RemoteException;
+	
+	public Consulta[] getConsultas() throws RemoteException;
+	
 	public Descarga getDescarga(String select) throws RemoteException;
 	
 	public Descarga[] getDescargas() throws RemoteException;
+	
+	public Direccion[] getDirecciones() throws RemoteException;
 	
 	public Evento getEvento(String nombre) throws RemoteException;
 	

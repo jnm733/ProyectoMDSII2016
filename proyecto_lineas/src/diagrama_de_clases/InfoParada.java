@@ -1,5 +1,8 @@
 package diagrama_de_clases;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import diagrama_de_base_de_datos.*;
 
-public class InfoParada extends JFrame{
+public class InfoParada extends JFrame {
 	public JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
@@ -27,11 +30,29 @@ public class InfoParada extends JFrame{
 	public JLabel lblNewLabel;
 	public Object imagen;
 	private boolean proximo;
-	
+
+	public IAdministrador bd;
+	public BD_Principal bd_principal;
+
 	/**
 	 * Create the frame.
 	 */
-	public InfoParada(Object key,String tiempoPaso,String numeroLineaLinea) {
+	public InfoParada(String key,String tiempoPaso,String numeroLineaLinea) {
+		bd_principal = new BD_Principal();
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+			String nombre = "Servidor1";
+			Registry registry = LocateRegistry.getRegistry(1099);
+			bd = (IAdministrador) registry.lookup(nombre);
+
+		} catch (Exception e) {
+			System.err.println("Servidor no arrancado en lineas:");
+			e.printStackTrace();
+		}
+		
+		Parada parada = bd_principal.getParada(key);
 		
 		setTitle("Informacion Parada");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,14 +79,18 @@ public class InfoParada extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.WEST, txtNombre, 20,
 				SpringLayout.EAST, lblNewLabel);
 		txtNombre.setEditable(false);
-		txtNombre.setText("Nombre");
+		
+		txtNombre.setText(parada.getNombreParada());
+		
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtDireccion = new JTextField();
 		sl_contentPane.putConstraint(SpringLayout.EAST, txtDireccion, 0,
 				SpringLayout.EAST, txtNombre);
-		txtDireccion.setText("Direccion");
+		
+		txtDireccion.setText(parada.getDireccionParada());
+		
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
 		contentPane.add(txtDireccion);
@@ -87,6 +112,7 @@ public class InfoParada extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.EAST, textAreaObservaciones,
 				0, SpringLayout.EAST, txtNombre);
 		textAreaObservaciones.setEditable(false);
+		textAreaObservaciones.setText(parada.getObservaciones());
 		contentPane.add(textAreaObservaciones);
 
 		lblImagen = new JLabel("Imagen");

@@ -20,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import diagrama_de_base_de_datos.*;
 
@@ -32,13 +34,17 @@ public class HistorialConsultas extends JFrame{
 	public JTextField txtDestino;
 	public JButton btnCancelar;
 	public JList listId;
+	public DefaultListModel<String> model;
+	public BD_Principal bd_principal;
+	public ArrayList<Consulta> consultasUsuario;
 	
 	/**
 	 * Create the frame.
 	 */
 	public HistorialConsultas(String aId) {
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		String email;
+		bd_principal = new BD_Principal();	
+		consultasUsuario = new ArrayList<>();
+		
 		
 		setTitle("Historial de Consultas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,9 +100,17 @@ public class HistorialConsultas extends JFrame{
 		sl_contentPane.putConstraint(SpringLayout.EAST, btnCancelar, -6, SpringLayout.WEST, btnConsultar);
 		contentPane.add(btnCancelar);
 		
-		//TODO Iniciar la lista de consultas
+		model = new DefaultListModel<>();
+		Consulta[] consultas = null;
 		try {
-		
+			consultas = bd_principal.getConsultas();
+			for (int i = 0; i < consultas.length; i++) {
+				if(consultas[i].getRealiza().getEmail().equals(aId)){
+					model.addElement(consultas[i].getID()+"");
+					consultasUsuario.add(consultas[i]);
+				}
+			}
+			listId.setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,7 +122,12 @@ public class HistorialConsultas extends JFrame{
 					try {
 						Object select[] = listId.getSelectedValues();
 						if(select.length>0){
-							
+							for (int i = 0; i < consultasUsuario.size(); i++) {
+								if(consultasUsuario.get(i).getID() == Integer.parseInt(select[0].toString())){
+									txtDestino.setText(consultasUsuario.get(i).getDestinoConsulta());
+									txtOrigen.setText(consultasUsuario.get(i).getOrigenConsulta());
+								}
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

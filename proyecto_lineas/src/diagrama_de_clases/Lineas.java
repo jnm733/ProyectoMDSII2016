@@ -41,60 +41,60 @@ import diagrama_de_base_de_datos.PuntoInteres;
 import diagrama_de_base_de_datos.PuntoInteresSetCollection;
 
 public class Lineas extends JPanel {
-	public Servicios servicios;
-	public JTextField txtNombreLinea;
-	public JTextField txtNumeroLinea;
+	public BD_Principal bd_principal;
+	public JButton btnConsultarEvento;
+	public JButton btnConsultarParada;
+	public JButton btnConsultarPunto;
+	public JButton btnEliminarLinea;
+	public JButton btnIncluirLinea;
+	public JButton btnVincularParada;
+	public InfoEventos infoEvento;
 	public InfoParada infoParada;
 	public InfoPtoInteres infoPunto;
-	public InfoEventos infoEvento;
+	public JFrame jFrame;
+	public JLabel lblEventos;
+	public JLabel lblHorario;
+	public JLabel lblInfoLineas;
+	public JLabel lblLineas;
+	public JLabel lblNewLabel;
+	public JLabel lblNombreDeLinea;
+	public JLabel lblParadas;
+	public JLabel lblPtosInteres;
+	public JLabel lblRecorrido;
+	public JList list_3;
+	public JList listEventos;
+	public JList listLineas;
+	public JList listParadas;
+	public JList listPtosInteres;
 	public JPanel panel;
 	public JPanel panel_1;
-	public JLabel lblLineas;
-	public JList listLineas;
-	public JList listEventos;
 	public JPanel panel_2;
-	public JLabel lblNewLabel;
-	public JLabel lblInfoLineas;
-	public JLabel lblNombreDeLinea;
-	public JLabel lblHorario;
-	public JTextArea textAreaHorario;
-	public JLabel lblRecorrido;
 	public JPanel panel_3;
-	public JLabel lblParadas;
-	public JList listParadas;
-	public JButton btnConsultarParada;
 	public JPanel panel_4;
 	public JPanel panel_5;
 	public JPanel panel_6;
-	public JLabel lblPtosInteres;
-	public JList listPtosInteres;
-	public JList list_3;
-	public JButton btnConsultarPunto;
-	public JButton btnConsultarEvento;
-	public JLabel lblEventos;
-	public SpringLayout springLayout;
-	public SpringLayout sl_panel_6;
+	public Parada parada;
+	public Parada[] paradas;
+	public Object[] select;
+	public Servicios servicios;
+	public SpringLayout sl_panel;
 	public SpringLayout sl_panel_1;
 	public SpringLayout sl_panel_3;
 	public SpringLayout sl_panel_4;
 	public SpringLayout sl_panel_5;
-	public SpringLayout sl_panel;
-	public JButton btnEliminarLinea;
-	public JButton btnIncluirLinea;
-	public JButton btnVincularParada;
-	public JTextField txtRecorrido;
-	public JFrame jFrame;
+	public SpringLayout sl_panel_6;
+	public SpringLayout springLayout;
+	public JTextArea textAreaHorario;
 	public String tiempoPaso;
-	public JTextField txtTarifa;
 	public JTextField txtFrecuencia;
-	public vincularParadas vincularParadas;
-	public Parada[] paradas;
-	public Parada parada;
-
-	public Object[] select;
-
-	public BD_Principal bd_principal;
+	public JTextField txtNombreLinea;
+	public JTextField txtNumeroLinea;
 	public IAdministrador bd;
+
+	public JTextField txtRecorrido;
+
+	public JTextField txtTarifa;
+	public vincularParadas vincularParadas;
 
 	public Lineas() {
 		bd_principal = new BD_Principal();
@@ -147,6 +147,7 @@ public class Lineas extends JPanel {
 
 		listLineas = new JList<String>();
 		listLineas.setModel(new DefaultListModel());
+		// Cuando pulsamos sobre una línea
 		listLineas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -177,7 +178,7 @@ public class Lineas extends JPanel {
 						}
 
 						// Obtenemos las paradas asociadas a esa linea
-						paradas = bd_principal.getParadas_Linea(txtNombreLinea.getText());
+						paradas = bd_principal.getParadas_Linea(txtNumeroLinea.getText());
 						try {
 							// Reiniciamos el modelo
 							model = new DefaultListModel<>();
@@ -197,7 +198,7 @@ public class Lineas extends JPanel {
 						txtNombreLinea.setText("Nombre Linea");
 						txtNumeroLinea.setText("Numero Linea");
 						txtRecorrido.setText("Recorrido");
-						txtTarifa.setText("Tarifa");
+						txtTarifa.setText("1.05");
 						txtFrecuencia.setText("Frecuencia");
 
 						try {
@@ -362,6 +363,7 @@ public class Lineas extends JPanel {
 		panel_3.add(lblParadas);
 
 		listParadas = new JList();
+		// Accion cuando pulsamos sobre una parada
 		listParadas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -377,7 +379,7 @@ public class Lineas extends JPanel {
 					model.addElement(evento.getNombreEvento());
 				}
 				listEventos.setModel(model);
-				
+
 				model = new DefaultListModel<>();
 				it = puntos.getIterator();
 				while (it.hasNext()) {
@@ -468,8 +470,8 @@ public class Lineas extends JPanel {
 		sl_panel_6.putConstraint(SpringLayout.SOUTH, listEventos, -24, SpringLayout.NORTH, btnConsultarEvento);
 		sl_panel_6.putConstraint(SpringLayout.EAST, listEventos, 209, SpringLayout.WEST, panel_6);
 		panel_6.add(listEventos);
-		// ActionListeners
 
+		// Accion cuando consultamos una parada
 		btnConsultarParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object[] select = listParadas.getSelectedValues();
@@ -477,7 +479,7 @@ public class Lineas extends JPanel {
 					JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna parada", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					infoParada = new InfoParada(select[0], tiempoPaso, txtNumeroLinea.getText());
+					infoParada = new InfoParada(select[0].toString(), tiempoPaso, txtNumeroLinea.getText());
 					jFrame = new JFrame();
 					jFrame.setTitle("Informacion de parada");
 					jFrame.setBounds(300, 300, 520, 305);
@@ -492,6 +494,7 @@ public class Lineas extends JPanel {
 			}
 		});
 
+		// Consultar punto
 		btnConsultarPunto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object[] select = listPtosInteres.getSelectedValues();
@@ -499,7 +502,7 @@ public class Lineas extends JPanel {
 					JOptionPane.showMessageDialog(null, "No ha seleccionado ningun punto", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					infoPunto = new InfoPtoInteres(select[0]);
+					infoPunto = new InfoPtoInteres(select[0].toString());
 					jFrame = new JFrame();
 					jFrame.setTitle("Informacion de punto");
 					jFrame.setBounds(300, 300, 520, 305);
@@ -515,6 +518,7 @@ public class Lineas extends JPanel {
 			}
 		});
 
+		// Consultar evento
 		btnConsultarEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object[] select = listEventos.getSelectedValues();
@@ -522,7 +526,7 @@ public class Lineas extends JPanel {
 					JOptionPane.showMessageDialog(null, "No ha seleccionado ningun evento", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					infoEvento = new InfoEventos(select[0]);
+					infoEvento = new InfoEventos(select[0].toString());
 					jFrame = new JFrame();
 					jFrame.setTitle("Informacion de evento");
 					jFrame.setBounds(300, 300, 520, 305);
@@ -539,11 +543,11 @@ public class Lineas extends JPanel {
 		});
 	}
 
-	public void consultarParada() {
+	public void consultarEvento() {
 		throw new UnsupportedOperationException();
 	}
 
-	public void consultarEvento() {
+	public void consultarParada() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -562,11 +566,16 @@ public class Lineas extends JPanel {
 		panel.add(btnEliminarLinea);
 		btnEliminarLinea.setEnabled(false);
 
+		// Eliminar Linea
 		btnEliminarLinea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
 				Object[] select = listLineas.getSelectedValues();
-
+				Linea linea = bd_principal.getLinea(select[0].toString());
+				bd_principal.borrarLinea(linea);
+				DefaultListModel<String> model = (DefaultListModel<String>) listLineas.getModel();
+				model.removeElement(select[0].toString());
+				listLineas.setModel(model);
+				listParadas.setModel(new DefaultListModel<>());
 			}
 		});
 
@@ -724,26 +733,33 @@ public class Lineas extends JPanel {
 					datos.add(txtTarifa.getText());
 					datos.add(txtFrecuencia.getText());
 
-					try {
-						int frec = Integer.parseInt(txtFrecuencia.getText());
-						double tar = Double.parseDouble(txtTarifa.getText());
-						bd_principal.incluirLinea(datos);
-						if (bd.incluirLinea(datos)) {
-							model = (DefaultListModel<String>) listLineas.getModel();
-							model.removeElement("Nueva linea");
-							model.addElement(txtNombreLinea.getText());
-							model.addElement("Nueva linea");
-							listLineas.setModel(model);
+					if (existeLinea()) {
+						JOptionPane.showMessageDialog(null, "Esta línea ya existe", "Exito",
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
 
-							JOptionPane.showMessageDialog(null, "Línea incluida con éxito", "Exito",
-									JOptionPane.INFORMATION_MESSAGE);
+						try {
+							int frec = Integer.parseInt(txtFrecuencia.getText());
+							double tar = Double.parseDouble(txtTarifa.getText());
+							if (bd_principal.incluirLinea(datos)) {
+								model = (DefaultListModel<String>) listLineas.getModel();
+								model.removeElement("Nueva linea");
+								model.addElement(txtNombreLinea.getText());
+								model.addElement("Nueva linea");
+								listLineas.setModel(model);
+
+								JOptionPane.showMessageDialog(null, "Línea incluida con éxito", "Exito",
+										JOptionPane.INFORMATION_MESSAGE);
+							}
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, "Frecuencia y tarifa deben ser valores numericos",
+									"Error", JOptionPane.ERROR_MESSAGE);
 						}
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null, "Frecuencia y tarifa deben ser valores numericos", "Error",
-								JOptionPane.ERROR_MESSAGE);
+
 					}
 				}
 			}
+
 		});
 		listLineas.addMouseListener(new MouseAdapter() {
 			@Override
@@ -757,13 +773,25 @@ public class Lineas extends JPanel {
 
 	}
 
+	private boolean existeLinea() {
+		Linea[] lineas = null;
+		boolean existe = false;
+		lineas = bd_principal.getLineas();
+		for (int i = 0; i < lineas.length; i++) {
+			if(lineas[i].getNombreLinea().equals(txtNombreLinea.getText())||lineas[i].getNumeroLinea().equals(txtNumeroLinea.getText())){
+				existe = true;
+				break;
+			}
+		}
+		return existe;
+	}
+	
 	public void obtener_lineas() {
 		Object[] fila = new Object[5];
 		Linea[] lineas = null;
 		try {
-			lineas = bd.getLineas();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			lineas = bd_principal.getLineas();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (lineas != null) {

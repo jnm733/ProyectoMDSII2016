@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,6 +22,8 @@ import javax.swing.SwingConstants;
 
 import org.orm.PersistentException;
 
+import diagrama_de_base_de_datos.Linea;
+import diagrama_de_base_de_datos.Linea_Parada;
 import diagrama_de_base_de_datos.Parada;
 
 import java.awt.event.ActionEvent;
@@ -34,45 +37,46 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class Paradas extends JPanel {
+	public IAdministrador bd;
+	public BD_Paradas bdParadas;
+	public JButton btnConsultarLinea;
+	public JButton btnEliminarParada;
+	public JButton btnIncluirParada;
+	public InfoLinea infoLinea;
+	public InfoParada infoParada;
+	public JFrame jFrame;
+	public JLabel lblDireccion;
+	public JLabel lblHorario;
+	public JLabel lblImagen;
+	public JLabel lblInfoParada;
+	public JLabel lblLineas;
+	public JLabel lblNombreLinea;
+	public JLabel lblNumeroLinea;
+	public JLabel lblObservaciones;
+	public JLabel lblParadas;
+	public JList listLineas;
+	public JList listParadas;
+	public JPanel panel;
+	public JPanel panel_1;
+	public JPanel panel_2;
+	public JPanel panel_3;
+	public JPanel panel_4;
+	public JPanel panel_5;
+	public Parada parada;
 	/**
 	 * Create the panel.
 	 */
 	public Servicios servicios;
-	public InfoParada infoParada;
-	public JPanel panel;
-	public JPanel panel_1;
-	public JLabel lblParadas;
-	public JList listParadas;
-	public JPanel panel_2;
-	public JLabel lblInfoParada;
-	public JTextArea textArea;
-	public JPanel panel_3;
-	public JLabel lblImagen;
-	public JLabel lblDireccion;
-	public JLabel lblObservaciones;
-	public JTextField txtDireccion;
-	public JPanel panel_4;
-	public JPanel panel_5;
-	public JLabel lblLineas;
-	public JList listLineas;
-	public JButton btnConsultarLinea;
-	public JLabel lblNumeroLinea;
-	public JTextField txtNumero;
-	public JLabel lblNombreLinea;
-	public JTextField txtNombre;
-	public JLabel lblHorario;
-	public JTextArea textAreaHorario;
-	public JTextField txtNombreParada;
-	public JButton btnEliminarParada;
 	public SpringLayout sl_panel;
-	public JFrame jFrame;
-	public InfoLinea infoLinea;
-	public JButton btnIncluirParada;
 	public SpringLayout sl_panel_5;
 	public SpringLayout springLayout;
-	public Parada parada;
-	public IAdministrador bd;
-	public BD_Paradas bdParadas;
+	public JTextArea textArea;
+	public JTextArea textAreaHorario;
+	public JTextField txtDireccion;
+	public JTextField txtNombre;
+	public JTextField txtNombreParada;
+	public JTextField txtNumero;
+	public BD_Principal bd_principal;
 
 	public Paradas() {
 		// TODO Cambiar
@@ -89,6 +93,8 @@ public class Paradas extends JPanel {
 			System.err.println("Servidor no arrancado en lineas:");
 			e.printStackTrace();
 		}
+
+		bd_principal = new BD_Principal();
 
 		parada = new Parada();
 		servicios = new Servicios();
@@ -133,7 +139,6 @@ public class Paradas extends JPanel {
 			}
 			listParadas.setModel(model);
 		} catch (PersistentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		listParadas.addMouseListener(new MouseAdapter() {
@@ -152,7 +157,8 @@ public class Paradas extends JPanel {
 						try {
 							btnIncluirParada.setEnabled(true);
 							btnEliminarParada.setEnabled(false);
-						} catch (Exception e) {}
+						} catch (Exception e) {
+						}
 
 					} else {
 						Parada parada = bdParadas.getParada(select[0] + "");
@@ -164,7 +170,16 @@ public class Paradas extends JPanel {
 						try {
 							btnIncluirParada.setEnabled(false);
 							btnEliminarParada.setEnabled(true);
-						} catch (Exception e) {}
+						} catch (Exception e) {
+						}
+						Linea[] lineas = bd_principal.getLineas_Parada(parada.getNombreParada());
+						try {
+							for (int i = 0; i < lineas.length; i++) {
+								model.addElement(lineas[i].getNombreLinea());
+							}
+						} catch (Exception e) {
+						}
+						listLineas.setModel(model);
 
 					}
 
@@ -236,6 +251,12 @@ public class Paradas extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO
+				DefaultListModel<String> model = new DefaultListModel<>();
+				Object[] select = listLineas.getSelectedValues();
+				Linea linea = bd_principal.getLinea(select[0].toString());
+				txtNumero.setText(linea.getNumeroLinea());
+				txtNombre.setText(linea.getNombreLinea());
+				textAreaHorario.setText(linea.getHorario());
 			}
 		});
 
@@ -346,7 +367,7 @@ public class Paradas extends JPanel {
 					JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna parada", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					infoLinea = new InfoLinea(select[0]);
+					infoLinea = new InfoLinea(select[0].toString());
 					jFrame = new JFrame();
 					jFrame.setTitle("Informacion de linea");
 					jFrame.setBounds(300, 300, 520, 305);
@@ -374,6 +395,10 @@ public class Paradas extends JPanel {
 		});
 	}
 
+	public void consultarLinea() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void filtrar(String tipo, String filtro) {
 
 	}
@@ -385,16 +410,16 @@ public class Paradas extends JPanel {
 		sl_panel.putConstraint(SpringLayout.WEST, btnEliminarParada, 0, SpringLayout.WEST, lblParadas);
 		panel.add(btnEliminarParada);
 		btnEliminarParada.setEnabled(false);
-		listParadas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-
-			}
-		});
 
 		btnEliminarParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Eliminar Parada");
+				Object[] select = listParadas.getSelectedValues();
+				Parada parada = bd_principal.getParada(select[0].toString());
+				bd_principal.borrarParada(parada);
+				DefaultListModel<String> model = (DefaultListModel<String>) listParadas.getModel();
+				model.removeElement(select[0].toString());
+				listParadas.setModel(model);
+				listLineas.setModel(new DefaultListModel<>());
 			}
 		});
 
@@ -465,6 +490,11 @@ public class Paradas extends JPanel {
 		// Acción boton incluir linea
 		btnIncluirParada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String calle = "";
+				String numero = "";
+				String barrio = "";
+				ArrayList<String> datos = new ArrayList<>();
+				DefaultListModel<String> model = new DefaultListModel<String>();
 				if (txtNombreParada.getText().equals("Nombre Parada")) {
 					JOptionPane.showMessageDialog(null, "Introduzca el nombre de la parada", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -474,34 +504,57 @@ public class Paradas extends JPanel {
 				} else {
 					if (textArea.getText().equals("Observaciones") || textArea.getText().equals(""))
 						textArea.setText("Sin observaciones");
-					ArrayList<String> datos = new ArrayList<String>();
-					DefaultListModel<String> model = new DefaultListModel<String>();
-					datos.add(txtNombreParada.getText());
-					datos.add(txtDireccion.getText());
-					datos.add(textArea.getText());
-					// TODO
+					StringTokenizer st = new StringTokenizer(txtDireccion.getText(), ",");
 					try {
-						bdParadas.addParada(datos);
+						calle = st.nextToken();
+						numero = st.nextToken();
+						barrio = st.nextToken();
+						datos.add(txtNombreParada.getText());
+						datos.add(textArea.getText());
+						datos.add(txtDireccion.getText());
+						datos.add(calle);
+						datos.add(numero);
+						datos.add(barrio);
 
-						model = (DefaultListModel<String>) listParadas.getModel();
-						model.removeElement("Nueva parada");
-						model.addElement(txtNombreParada.getText());
-						model.addElement("Nueva parada");
-						listParadas.setModel(model);
+						if (!existe(datos)) {
+							bdParadas.addParada(datos);
 
-						JOptionPane.showMessageDialog(null, "Parada incluida con éxito", "Exito",
-								JOptionPane.INFORMATION_MESSAGE);
+							model = (DefaultListModel<String>) listParadas.getModel();
+							model.removeElement("Nueva parada");
+							model.addElement(txtNombreParada.getText());
+							model.addElement("Nueva parada");
+							listParadas.setModel(model);
 
+							JOptionPane.showMessageDialog(null, "Parada incluida con éxito", "Exito",
+									JOptionPane.INFORMATION_MESSAGE);
+
+							bd_principal.incluirDireccion(datos);
+						} else {
+							JOptionPane.showMessageDialog(null, "Esta parada ya existe", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Introduzca una direccion valida (calle,numero,barrio)",
+								"Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
+
 		});
 	}
 
-	public void consultarLinea() {
-		throw new UnsupportedOperationException();
+	private boolean existe(ArrayList<String> datos) {
+		Parada[] paradas = bd_principal.getParadas();
+		boolean existe = false;
+		for (int i = 0; i < paradas.length; i++) {
+			if (paradas[i].getNombreParada().toLowerCase().equals(datos.get(0).toLowerCase())) {
+				existe = true;
+				break;
+			} else if (paradas[i].getDireccionParada().toLowerCase().equals(datos.get(1).toLowerCase())) {
+				existe = true;
+				break;
+			}
+		}
+		return existe;
 	}
 }
