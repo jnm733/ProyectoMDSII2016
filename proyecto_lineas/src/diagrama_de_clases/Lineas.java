@@ -114,6 +114,7 @@ public class Lineas extends JPanel {
 		// Deberiamos pasarlo a un metodo
 		servicios = new Servicios();
 		servicios.btnLineas.setEnabled(false);
+		servicios.btnFiltrar.setEnabled(false);
 		springLayout = new SpringLayout();
 		springLayout.putConstraint(SpringLayout.NORTH, servicios, 0, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, servicios, 10, SpringLayout.WEST, this);

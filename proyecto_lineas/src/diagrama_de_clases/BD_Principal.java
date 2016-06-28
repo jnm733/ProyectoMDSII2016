@@ -112,7 +112,15 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 	public boolean borrarParada(Parada parada) {
 		BD_Paradas bd_paradas = new BD_Paradas();
 		BD_Lineas bd_lineas = new BD_Lineas();
+		BD_Direcciones bd_Direcciones = new BD_Direcciones();
+		Direccion[] direcciones = null;
 		try {
+			direcciones = bd_Direcciones.getDirecciones();
+			for (int i = 0; i < direcciones.length; i++) {
+				if(direcciones[i].getParada_se_ubica().equals(parada)){
+					bd_direcciones.delete(direcciones[i]);
+				}
+			}
 			Linea_Parada[] linpar =bd_lineas.getLineas_Paradas();
 			for (int i = 0; i < linpar.length; i++) {
 				if(linpar[i].getParada().equals(parada)){
@@ -155,7 +163,6 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		try {
 			barrio = bd_barrios.getBarrio(nombre);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return barrio;
@@ -218,7 +225,6 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		try {
 			direcciones = bd_direcciones.getDirecciones();
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return direcciones;
@@ -456,7 +462,6 @@ public class BD_Principal implements IInvitado, IAdministrador, IUsuario {
 		try {
 			bd_consultas.addConsulta(email,nOrigen,nDestino);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -452,6 +452,14 @@ public class CalcularRutaInvitado extends JPanel {
 							JOptionPane.showMessageDialog(null, "Barrio no encontrado", "Error",
 									JOptionPane.ERROR_MESSAGE);
 						}
+					} else if(rdbtnEventoCultural.isSelected()){
+						Evento evento = bd_principal.getEvento(txtDestino.getText());
+						Parada[] paradas = bd_principal.getParadas();
+						for (int i = 0; i < paradas.length; i++) {
+							if(paradas[i].evento_pertenece.contains(evento)){
+								nDestino = paradas[i].getNombreParada();
+							}
+						}
 					}
 
 					if (nOrigen.isEmpty()) {

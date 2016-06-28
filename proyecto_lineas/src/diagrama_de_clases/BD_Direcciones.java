@@ -57,4 +57,17 @@ public class BD_Direcciones {
 
 		return direcciones;
 	}
+
+	public void delete(Direccion direccion)  throws PersistentException {
+		PersistentTransaction t = diagrama_de_base_de_datos.ProyectoMDS2PersistentManager.instance().getSession().beginTransaction();
+		try {
+			direccion.setParada_se_ubica(new Parada());
+			diagrama_de_base_de_datos.DireccionDAO.delete(direccion);
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+		}
+		
+	}
 }

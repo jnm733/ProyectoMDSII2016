@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -22,6 +23,8 @@ import javax.swing.SwingConstants;
 
 import org.orm.PersistentException;
 
+import diagrama_de_base_de_datos.Barrio;
+import diagrama_de_base_de_datos.Direccion;
 import diagrama_de_base_de_datos.Linea;
 import diagrama_de_base_de_datos.Linea_Parada;
 import diagrama_de_base_de_datos.Parada;
@@ -104,6 +107,33 @@ public class Paradas extends JPanel {
 		springLayout.putConstraint(SpringLayout.SOUTH, servicios, 75, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, servicios, -1, SpringLayout.EAST, this);
 		setLayout(springLayout);
+		
+		servicios.btnFiltrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DefaultListModel<String> model = new DefaultListModel<>();
+				Direccion[] direcciones = bd_principal.getDirecciones();
+				if(servicios.rdbtnBarrio.isSelected()){
+					Barrio barrio = bd_principal.getBarrio(servicios.txtText.getText());
+					for (int i = 0; i < direcciones.length; i++) {
+						if(direcciones[i].getContiene().equals(barrio)){
+							model.addElement(direcciones[i].getParada_se_ubica().getNombreParada());
+						}
+					}
+				}else if(servicios.rdbtnCalleYNumero.isSelected()){
+					String direccion = "";
+					for (int i = 0; i < direcciones.length; i++) {
+						direccion = direcciones[i].getCalle();
+						direccion +="," + direcciones[i].getNumero();
+						if(direccion.equals(servicios.txtText.getText())){
+							model.addElement(direcciones[i].getParada_se_ubica().getNombreParada());
+						}
+					}
+				}
+				listParadas.setModel(model);
+				
+			}
+		});
 
 		panel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 6, SpringLayout.SOUTH, servicios);
