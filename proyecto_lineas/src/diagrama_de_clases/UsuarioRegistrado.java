@@ -224,6 +224,7 @@ public class UsuarioRegistrado extends JFrame{
 		calcularRuta.btnConsultarHistorial
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						String usuario = calcularRuta.getUser();
 						consultaHistorial = new HistorialConsultas(usuario);
 						jFrame = new JFrame();
 						jFrame.setTitle("Historial de consultas");
